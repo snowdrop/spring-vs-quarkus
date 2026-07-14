@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{#insert title}Spring vs Quarkus{/insert}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <style>
+        table { font-size: 0.875rem; }
+        .stats { display: flex; gap: 1.5rem; margin-bottom: 1rem; }
+        .stats a { padding: 0.25rem 0.75rem; border-radius: 4px; background: var(--pico-card-background-color); text-decoration: none; cursor: pointer; }
+        .stats a:hover { filter: brightness(0.9); }
+        .actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; align-items: center; }
+        .actions a[role="button"], .actions button { font-size: 0.875rem; padding: 0.3rem 0.8rem !important; margin-bottom: 0; line-height: 1.4; }
+        .gap { color: var(--pico-del-color); font-weight: 600; }
+        .matched { color: var(--pico-ins-color); }
+        .badge { font-size: 0.75rem; padding: 0.1rem 0.4rem; border-radius: 3px; }
+        .badge-spring { background: #6db33f; color: white; }
+        .badge-quarkus { background: #4695eb; color: white; }
+        .badge-gap { background: var(--pico-del-color); color: white; }
+        .flash { padding: 0.75rem; margin-bottom: 1rem; border-radius: 4px; background: var(--pico-ins-color); color: white; }
+        {#insert extraStyles}{/insert}
+    </style>
+</head>
+<body>
+<header class="container">
+    <nav>
+        <ul><li><strong>Spring vs Quarkus</strong></li></ul>
+        <ul>
+            <li><a href="/comparisons">Comparisons</a></li>
+            <li><a href="/comparisons/new">Add</a></li>
+        </ul>
+    </nav>
+</header>
+<main class="container">
+    {#insert content}{/insert}
+</main>
+<script>
+{#insert extraScripts}{/insert}
+</script>
+</body>
+</html>

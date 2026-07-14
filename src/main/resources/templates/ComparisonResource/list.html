@@ -1,0 +1,125 @@
+{#include layout.html}
+{#title}Comparisons - Spring vs Quarkus{/title}
+{#extraStyles}
+.sortable { cursor: pointer; user-select: none; white-space: nowrap; }
+.sortable:hover { background: var(--pico-card-background-color); }
+.sort-icon::after { content: '\2195'; opacity: 0.3; margin-left: 0.25rem; font-size: 0.75rem; }
+.sortable.asc .sort-icon::after { content: '\25B2'; opacity: 0.8; }
+.sortable.desc .sort-icon::after { content: '\25BC'; opacity: 0.8; }
+{/extraStyles}
+{#content}
+
+{#if saved}
+<div class="flash">Data saved to YAML successfully.</div>
+{/if}
+
+<h2>Feature Comparisons</h2>
+
+<div class="stats">
+    <a href="/comparisons"><strong>{totalCount}</strong> total</a>
+    <a href="/comparisons?spring=yes&quarkus=yes"><strong>{bothCount}</strong> both</a>
+    <a href="/comparisons?spring=yes&quarkus=no"><strong>{springOnlyCount}</strong> Spring only</a>
+    <a href="/comparisons?spring=no&quarkus=yes"><strong>{quarkusOnlyCount}</strong> Quarkus only</a>
+</div>
+
+<form method="get" action="/comparisons" role="search" style="display:flex;gap:0.5rem;align-items:end;margin-bottom:1rem;">
+    <input type="text" name="name" placeholder="Filter by name..." value="{nameFilter.orEmpty}" style="margin-bottom:0;">
+    <select name="spring" style="margin-bottom:0;width:auto;">
+        <option value="">Spring: All</option>
+        <option value="yes" {#if springFilter.orEmpty == 'yes'}selected{/if}>Spring: Yes</option>
+        <option value="no" {#if springFilter.orEmpty == 'no'}selected{/if}>Spring: No</option>
+    </select>
+    <select name="quarkus" style="margin-bottom:0;width:auto;">
+        <option value="">Quarkus: All</option>
+        <option value="yes" {#if quarkusFilter.orEmpty == 'yes'}selected{/if}>Quarkus: Yes</option>
+        <option value="no" {#if quarkusFilter.orEmpty == 'no'}selected{/if}>Quarkus: No</option>
+    </select>
+    <button type="submit" style="margin-bottom:0;width:auto;padding:0.4rem 0.8rem;">Filter</button>
+</form>
+
+<div class="actions">
+    <a href="/export/csv" role="button" class="outline">Export CSV</a>
+    <a href="/export/markdown" role="button" class="outline">Export Markdown</a>
+    <form method="post" action="/save" style="margin:0;"><button type="submit" class="outline">Save to YAML</button></form>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th class="sortable" data-col="0" data-type="text">Category <span class="sort-icon"></span></th>
+            <th class="sortable" data-col="1" data-type="text">Spring Project <span class="sort-icon"></span></th>
+            <th class="sortable" data-col="2" data-type="text">Quarkus Project <span class="sort-icon"></span></th>
+            <th class="sortable" data-col="3" data-type="text">Spring <span class="sort-icon"></span></th>
+            <th class="sortable" data-col="4" data-type="text">Quarkus <span class="sort-icon"></span></th>
+            <th class="sortable" data-col="5" data-type="num">Entries <span class="sort-icon"></span></th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {#for c in comparisons}
+        <tr>
+            <td><a href="/comparisons/{c.id}/edit">{c.category}</a></td>
+            <td>
+                {#if c.springEntries.size > 0}
+                    {#let first=c.springEntries.get(0)}
+                    <a href="{first.url}" target="_blank">{first.name}</a>
+                    {#if first.github}<br><a href="{first.github}" target="_blank" style="font-size:0.75rem;">GitHub</a>{/if}
+                    {/let}
+                {#else}
+                    <span class="gap">---</span>
+                {/if}
+            </td>
+            <td>
+                {#if c.quarkusEntries.size > 0}
+                    {#let first=c.quarkusEntries.get(0)}
+                    <a href="{first.url}" target="_blank">{first.name}</a>
+                    {#if first.github}<br><a href="{first.github}" target="_blank" style="font-size:0.75rem;">GitHub</a>{/if}
+                    {/let}
+                {#else}
+                    <span class="gap">---</span>
+                {/if}
+            </td>
+            <td>{#if c.springSupported}<span class="badge badge-spring">Yes</span>{#else}<span class="badge badge-gap">No</span>{/if}</td>
+            <td>{#if c.quarkusSupported}<span class="badge badge-quarkus">Yes</span>{#else}<span class="badge badge-gap">No</span>{/if}</td>
+            <td>{c.entries.size}</td>
+            <td style="white-space:nowrap;">
+                <a href="/comparisons/{c.id}/edit" style="font-size:0.8rem;">Edit</a>
+                <form method="post" action="/comparisons/{c.id}/delete" style="display:inline;margin:0;"
+                      onsubmit="return confirm('Delete {c.category}?')">
+                    <button type="submit" class="outline secondary" style="font-size:0.75rem;padding:0.2rem 0.5rem;margin:0;">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {/for}
+    </tbody>
+</table>
+
+{/content}
+{#extraScripts}
+document.querySelectorAll('th.sortable').forEach(function(th) {
+  th.addEventListener('click', function() {
+    var table = th.closest('table');
+    var tbody = table.querySelector('tbody');
+    var rows = Array.from(tbody.querySelectorAll('tr'));
+    var col = parseInt(th.dataset.col);
+    var isNum = th.dataset.type === 'num';
+    var asc = !th.classList.contains('asc');
+
+    table.querySelectorAll('th.sortable').forEach(function(h) {
+      h.classList.remove('asc', 'desc');
+    });
+    th.classList.add(asc ? 'asc' : 'desc');
+
+    rows.sort(function(a, b) {
+      var aVal = a.cells[col].textContent.trim();
+      var bVal = b.cells[col].textContent.trim();
+      if (isNum) {
+        return asc ? (parseInt(aVal)||0) - (parseInt(bVal)||0) : (parseInt(bVal)||0) - (parseInt(aVal)||0);
+      }
+      return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+    });
+    rows.forEach(function(r) { tbody.appendChild(r); });
+  });
+});
+{/extraScripts}
+{/include}
