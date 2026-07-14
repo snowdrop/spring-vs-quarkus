@@ -28,11 +28,11 @@ java -jar target/quarkus-app/quarkus-run.jar
 
 ## Data format
 
-All comparison data lives in [`data/comparisons.yaml`](data/comparisons.yaml). Each entry represents a feature category with entries for one or both frameworks:
+All comparison data lives in [`data/comparisons.yaml`](data/comparisons.yaml). Each entry represents a component defined part of a category (ex: security, web, service discovery, etc)  with entries for one or both frameworks:
 
 ```yaml
-- category: Spring Kafka
-  description: null
+- category: streaming
+  description: Technology supporting high-scalable distributed event sstreaming.
   tags: "kafka, messaging"
   entries:
   - framework: Spring
@@ -40,23 +40,15 @@ All comparison data lives in [`data/comparisons.yaml`](data/comparisons.yaml). E
     url: https://spring.io/projects/spring-kafka
     github: https://github.com/spring-projects/spring-kafka
     description: Applies core Spring concepts to Kafka-based messaging
-    type: SUB_PROJECT
-    since: null
+    type: Starter
+    since: 2016
   - framework: Quarkus
     name: Quarkus Kafka
     url: https://quarkus.io/guides/kafka
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/kafka-client
+    github: https://github.com/quarkusio/quarkus/tree/main/extensions/kafka-streams
     description: Interact with Apache Kafka using Quarkus Messaging
-    type: SUB_PROJECT
-    since: null
-  - framework: Spring
-    name: spring-boot-starter-kafka
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
-  - framework: Quarkus
-    name: quarkus-smallrye-reactive-messaging-kafka
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-reactive-messaging-kafka
-    type: EXTENSION
+    type: Extension
+    since: n/a
 ```
 
 ### Field reference
