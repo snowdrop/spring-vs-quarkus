@@ -46,25 +46,25 @@ All comparison data lives in [`data/comparisons.yaml`](data/comparisons.yaml). E
     name: Quarkus Kafka
     url: https://quarkus.io/guides/kafka
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/kafka-streams
-    description: Interact with Apache Kafka using Quarkus Messaging
+    description: Interact with Apache Kafka using Smallrye Reactive Messaging
     type: Extension
     since: n/a
 ```
 
 ### Field reference
 
-| Field | Description |
-|-------|-------------|
-| `category` | Feature area name (e.g. "Spring Security") |
-| `description` | Optional description of the category |
+| Field | Description                                 |
+|-------|---------------------------------------------|
+| `category` | Domain area name (e.g. "Security")          |
+| `description` | Optional description of the category        |
 | `tags` | Optional comma-separated tags for filtering |
-| `entries[].framework` | `Spring` or `Quarkus` |
-| `entries[].name` | Display name of the project/extension |
-| `entries[].url` | Documentation URL |
-| `entries[].github` | GitHub repository URL |
-| `entries[].description` | Optional entry-level description |
-| `entries[].type` | `SUB_PROJECT`, `STARTER`, or `EXTENSION` |
-| `entries[].since` | Optional version when introduced |
+| `entries[].framework` | `Spring` or `Quarkus`                       |
+| `entries[].name` | Display name of the extension/starter       |
+| `entries[].url` | Documentation URL                           |
+| `entries[].github` | GitHub repository URL                       |
+| `entries[].description` | Optional entry-level description            |
+| `entries[].type` | `Starter`, or `Extension`                   |
+| `entries[].since` | Optional version/date when introduced       |
 
 ### Updating the data
 
