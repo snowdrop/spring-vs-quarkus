@@ -1,6 +1,6 @@
-# Spring vs Quarkus
+# Inventory and comparison of capabilities across frameworks
 
-A Quarkus web application that catalogues `capabilities` (web, REST, persistence, transaction, authentication, etc) and compares what Spring Boot and Quarkus each offer — starters, extensions, documentation, and source repositories.
+The goal of this project is to inventory the capabilities (REST, Web, JPA, persistence, transactions, security, etc.) offered by frameworks like Quarkus and Spring Boot, and to compare which framework supports each capability as a starter or extension. Each capability references the frameworks that support it, along with a description, a link to the project home page, and the source repository.
 
 Data is stored in `data/capabilities.yaml` and loaded into an H2 in-memory database on startup. The web UI lets you browse, filter, add, and edit capabilities, then export or persist changes back to YAML.
 
