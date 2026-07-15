@@ -7,6 +7,7 @@
 .sortable.asc .sort-icon::after { content: '\25B2'; opacity: 0.8; }
 .sortable.desc .sort-icon::after { content: '\25BC'; opacity: 0.8; }
 table tbody td { vertical-align: top; }
+.status-select { font-size: 0.7rem; padding: 0.15rem 0.3rem; margin: 0.2rem 0 0 0; height: auto; width: auto; }
 {/extraStyles}
 {#content}
 
@@ -23,19 +24,19 @@ table tbody td { vertical-align: top; }
     <a href="/capabilities?spring=no&quarkus=yes"><strong>{quarkusOnlyCount}</strong> Quarkus only</a>
 </div>
 
-<form method="get" action="/capabilities" role="search" style="display:flex;gap:0.5rem;align-items:end;margin-bottom:1rem;">
-    <input type="text" name="name" placeholder="Filter by name..." value="{nameFilter.orEmpty}" style="margin-bottom:0;">
-    <select name="spring" style="margin-bottom:0;width:auto;">
+<form method="get" action="/capabilities" role="search" style="display:flex;gap:0.5rem;align-items:center;margin-bottom:1rem;">
+    <input type="text" name="name" placeholder="Filter by name..." value="{nameFilter.orEmpty}" style="margin-bottom:0;height:2.5rem;padding:0.4rem 0.6rem;max-width:20rem;">
+    <select name="spring" style="margin-bottom:0;width:auto;height:2.5rem;padding:0.4rem 0.6rem;">
         <option value="">Spring: All</option>
         <option value="yes" {#if springFilter.orEmpty == 'yes'}selected{/if}>Spring: Yes</option>
         <option value="no" {#if springFilter.orEmpty == 'no'}selected{/if}>Spring: No</option>
     </select>
-    <select name="quarkus" style="margin-bottom:0;width:auto;">
+    <select name="quarkus" style="margin-bottom:0;width:auto;height:2.5rem;padding:0.4rem 0.6rem;">
         <option value="">Quarkus: All</option>
         <option value="yes" {#if quarkusFilter.orEmpty == 'yes'}selected{/if}>Quarkus: Yes</option>
         <option value="no" {#if quarkusFilter.orEmpty == 'no'}selected{/if}>Quarkus: No</option>
     </select>
-    <button type="submit" style="margin-bottom:0;width:auto;padding:0.4rem 0.8rem;">Filter</button>
+    <button type="submit" class="outline" style="margin-bottom:0;width:auto;height:2.5rem;padding:0.4rem 0.8rem;">Filter</button>
 </form>
 
 <div class="actions">
@@ -47,20 +48,19 @@ table tbody td { vertical-align: top; }
 <table>
     <thead>
         <tr>
-            <th class="sortable" data-col="0" data-type="text">Category <span class="sort-icon"></span></th>
+            <th class="sortable" data-col="0" data-type="text">Capability <span class="sort-icon"></span></th>
             <th class="sortable" data-col="1" data-type="text">Spring Project <span class="sort-icon"></span></th>
             <th class="sortable" data-col="2" data-type="text">Quarkus Project <span class="sort-icon"></span></th>
             <th class="sortable" data-col="3" data-type="text">Spring <span class="sort-icon"></span></th>
             <th class="sortable" data-col="4" data-type="text">Quarkus <span class="sort-icon"></span></th>
-            <th class="sortable" data-col="5" data-type="num">Entries <span class="sort-icon"></span></th>
-            <th class="sortable" data-col="6" data-type="text">Reviewed <span class="sort-icon"></span></th>
+            <th class="sortable" data-col="5" data-type="text">Reviewed <span class="sort-icon"></span></th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         {#for c in capabilities}
         <tr>
-            <td><a href="/capabilities/{c.id}/edit">{c.category}</a></td>
+            <td><a href="/capabilities/{c.id}/edit">{c.category}</a>{#if c.shortDescription}<br><span style="font-size:0.75rem;color:var(--pico-muted-color);">{c.shortDescription}</span>{/if}</td>
             <td>
                 {#if c.springEntries.size > 0}
                     {#for entry in c.springEntries}
@@ -90,8 +90,7 @@ table tbody td { vertical-align: top; }
                 {/if}
             </td>
             <td>{#if c.springSupported}<span class="badge badge-yes">Yes</span>{#else}<span class="badge badge-no">No</span>{/if}</td>
-            <td>{#if c.quarkusSupported}<span class="badge badge-yes">Yes</span>{#else}<span class="badge badge-no">No</span>{/if}</td>
-            <td>{c.entries.size}</td>
+            <td>{#if c.quarkusSupported}<span class="badge badge-yes">Yes</span>{#else}<span class="badge badge-no">No</span><br><select class="status-select" data-id="{c.id}"><option value="">--</option><option value="to develop" {#if c.quarkusStatus == 'to develop'}selected{/if}>to develop</option><option value="no action" {#if c.quarkusStatus == 'no action'}selected{/if}>no action</option><option value="approved" {#if c.quarkusStatus == 'approved'}selected{/if}>approved</option><option value="in progress" {#if c.quarkusStatus == 'in progress'}selected{/if}>in progress</option><option value="done" {#if c.quarkusStatus == 'done'}selected{/if}>done</option></select>{/if}</td>
             <td>{#if c.reviewDate}{c.reviewBy.orEmpty}<br><span style="font-size:0.75rem;">{c.reviewDate}</span>{#else}<span class="gap">--</span>{/if}</td>
             <td style="white-space:nowrap;">
                 <button type="button" class="outline" style="font-size:0.75rem;padding:0.2rem 0.5rem;margin:0;"
@@ -131,6 +130,23 @@ document.querySelectorAll('th.sortable').forEach(function(th) {
       return asc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
     });
     rows.forEach(function(r) { tbody.appendChild(r); });
+  });
+});
+document.querySelectorAll('.status-select').forEach(function(sel) {
+  sel.addEventListener('change', function() {
+    var id = sel.dataset.id;
+    var prev = sel.dataset.prev || '';
+    var val = sel.value;
+    sel.dataset.prev = val;
+    fetch('/capabilities/' + id + '/quarkus-status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'status=' + encodeURIComponent(val)
+    }).then(function(resp) {
+      if (!resp.ok) { sel.value = prev; }
+    }).catch(function() {
+      sel.value = prev;
+    });
   });
 });
 {/extraScripts}

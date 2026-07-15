@@ -27,6 +27,7 @@ import jakarta.ws.rs.core.Response;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Path("/")
 public class CapabilityResource {
@@ -132,6 +133,7 @@ public class CapabilityResource {
             @FormParam("tags") String tags,
             @FormParam("reviewBy") String reviewBy,
             @FormParam("reviewDate") String reviewDate,
+            @FormParam("quarkusStatus") String quarkusStatus,
             @FormParam("entriesJson") String entriesJson) {
 
         Capability c = new Capability(category);
@@ -139,6 +141,7 @@ public class CapabilityResource {
         c.setTags(blankToNull(tags));
         c.setReviewBy(blankToNull(reviewBy));
         c.setReviewDate(parseDate(reviewDate));
+        c.setQuarkusStatus(blankToNull(quarkusStatus));
         applyEntries(c, entriesJson);
         repository.persist(c);
         return Response.seeOther(URI.create("/capabilities/" + c.getId() + "/edit")).build();
@@ -155,6 +158,7 @@ public class CapabilityResource {
             @FormParam("tags") String tags,
             @FormParam("reviewBy") String reviewBy,
             @FormParam("reviewDate") String reviewDate,
+            @FormParam("quarkusStatus") String quarkusStatus,
             @FormParam("entriesJson") String entriesJson) {
 
         Capability c = repository.findById(id);
@@ -167,9 +171,26 @@ public class CapabilityResource {
         c.setTags(blankToNull(tags));
         c.setReviewBy(blankToNull(reviewBy));
         c.setReviewDate(parseDate(reviewDate));
+        c.setQuarkusStatus(blankToNull(quarkusStatus));
         c.getEntries().clear();
         applyEntries(c, entriesJson);
         return Response.seeOther(URI.create("/capabilities/" + id + "/edit")).build();
+    }
+
+    @POST
+    @Path("/capabilities/{id}/quarkus-status")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Response updateQuarkusStatus(
+            @PathParam("id") Long id,
+            @FormParam("status") String status) {
+        Capability c = repository.findById(id);
+        if (c == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        c.setQuarkusStatus(blankToNull(status));
+        return Response.ok(Map.of("id", id, "quarkusStatus", status != null ? status : "")).build();
     }
 
     @POST

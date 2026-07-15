@@ -38,6 +38,9 @@ public class Capability {
     @Column(name = "review_date")
     private LocalDate reviewDate;
 
+    @Column(name = "quarkus_status")
+    private String quarkusStatus;
+
     @OneToMany(mappedBy = "capability", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<FrameworkEntry> entries = new ArrayList<>();
 
@@ -66,6 +69,11 @@ public class Capability {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getShortDescription() {
+        if (description == null) return null;
+        return description.length() > 150 ? description.substring(0, 150) + "..." : description;
     }
 
     public void setDescription(String description) {
@@ -102,6 +110,14 @@ public class Capability {
 
     public void setReviewDate(LocalDate reviewDate) {
         this.reviewDate = reviewDate;
+    }
+
+    public String getQuarkusStatus() {
+        return quarkusStatus;
+    }
+
+    public void setQuarkusStatus(String quarkusStatus) {
+        this.quarkusStatus = quarkusStatus;
     }
 
     public List<FrameworkEntry> getEntries() {

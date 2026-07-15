@@ -204,6 +204,7 @@ public class DataService {
         var mapper = new ObjectMapper(factory);
         mapper.registerModule(new JavaTimeModule());
         mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        mapper.disable(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
         mapper.setSerializationInclusion(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL);
         return mapper;
     }
@@ -217,6 +218,7 @@ public class DataService {
             String topic,
             String reviewBy,
             LocalDate reviewDate,
+            String quarkusStatus,
             List<FrameworkEntryDto> entries
     ) {
         static CapabilityDto fromEntity(Capability c) {
@@ -227,6 +229,7 @@ public class DataService {
                     c.getTopic(),
                     c.getReviewBy(),
                     c.getReviewDate(),
+                    c.getQuarkusStatus(),
                     c.getEntries().stream().map(FrameworkEntryDto::fromEntity).toList()
             );
         }
@@ -238,6 +241,7 @@ public class DataService {
             c.setTopic(topic);
             c.setReviewBy(reviewBy);
             c.setReviewDate(reviewDate);
+            c.setQuarkusStatus(quarkusStatus);
             if (entries != null) {
                 for (var dto : entries) {
                     c.addEntry(dto.toEntity());

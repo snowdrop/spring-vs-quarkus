@@ -79,6 +79,16 @@
         </div>
     </div>
 
+    <label for="quarkusStatus">Quarkus status</label>
+    <select id="quarkusStatus" name="quarkusStatus" style="width:auto;">
+        <option value="">--</option>
+        <option value="to develop" {#if capability.quarkusStatus == 'to develop'}selected{/if}>to develop</option>
+        <option value="no action" {#if capability.quarkusStatus == 'no action'}selected{/if}>no action</option>
+        <option value="approved" {#if capability.quarkusStatus == 'approved'}selected{/if}>approved</option>
+        <option value="in progress" {#if capability.quarkusStatus == 'in progress'}selected{/if}>in progress</option>
+        <option value="done" {#if capability.quarkusStatus == 'done'}selected{/if}>done</option>
+    </select>
+
     <h3 style="margin-top:1.5rem;">Entries</h3>
     <p style="font-size:0.85rem;color:var(--pico-muted-color);">Each entry represents a Spring Boot starter or Quarkus extension.</p>
 
@@ -132,7 +142,7 @@ function addEntryCard(data) {
       '</div>' +
       '<div class="field">' +
         '<label>Since</label>' +
-        '<input type="text" class="e-since" value="' + esc(d.since||'') + '" placeholder="e.g. 3.0">' +
+        '<input type="text" class="e-since" value="' + esc(d.since||'') + '" placeholder="e.g. March 7, 2014">' +
       '</div>' +
       '<div class="field">' +
         '<label>Name</label>' +

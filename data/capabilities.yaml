@@ -1,35 +1,4 @@
-- category: Scheduler
-  tags: "scheduler, quartz, tasks, periodic-tasks"
-  entries:
-  - framework: Spring
-    name: Spring @Scheduled
-    doc: https://docs.spring.io/spring-framework/reference/integration/scheduling.html
-    scm: https://github.com/spring-projects/spring-framework
-    description: Annotation-driven task scheduling in Spring Framework
-    type: STARTER
-    comment: Not found in spring-projects GitHub org
-  - framework: Quarkus
-    name: quarkus-scheduler
-    doc: https://quarkus.io/guides/scheduler
-    scm: https://github.com/quarkusio/quarkus
-    description: Schedule jobs and tasks
-    type: EXTENSION
-    since: Mar 2019
-
-- category: Service Discovery
-  description: Service discovery and client-side load-balancing
-  tags: "service-discovery, load balancing"
-  entries:
-  - framework: Quarkus
-    name: Quarkus Stork (Service Discovery)
-    doc: https://quarkus.io/guides/stork
-    scm: https://github.com/quarkusio/quarkus/tree/main/extensions/smallrye-stork
-    description: Service discovery and client-side load balancing with extensible
-      mechanisms
-    type: EXTENSION
-    comment: Not found in Quarkus registry
-
-- category: Spring AI
+- category: AI
   tags: "AI, artificial-intelligence, java, spring-ai"
   entries:
   - framework: Spring
@@ -85,21 +54,36 @@
     type: EXTENSION
     since: Dec 2023
 
-- category: Spring Authorization Server
+- category: Scheduler
+  tags: "scheduler, quartz, tasks, periodic-tasks"
   entries:
   - framework: Spring
-    name: Spring Authorization Server
-    doc: https://spring.io/projects/spring-authorization-server
-    scm: https://github.com/spring-projects/spring-authorization-server
-    description: Framework providing implementations of the OAuth 2.1 and OpenID Connect
-      1.0 specifications
-    type: STARTER
-    since: Mar 2020
-  - framework: Spring
-    name: spring-boot-starter-oauth2-authorization-server
-    doc: https://spring.io/projects/spring-authorization-server
+    name: Spring @Scheduled
+    doc: https://docs.spring.io/spring-framework/reference/integration/scheduling.html
+    scm: https://github.com/spring-projects/spring-framework
+    description: Annotation-driven task scheduling in Spring Framework
     type: STARTER
     comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-scheduler
+    doc: https://quarkus.io/guides/scheduler
+    scm: https://github.com/quarkusio/quarkus
+    description: Schedule jobs and tasks
+    type: EXTENSION
+    since: Mar 2019
+
+- category: Service Discovery
+  description: Service discovery and client-side load-balancing
+  tags: "service-discovery, load balancing"
+  entries:
+  - framework: Quarkus
+    name: Quarkus Stork (Service Discovery)
+    doc: https://quarkus.io/guides/stork
+    scm: https://github.com/quarkusio/quarkus/tree/main/extensions/smallrye-stork
+    description: Service discovery and client-side load balancing with extensible
+      mechanisms
+    type: EXTENSION
+    comment: Not found in Quarkus registry
 
 - category: Spring Batch
   tags: "integration, integration, batch, batch-processing, java, spring"
@@ -478,17 +462,6 @@
     description: HTTP Binding for Quarkus Funqy framework
     type: EXTENSION
     since: Apr 2020
-
-- category: Spring CredHub
-  entries:
-  - framework: Spring
-    name: Spring CredHub
-    doc: https://spring.io/projects/spring-credhub
-    scm: https://github.com/spring-projects/spring-credhub
-    description: "Client-side support for storing, retrieving, and deleting credentials\
-      \ from a CredHub server"
-    type: STARTER
-    comment: Not found in spring-projects GitHub org
 
 - category: Spring Data
   tags: "reactive, reactive, reactive, reactive"
@@ -1069,7 +1042,64 @@
     type: STARTER
     comment: Not found in spring-projects GitHub org
 
-- category: Spring Security
+- category: credentials-store
+  description: "CredHub provides client-side support for storing, retrieving, and\
+    \ deleting credentials from a CredHub server running in a Cloud Foundry platform."
+  tags: "store, credentials, password, certificate"
+  reviewBy: Charles Moulliard
+  reviewDate: 2026-07-15
+  quarkusStatus: no action
+  entries:
+  - framework: Spring
+    name: Spring CredHub
+    doc: https://docs.spring.io/spring-credhub/docs/current/reference/
+    scm: https://github.com/spring-projects/spring-credhub
+    description: "Client-side support for storing, retrieving, and deleting credentials\
+      \ from a CredHub server"
+    type: STARTER
+
+- category: messaging
+  tags: "messaging, AMQP"
+  entries:
+  - framework: Spring
+    name: Spring AMQP
+    doc: https://spring.io/projects/spring-amqp
+    scm: https://github.com/spring-projects/spring-amqp
+    description: Applies core Spring concepts to the development of AMQP-based messaging
+      solutions
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: camel-quarkus-amqp
+    doc: https://camel.apache.org/camel-quarkus/latest/reference/extensions/amqp.html
+    scm: https://github.com/apache/camel-quarkus
+    description: Messaging with AMQP protocol using Apache QPid Client
+    type: EXTENSION
+    since: Apr 2020
+  - framework: Spring
+    name: spring-boot-starter-amqp
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+
+- category: reactive
+  description: Toolkit for building reactive applications
+  tags: "vert.x, reactive"
+  reviewBy: Charles Moulliard
+  reviewDate: 2026-07-15
+  entries:
+  - framework: Quarkus
+    name: quarkus-vertx
+    doc: https://quarkus.io/guides/vertx
+    scm: https://github.com/quarkusio/quarkus
+    description: Write reactive applications with the Vert.x API
+    type: EXTENSION
+    since: Mar 2019
+
+- category: security
+  description: "Projects developing around the following security topics: \r\n- Implementation\
+    \ of the OAuth 2.1 and OpenID Connect 1.0 specifications - https://datatracker.ietf.org/doc/html/draft-ietf-oauth-v2-1-07#section-1.1"
+  tags: "security, authorization, oauth"
   entries:
   - framework: Spring
     name: Spring Security
@@ -1088,9 +1118,13 @@
     since: Oct 2019
   - framework: Spring
     name: Spring Authorization Server
-    doc: https://spring.io/projects/spring-authorization-server
+    doc: https://docs.spring.io/spring-security/reference/servlet/oauth2/index.html
+    scm: https://github.com/spring-projects/spring-security
+    description: "The Authorization Server features provide implementations of the\
+      \ OAuth 2.1 and OpenID Connect 1.0 specifications and other related specifications.\
+      \ It provides a secure, light-weight, and customizable foundation for building\
+      \ OpenID Connect 1.0 Identity Providers and OAuth 2.1 Authorization Server products."
     type: STARTER
-    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-oidc
     doc: https://quarkus.io/guides/security-openid-connect
@@ -1152,44 +1186,6 @@
     doc: https://quarkus.io/guides/security-jwt
     scm: https://github.com/quarkusio/quarkus
     description: Secure your applications with JSON Web Token
-    type: EXTENSION
-    since: Mar 2019
-
-- category: messaging
-  tags: "messaging, AMQP"
-  entries:
-  - framework: Spring
-    name: Spring AMQP
-    doc: https://spring.io/projects/spring-amqp
-    scm: https://github.com/spring-projects/spring-amqp
-    description: Applies core Spring concepts to the development of AMQP-based messaging
-      solutions
-    type: STARTER
-    comment: Not found in spring-projects GitHub org
-  - framework: Quarkus
-    name: camel-quarkus-amqp
-    doc: https://camel.apache.org/camel-quarkus/latest/reference/extensions/amqp.html
-    scm: https://github.com/apache/camel-quarkus
-    description: Messaging with AMQP protocol using Apache QPid Client
-    type: EXTENSION
-    since: Apr 2020
-  - framework: Spring
-    name: spring-boot-starter-amqp
-    doc: https://spring.io/projects/spring-boot
-    type: STARTER
-    comment: Not found in spring-projects GitHub org
-
-- category: reactive
-  description: Toolkit for building reactive applications
-  tags: "vert.x, reactive"
-  reviewBy: Charles Moulliard
-  reviewDate: 2026-07-15
-  entries:
-  - framework: Quarkus
-    name: quarkus-vertx
-    doc: https://quarkus.io/guides/vertx
-    scm: https://github.com/quarkusio/quarkus
-    description: Write reactive applications with the Vert.x API
     type: EXTENSION
     since: Mar 2019
 
