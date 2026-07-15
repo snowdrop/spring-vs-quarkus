@@ -39,12 +39,12 @@ All capability data lives in [`data/capabilities.yaml`](data/capabilities.yaml).
   reviewDate: 2026-07-15
   entries:
     - framework: Spring
-      name: Spring Kafka
+      name: spring-boot-starter-kafka
       url: https://spring.io/projects/spring-kafka
       github: https://github.com/spring-projects/spring-kafka
-      description: Applies core Spring concepts to Kafka-based messaging
+      description: Starter for using Apache Kafka
       type: STARTER
-      since: 2016
+      since: Nov 2025
     - framework: Quarkus
       name: quarkus-kafka-client
       url: https://quarkus.io/guides/kafka

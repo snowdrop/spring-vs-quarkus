@@ -7,6 +7,7 @@
     description: "Reactive toolkit for building event-driven, non-blocking applications\
       \ on the Vert.x engine"
     type: EXTENSION
+
 - category: Scheduler
   tags: "scheduler, quartz"
   entries:
@@ -22,6 +23,7 @@
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/scheduler
     description: Schedule periodic tasks in your application using simple annotations
     type: EXTENSION
+
 - category: Service Discovery
   description: Service discovery and client-side load-balancing
   tags: "service-discovery, load balancing"
@@ -33,6 +35,7 @@
     description: Service discovery and client-side load balancing with extensible
       mechanisms
     type: EXTENSION
+
 - category: Spring AI
   entries:
   - framework: Spring
@@ -77,6 +80,7 @@
     name: quarkus-langchain4j-pgvector
     url: https://quarkus.io/extensions/io.quarkiverse.langchain4j/quarkus-langchain4j-pgvector
     type: EXTENSION
+
 - category: Spring AMQP
   entries:
   - framework: Spring
@@ -96,6 +100,7 @@
     name: spring-boot-starter-amqp
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring Authorization Server
   entries:
   - framework: Spring
@@ -109,6 +114,7 @@
     name: spring-boot-starter-oauth2-authorization-server
     url: https://spring.io/projects/spring-authorization-server
     type: STARTER
+
 - category: Spring Batch
   entries:
   - framework: Spring
@@ -128,6 +134,7 @@
     name: spring-boot-starter-batch
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring Boot
   entries:
   - framework: Spring
@@ -192,6 +199,7 @@
     name: spring-boot-testcontainers
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring Boot Flyway
   entries:
   - framework: Spring
@@ -210,6 +218,7 @@
     name: flyway-core
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring Boot Liquibase
   entries:
   - framework: Spring
@@ -228,6 +237,7 @@
     name: liquibase-core
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring Cache
   entries:
   - framework: Spring
@@ -247,6 +257,7 @@
     name: spring-boot-starter-cache
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring Cloud
   entries:
   - framework: Spring
@@ -387,6 +398,7 @@
     name: quarkus-funqy-http
     url: https://quarkus.io/extensions/io.quarkus/quarkus-funqy-http
     type: EXTENSION
+
 - category: Spring CredHub
   entries:
   - framework: Spring
@@ -396,6 +408,7 @@
     description: "Client-side support for storing, retrieving, and deleting credentials\
       \ from a CredHub server"
     type: STARTER
+
 - category: Spring Data
   entries:
   - framework: Spring
@@ -543,6 +556,7 @@
     name: cassandra-quarkus-client
     url: https://quarkus.io/extensions/com.datastax.oss.quarkus/cassandra-quarkus-client
     type: EXTENSION
+
 - category: Spring Flo
   entries:
   - framework: Spring
@@ -552,6 +566,7 @@
     description: JavaScript library offering an embeddable HTML5 visual builder for
       pipelines and simple graphs
     type: STARTER
+
 - category: Spring Framework
   entries:
   - framework: Spring
@@ -620,6 +635,7 @@
     name: quarkus-websockets-next
     url: https://quarkus.io/extensions/io.quarkus/quarkus-websockets-next
     type: EXTENSION
+
 - category: Spring GraphQL
   entries:
   - framework: Spring
@@ -639,6 +655,7 @@
     name: spring-boot-starter-graphql
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring HATEOAS
   entries:
   - framework: Spring
@@ -658,6 +675,7 @@
     name: spring-boot-starter-hateoas
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring Integration
   entries:
   - framework: Spring
@@ -678,6 +696,7 @@
     name: spring-boot-starter-integration
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring JMS
   entries:
   - framework: Spring
@@ -697,6 +716,7 @@
     name: spring-boot-starter-artemis
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring LDAP
   entries:
   - framework: Spring
@@ -716,6 +736,7 @@
     name: spring-boot-starter-data-ldap
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring Mail
   entries:
   - framework: Spring
@@ -734,6 +755,7 @@
     name: spring-boot-starter-mail
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring Micrometer Metrics
   entries:
   - framework: Spring
@@ -753,6 +775,7 @@
     name: spring-boot-starter-actuator
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring Modulith
   entries:
   - framework: Spring
@@ -766,6 +789,7 @@
     name: spring-modulith-starter-core
     url: https://spring.io/projects/spring-modulith
     type: STARTER
+
 - category: Spring Native / AOT
   entries:
   - framework: Spring
@@ -781,6 +805,7 @@
     description: Build self-contained native executables with GraalVM for faster startup
       and smaller footprint
     type: EXTENSION
+
 - category: Spring Quartz Scheduler
   entries:
   - framework: Spring
@@ -799,6 +824,7 @@
     name: spring-boot-starter-quartz
     url: https://spring.io/projects/spring-boot
     type: STARTER
+
 - category: Spring REST Docs
   entries:
   - framework: Spring
@@ -818,6 +844,7 @@
     name: spring-restdocs-mockmvc
     url: https://spring.io/projects/spring-restdocs
     type: STARTER
+
 - category: Spring Security
   entries:
   - framework: Spring
@@ -877,6 +904,7 @@
   - framework: Quarkus
     name: quarkus-smallrye-jwt
     url: https://quarkus.io/extensions/io.quarkus/quark
+
 - category: streaming
   description: Technology supporting high-scalable distributed event streaming.
   tags: "kafka, messaging, event"
@@ -885,12 +913,12 @@
   reviewDate: 2026-07-15
   entries:
   - framework: Spring
-    name: Spring Kafka
+    name: spring-boot-starter-kafka
     url: https://spring.io/projects/spring-kafka
     github: https://github.com/spring-projects/spring-kafka
-    description: Applies core Spring concepts to Kafka-based messaging
+    description: Starter for using Apache Kafka
     type: STARTER
-    since: 2016
+    since: Nov 2025
   - framework: Quarkus
     name: quarkus-kafka-client
     url: https://quarkus.io/guides/kafka

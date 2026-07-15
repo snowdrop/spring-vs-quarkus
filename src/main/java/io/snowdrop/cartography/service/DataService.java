@@ -73,7 +73,9 @@ public class DataService {
             var mapper = createYamlMapper();
             List<Capability> capabilities = repository.findAllOrdered();
             List<CapabilityDto> dtos = capabilities.stream().map(CapabilityDto::fromEntity).toList();
-            mapper.writeValue(YAML_FILE.toFile(), dtos);
+            String yaml = mapper.writeValueAsString(dtos);
+            yaml = yaml.replaceAll("(?m)^- category:", "\n- category:").stripLeading();
+            Files.writeString(YAML_FILE, yaml);
             LOG.infof("Saved %d capabilities to %s", dtos.size(), YAML_FILE);
         } catch (IOException e) {
             LOG.error("Failed to save YAML", e);
