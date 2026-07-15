@@ -2,8 +2,10 @@ package io.snowdrop.cartography.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.opencsv.CSVReader;
 import io.quarkus.runtime.StartupEvent;
 import io.snowdrop.cartography.model.Capability;
@@ -198,6 +200,8 @@ public class DataService {
                 .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
                 .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES);
         var mapper = new ObjectMapper(factory);
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         mapper.setSerializationInclusion(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL);
         return mapper;
     }

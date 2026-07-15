@@ -33,22 +33,32 @@ All capability data lives in [`data/capabilities.yaml`](data/capabilities.yaml).
 ```yaml
 - category: streaming
   description: Technology supporting high-scalable distributed event streaming.
-  tags: "kafka, messaging"
+  tags: "kafka, messaging, event"
   topic: Messaging
+  reviewBy: Charles Moulliard
+  reviewDate: 2026-07-15
   entries:
-  - framework: Spring
-    name: Spring Kafka
-    url: https://spring.io/projects/spring-kafka
-    github: https://github.com/spring-projects/spring-kafka
-    description: Applies core Spring concepts to Kafka-based messaging
-    type: STARTER
-    since: "2016"
-  - framework: Quarkus
-    name: Quarkus Kafka
-    url: https://quarkus.io/guides/kafka
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/kafka-streams
-    description: Interact with Apache Kafka using SmallRye Reactive Messaging
-    type: EXTENSION
+    - framework: Spring
+      name: Spring Kafka
+      url: https://spring.io/projects/spring-kafka
+      github: https://github.com/spring-projects/spring-kafka
+      description: Applies core Spring concepts to Kafka-based messaging
+      type: STARTER
+      since: 2016
+    - framework: Quarkus
+      name: quarkus-kafka-client
+      url: https://quarkus.io/guides/kafka
+      github: https://github.com/quarkusio/quarkus/tree/main/extensions/kafka-client
+      description: Connect to Apache Kafka with its native API
+      type: EXTENSION
+      since: "Mar 6, 2019"
+    - framework: Quarkus
+      name: quarkus-kafka-streams
+      url: https://quarkus.io/guides/kafka
+      github: https://github.com/quarkusio/quarkus/tree/main/extensions/kafka-streams
+      description: Implement stream processing applications based on Apache Kafka
+      type: EXTENSION
+      since: "June 19, 2019"
 ```
 
 ### Field reference

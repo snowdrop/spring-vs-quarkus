@@ -24,6 +24,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @Path("/")
@@ -125,11 +126,15 @@ public class CapabilityResource {
             @FormParam("category") String category,
             @FormParam("description") String description,
             @FormParam("tags") String tags,
+            @FormParam("reviewBy") String reviewBy,
+            @FormParam("reviewDate") String reviewDate,
             @FormParam("entriesJson") String entriesJson) {
 
         Capability c = new Capability(category);
         c.setDescription(blankToNull(description));
         c.setTags(blankToNull(tags));
+        c.setReviewBy(blankToNull(reviewBy));
+        c.setReviewDate(parseDate(reviewDate));
         applyEntries(c, entriesJson);
         repository.persist(c);
         return Response.seeOther(URI.create("/capabilities/" + c.getId() + "/edit")).build();
@@ -144,6 +149,8 @@ public class CapabilityResource {
             @FormParam("category") String category,
             @FormParam("description") String description,
             @FormParam("tags") String tags,
+            @FormParam("reviewBy") String reviewBy,
+            @FormParam("reviewDate") String reviewDate,
             @FormParam("entriesJson") String entriesJson) {
 
         Capability c = repository.findById(id);
@@ -154,6 +161,8 @@ public class CapabilityResource {
         c.setCategory(category);
         c.setDescription(blankToNull(description));
         c.setTags(blankToNull(tags));
+        c.setReviewBy(blankToNull(reviewBy));
+        c.setReviewDate(parseDate(reviewDate));
         c.getEntries().clear();
         applyEntries(c, entriesJson);
         return Response.seeOther(URI.create("/capabilities/" + id + "/edit")).build();
@@ -237,6 +246,15 @@ public class CapabilityResource {
 
     private String blankToNull(String s) {
         return (s == null || s.isBlank()) ? null : s.trim();
+    }
+
+    private LocalDate parseDate(String s) {
+        if (s == null || s.isBlank()) return null;
+        try {
+            return LocalDate.parse(s.trim());
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static class EntryDto {

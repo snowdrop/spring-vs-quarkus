@@ -83,10 +83,11 @@
             <td>{#if c.quarkusSupported}<span class="badge badge-quarkus">Yes</span>{#else}<span class="badge badge-gap">No</span>{/if}</td>
             <td>{c.entries.size}</td>
             <td style="white-space:nowrap;">
-                <a href="/capabilities/{c.id}/edit" style="font-size:0.8rem;">Edit</a>
+                <button type="button" class="outline" style="font-size:0.75rem;padding:0.2rem 0.5rem;margin:0;"
+                        onclick="location.href='/capabilities/{c.id}/edit'">Edit</button>
                 <form method="post" action="/capabilities/{c.id}/delete" style="display:inline;margin:0;"
                       onsubmit="return confirm('Delete {c.category}?')">
-                    <button type="submit" class="outline secondary" style="font-size:0.75rem;padding:0.2rem 0.5rem;margin:0;">Delete</button>
+                    <button type="submit" class="outline secondary" style="font-size:0.75rem;padding:0.2rem 0.5rem;margin:0;width:auto;">Delete</button>
                 </form>
             </td>
         </tr>

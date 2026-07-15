@@ -2,11 +2,19 @@
 {#title}{#if isNew}New Capability{#else}Edit: {capability.category}{/if}{/title}
 {#extraStyles}
 .entry-card {
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: 6px;
+  border: none;
+  border-radius: 8px;
   padding: 0.75rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   position: relative;
+}
+.entry-card.fw-spring {
+  background: rgba(107, 170, 63, 0.12);
+  border-left: 4px solid #6baa3f;
+}
+.entry-card.fw-quarkus {
+  background: rgba(70, 149, 235, 0.08);
+  border-left: 4px solid #4695eb;
 }
 .entry-card .entry-grid {
   display: grid;
@@ -59,6 +67,17 @@
 
     <label for="tags">Tags</label>
     <input type="text" id="tags" name="tags" value="{capability.tags}" placeholder="e.g. web, security, data (comma or space separated)">
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:0.5rem;">
+        <div>
+            <label for="reviewBy">Review by</label>
+            <input type="text" id="reviewBy" name="reviewBy" value="{capability.reviewBy}" placeholder="e.g. John Doe">
+        </div>
+        <div>
+            <label for="reviewDate">Review date</label>
+            <input type="date" id="reviewDate" name="reviewDate" value="{capability.reviewDate}">
+        </div>
+    </div>
 
     <h3 style="margin-top:1.5rem;">Entries</h3>
     <p style="font-size:0.85rem;color:var(--pico-muted-color);">Each entry represents a Spring Boot starter or Quarkus extension.</p>
@@ -135,6 +154,13 @@ function addEntryCard(data) {
   container.appendChild(card);
   if (d.framework) card.querySelector('.e-fw').value = d.framework;
   if (d.type) card.querySelector('.e-type').value = d.type;
+  var fwSelect = card.querySelector('.e-fw');
+  function applyFwClass() {
+    card.classList.remove('fw-spring', 'fw-quarkus');
+    card.classList.add(fwSelect.value === 'Quarkus' ? 'fw-quarkus' : 'fw-spring');
+  }
+  fwSelect.addEventListener('change', applyFwClass);
+  applyFwClass();
 }
 
 function esc(s) {
