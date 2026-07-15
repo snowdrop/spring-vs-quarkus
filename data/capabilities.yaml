@@ -1,28 +1,20 @@
-- category: Quarkus Vert.x
-  entries:
-  - framework: Quarkus
-    name: Quarkus Vert.x
-    url: https://quarkus.io/guides/vertx
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/vertx
-    description: "Reactive toolkit for building event-driven, non-blocking applications\
-      \ on the Vert.x engine"
-    type: EXTENSION
-
 - category: Scheduler
-  tags: "scheduler, quartz"
+  tags: "scheduler, quartz, tasks, periodic-tasks"
   entries:
   - framework: Spring
     name: Spring @Scheduled
-    url: https://docs.spring.io/spring-framework/reference/integration/scheduling.html
-    github: https://github.com/spring-projects/spring-framework
+    doc: https://docs.spring.io/spring-framework/reference/integration/scheduling.html
+    scm: https://github.com/spring-projects/spring-framework
     description: Annotation-driven task scheduling in Spring Framework
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Scheduler
-    url: https://quarkus.io/guides/scheduler
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/scheduler
-    description: Schedule periodic tasks in your application using simple annotations
+    name: quarkus-scheduler
+    doc: https://quarkus.io/guides/scheduler
+    scm: https://github.com/quarkusio/quarkus
+    description: Schedule jobs and tasks
     type: EXTENSION
+    since: Mar 2019
 
 - category: Service Discovery
   description: Service discovery and client-side load-balancing
@@ -30,880 +22,1176 @@
   entries:
   - framework: Quarkus
     name: Quarkus Stork (Service Discovery)
-    url: https://quarkus.io/guides/stork
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/smallrye-stork
+    doc: https://quarkus.io/guides/stork
+    scm: https://github.com/quarkusio/quarkus/tree/main/extensions/smallrye-stork
     description: Service discovery and client-side load balancing with extensible
       mechanisms
     type: EXTENSION
+    comment: Not found in Quarkus registry
 
 - category: Spring AI
+  tags: "AI, artificial-intelligence, java, spring-ai"
   entries:
   - framework: Spring
     name: Spring AI
-    url: https://spring.io/projects/spring-ai
-    github: https://github.com/spring-projects/spring-ai
+    doc: https://spring.io/projects/spring-ai
+    scm: https://github.com/spring-projects/spring-ai
     description: Application framework for AI engineering using Spring ecosystem design
       principles
     type: STARTER
+    since: Jun 2023
   - framework: Quarkus
-    name: Quarkus LangChain4j
-    url: https://docs.quarkiverse.io/quarkus-langchain4j/dev/
-    github: https://github.com/quarkiverse/quarkus-langchain4j
-    description: "Integrate Large Language Models into Quarkus services with a declarative,\
-      \ developer-friendly API"
+    name: quarkus-langchain4j-websockets-next
+    doc: https://docs.quarkiverse.io/quarkus-langchain4j/dev/index.html
+    scm: https://github.com/quarkiverse/quarkus-langchain4j
+    description: Provides integration of Quarkus LangChain4j with WebSockets Next
     type: EXTENSION
+    since: Apr 2024
   - framework: Spring
     name: Chat Client
-    url: https://docs.spring.io/spring-ai/reference/api/chatclient.html
+    doc: https://docs.spring.io/spring-ai/reference/api/chatclient.html
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: AI Services
-    url: https://docs.quarkiverse.io/quarkus-langchain4j/dev/
+    doc: https://docs.quarkiverse.io/quarkus-langchain4j/dev/
     type: EXTENSION
+    comment: Not found in Quarkus registry
   - framework: Spring
     name: spring-ai-openai-spring-boot-starter
-    url: https://spring.io/projects/spring-ai
+    doc: https://spring.io/projects/spring-ai
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: Vector Stores
-    url: https://docs.spring.io/spring-ai/reference/api/vectordbs.html
+    doc: https://docs.spring.io/spring-ai/reference/api/vectordbs.html
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: RAG / Embedding Stores
-    url: https://docs.quarkiverse.io/quarkus-langchain4j/dev/rag.html
+    doc: https://docs.quarkiverse.io/quarkus-langchain4j/dev/rag.html
     type: EXTENSION
+    comment: Not found in Quarkus registry
   - framework: Spring
     name: spring-ai-pgvector-store-spring-boot-starter
-    url: https://spring.io/projects/spring-ai
+    doc: https://spring.io/projects/spring-ai
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-langchain4j-pgvector
-    url: https://quarkus.io/extensions/io.quarkiverse.langchain4j/quarkus-langchain4j-pgvector
+    doc: https://docs.quarkiverse.io/quarkus-langchain4j/dev/index.html
+    scm: https://github.com/quarkiverse/quarkus-langchain4j
+    description: Provides the pgvector Embedding store for Quarkus LangChain4j
     type: EXTENSION
-
-- category: Spring AMQP
-  entries:
-  - framework: Spring
-    name: Spring AMQP
-    url: https://spring.io/projects/spring-amqp
-    github: https://github.com/spring-projects/spring-amqp
-    description: Applies core Spring concepts to the development of AMQP-based messaging
-      solutions
-    type: STARTER
-  - framework: Quarkus
-    name: Quarkus AMQP
-    url: https://quarkus.io/guides/amqp
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/smallrye-reactive-messaging-amqp
-    description: Interact with AMQP 1.0 messaging brokers using Quarkus Messaging
-    type: EXTENSION
-  - framework: Spring
-    name: spring-boot-starter-amqp
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
+    since: Dec 2023
 
 - category: Spring Authorization Server
   entries:
   - framework: Spring
     name: Spring Authorization Server
-    url: https://spring.io/projects/spring-authorization-server
-    github: https://github.com/spring-projects/spring-authorization-server
+    doc: https://spring.io/projects/spring-authorization-server
+    scm: https://github.com/spring-projects/spring-authorization-server
     description: Framework providing implementations of the OAuth 2.1 and OpenID Connect
       1.0 specifications
     type: STARTER
+    since: Mar 2020
   - framework: Spring
     name: spring-boot-starter-oauth2-authorization-server
-    url: https://spring.io/projects/spring-authorization-server
+    doc: https://spring.io/projects/spring-authorization-server
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Batch
+  tags: "integration, integration, batch, batch-processing, java, spring"
   entries:
   - framework: Spring
     name: Spring Batch
-    url: https://spring.io/projects/spring-batch
-    github: https://github.com/spring-projects/spring-batch
+    doc: https://spring.io/projects/spring-batch
+    scm: https://github.com/spring-projects/spring-batch
     description: "Lightweight, comprehensive batch framework for robust batch applications\
       \ in enterprise systems"
     type: STARTER
+    since: Nov 2010
   - framework: Quarkus
-    name: Quarkus JBeret
-    url: https://quarkiverse.github.io/quarkiverse-docs/quarkus-jberet/dev/
-    github: https://github.com/quarkiverse/quarkus-jberet
-    description: Adds support for JSR-352 Batch Applications for the Java Platform
+    name: quarkus-jberet
+    doc: https://docs.quarkiverse.io/quarkus-jberet/dev/index.html
+    scm: https://github.com/quarkiverse/quarkus-jberet
+    description: Write Batch Applications with JBeret a JSR-352 implementation
     type: EXTENSION
+    since: Oct 2020
+    comment: "Registry categories: data, integration"
   - framework: Spring
     name: spring-boot-starter-batch
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
+    scm: https://github.com/spring-projects/spring-batch
+    description: Spring Batch is a framework for writing batch applications using
+      Java and Spring
     type: STARTER
+    since: Nov 2010
 
 - category: Spring Boot
+  tags: "reactive, reactive"
   entries:
   - framework: Spring
     name: Spring Boot
-    url: https://spring.io/projects/spring-boot
-    github: https://github.com/spring-projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
+    scm: https://github.com/spring-projects/spring-boot
     description: "Makes it easy to create stand-alone, production-grade Spring based\
       \ applications"
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus
-    url: https://quarkus.io/guides/getting-started
-    github: https://github.com/quarkusio/quarkus
-    description: Supersonic Subatomic Java framework tailored for GraalVM and OpenJDK
-      with fast startup and low memory
+    name: quarkus-shardingsphere-jdbc
+    doc: https://quarkus.io/guides/getting-started
+    scm: https://github.com/quarkiverse/quarkus-shardingsphere-jdbc
+    description: The extension provides support for ShardingSphere JDBC.
     type: EXTENSION
+    since: Sep 2022
   - framework: Spring
     name: Spring Boot Actuator
-    url: https://docs.spring.io/spring-boot/reference/actuator/
+    doc: https://docs.spring.io/spring-boot/reference/actuator/
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: SmallRye Health
-    url: https://quarkus.io/guides/smallrye-health
+    name: quarkus-smallrye-health
+    doc: https://quarkus.io/guides/smallrye-health
+    scm: https://github.com/quarkusio/quarkus
+    description: Monitor service health
     type: EXTENSION
+    since: Mar 2019
   - framework: Spring
     name: spring-boot-starter
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: Spring Boot DevTools
-    url: https://docs.spring.io/spring-boot/reference/using/devtools.html
+    doc: https://docs.spring.io/spring-boot/reference/using/devtools.html
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: Quarkus Dev Mode
-    url: https://quarkus.io/guides/dev-mode-differences
+    doc: https://quarkus.io/guides/dev-mode-differences
     type: EXTENSION
+    comment: Not found in Quarkus registry
   - framework: Spring
     name: spring-boot-devtools
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-vertx-http
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-vertx-http
+    doc: https://quarkus.io/extensions/io.quarkus/quarkus-vertx-http
+    scm: https://github.com/quarkusio/quarkus
+    description: Vert.x HTTP
     type: EXTENSION
+    since: Sep 2019
+    comment: "Registry categories: web, reactive"
   - framework: Spring
     name: Spring Boot Docker Compose
-    url: https://docs.spring.io/spring-boot/reference/features/docker-compose.html
+    doc: https://docs.spring.io/spring-boot/reference/features/docker-compose.html
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: Quarkus Dev Services
-    url: https://quarkus.io/guides/dev-services
+    doc: https://quarkus.io/guides/dev-services
     type: EXTENSION
+    comment: Not found in Quarkus registry
   - framework: Spring
     name: spring-boot-docker-compose
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: Spring Boot Testcontainers
-    url: https://docs.spring.io/spring-boot/reference/features/testcontainers.html
+    doc: https://docs.spring.io/spring-boot/reference/features/testcontainers.html
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: spring-boot-testcontainers
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Boot Flyway
   entries:
   - framework: Spring
     name: Spring Boot Flyway
-    url: https://docs.spring.io/spring-boot/how-to/data-initialization.html
-    github: https://github.com/flyway/flyway
+    doc: https://docs.spring.io/spring-boot/how-to/data-initialization.html
+    scm: https://github.com/flyway/flyway
     description: Database migration support using Flyway
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Flyway
-    url: https://quarkus.io/guides/flyway
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/flyway
-    description: Handle database schema migrations using Flyway
+    name: quarkus-flyway
+    doc: https://quarkus.io/guides/flyway
+    scm: https://github.com/quarkusio/quarkus
+    description: Handle your database schema migrations
     type: EXTENSION
+    since: Apr 2019
   - framework: Spring
     name: flyway-core
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Boot Liquibase
   entries:
   - framework: Spring
     name: Spring Boot Liquibase
-    url: https://docs.spring.io/spring-boot/how-to/data-initialization.html
-    github: https://github.com/liquibase/liquibase
+    doc: https://docs.spring.io/spring-boot/how-to/data-initialization.html
+    scm: https://github.com/liquibase/liquibase
     description: Database migration support using Liquibase
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Liquibase
-    url: https://quarkus.io/guides/liquibase
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/liquibase
-    description: Manage database schema changes using Liquibase
+    name: quarkus-liquibase
+    doc: https://quarkus.io/guides/liquibase
+    scm: https://github.com/quarkusio/quarkus
+    description: Handle your database schema migrations with Liquibase
     type: EXTENSION
+    since: Mar 2020
   - framework: Spring
     name: liquibase-core
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Cache
   entries:
   - framework: Spring
     name: Spring Cache
-    url: https://docs.spring.io/spring-boot/reference/io/caching.html
-    github: https://github.com/spring-projects/spring-framework
+    doc: https://docs.spring.io/spring-boot/reference/io/caching.html
+    scm: https://github.com/spring-projects/spring-framework
     description: Declarative cache abstraction with pluggable cache providers
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Cache
-    url: https://quarkus.io/guides/cache
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/cache
-    description: Enable application data caching in any CDI managed bean of your Quarkus
-      application
+    name: quarkus-cache
+    doc: https://quarkus.io/guides/cache
+    scm: https://github.com/quarkusio/quarkus
+    description: Enable application data caching in CDI beans
     type: EXTENSION
+    since: Jan 2020
   - framework: Spring
     name: spring-boot-starter-cache
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Cloud
   entries:
   - framework: Spring
     name: Spring Cloud
-    url: https://spring.io/projects/spring-cloud
-    github: https://github.com/spring-cloud
+    doc: https://spring.io/projects/spring-cloud
+    scm: https://github.com/spring-cloud
     description: Tools for developers to quickly build common patterns in distributed
       systems
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: SmallRye Config
-    url: https://quarkus.io/guides/config-reference
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/config-yaml
+    doc: https://quarkus.io/guides/config-reference
+    scm: https://github.com/quarkusio/quarkus/tree/main/extensions/config-yaml
     description: "Unified configuration leveraging SmallRye Config API, an implementation\
       \ of MicroProfile Config"
     type: EXTENSION
+    comment: Not found in Quarkus registry
   - framework: Spring
     name: Spring Cloud Config
-    url: https://docs.spring.io/spring-cloud-config/reference/
+    doc: https://docs.spring.io/spring-cloud-config/reference/
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: SmallRye Config
-    url: https://quarkus.io/guides/config-reference
+    doc: https://quarkus.io/guides/config-reference
     type: EXTENSION
+    comment: Not found in Quarkus registry
   - framework: Spring
     name: spring-cloud-starter-config
-    url: https://spring.io/projects/spring-cloud-config
+    doc: https://spring.io/projects/spring-cloud-config
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: Spring Cloud Gateway
-    url: https://spring.io/projects/spring-cloud-gateway
+    doc: https://spring.io/projects/spring-cloud-gateway
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: spring-cloud-starter-gateway
-    url: https://spring.io/projects/spring-cloud-gateway
+    doc: https://spring.io/projects/spring-cloud-gateway
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: Spring Cloud OpenFeign
-    url: https://docs.spring.io/spring-cloud-openfeign/reference/
+    doc: https://docs.spring.io/spring-cloud-openfeign/reference/
     type: STARTER
-  - framework: Quarkus
-    name: Quarkus REST Client
-    url: https://quarkus.io/guides/rest-client
-    type: EXTENSION
-  - framework: Spring
-    name: spring-cloud-starter-openfeign
-    url: https://spring.io/projects/spring-cloud-openfeign
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-rest-client
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-rest-client
+    doc: https://quarkus.io/guides/rest-client
+    scm: https://github.com/quarkusio/quarkus
+    description: Call REST services
     type: EXTENSION
+    since: Jul 2019
+  - framework: Spring
+    name: spring-cloud-starter-openfeign
+    doc: https://spring.io/projects/spring-cloud-openfeign
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-rest-client
+    doc: https://quarkus.io/guides/rest-client
+    scm: https://github.com/quarkusio/quarkus
+    description: Call REST services
+    type: EXTENSION
+    since: Jul 2019
   - framework: Spring
     name: Spring Cloud Circuit Breaker
-    url: https://spring.io/projects/spring-cloud-circuitbreaker
+    doc: https://spring.io/projects/spring-cloud-circuitbreaker
     type: STARTER
-  - framework: Quarkus
-    name: SmallRye Fault Tolerance
-    url: https://quarkus.io/guides/smallrye-fault-tolerance
-    type: EXTENSION
-  - framework: Spring
-    name: spring-cloud-starter-circuitbreaker-resilience4j
-    url: https://spring.io/projects/spring-cloud-circuitbreaker
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-smallrye-fault-tolerance
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-fault-tolerance
+    doc: https://quarkus.io/guides/smallrye-fault-tolerance
+    scm: https://github.com/quarkusio/quarkus
+    description: Build fault-tolerant network services
     type: EXTENSION
+    since: Mar 2019
+  - framework: Spring
+    name: spring-cloud-starter-circuitbreaker-resilience4j
+    doc: https://spring.io/projects/spring-cloud-circuitbreaker
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-smallrye-fault-tolerance
+    doc: https://quarkus.io/guides/smallrye-fault-tolerance
+    scm: https://github.com/quarkusio/quarkus
+    description: Build fault-tolerant network services
+    type: EXTENSION
+    since: Mar 2019
   - framework: Spring
     name: Spring Cloud Stream
-    url: https://spring.io/projects/spring-cloud-stream
+    doc: https://spring.io/projects/spring-cloud-stream
     type: STARTER
-  - framework: Quarkus
-    name: SmallRye Reactive Messaging
-    url: https://quarkus.io/guides/messaging
-    type: EXTENSION
-  - framework: Spring
-    name: spring-cloud-starter-stream-kafka
-    url: https://spring.io/projects/spring-cloud-stream
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-smallrye-reactive-messaging
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-reactive-messaging
+    doc: https://quarkus.io/guides/reactive-messaging
+    scm: https://github.com/quarkusio/quarkus
+    description: Produce and consume messages and implement event driven and data
+      streaming applications
     type: EXTENSION
+    since: Mar 2019
+  - framework: Spring
+    name: spring-cloud-starter-stream-kafka
+    doc: https://spring.io/projects/spring-cloud-stream
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-smallrye-reactive-messaging
+    doc: https://quarkus.io/guides/reactive-messaging
+    scm: https://github.com/quarkusio/quarkus
+    description: Produce and consume messages and implement event driven and data
+      streaming applications
+    type: EXTENSION
+    since: Mar 2019
   - framework: Spring
     name: Micrometer Tracing
-    url: https://docs.spring.io/spring-boot/reference/actuator/tracing.html
+    doc: https://docs.spring.io/spring-boot/reference/actuator/tracing.html
     type: STARTER
-  - framework: Quarkus
-    name: OpenTelemetry
-    url: https://quarkus.io/guides/opentelemetry
-    type: EXTENSION
-  - framework: Spring
-    name: micrometer-tracing
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-opentelemetry
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-opentelemetry
+    doc: https://quarkus.io/guides/opentelemetry
+    scm: https://github.com/quarkusio/quarkus
+    description: Use OpenTelemetry to trace services
     type: EXTENSION
+    since: Mar 2021
+  - framework: Spring
+    name: micrometer-tracing
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-opentelemetry
+    doc: https://quarkus.io/guides/opentelemetry
+    scm: https://github.com/quarkusio/quarkus
+    description: Use OpenTelemetry to trace services
+    type: EXTENSION
+    since: Mar 2021
   - framework: Spring
     name: Spring Cloud Netflix (Eureka)
-    url: https://spring.io/projects/spring-cloud-netflix
+    doc: https://spring.io/projects/spring-cloud-netflix
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: spring-cloud-starter-netflix-eureka-client
-    url: https://spring.io/projects/spring-cloud-netflix
+    doc: https://spring.io/projects/spring-cloud-netflix
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: Spring Cloud Kubernetes
-    url: https://spring.io/projects/spring-cloud-kubernetes
+    doc: https://spring.io/projects/spring-cloud-kubernetes
     type: STARTER
-  - framework: Quarkus
-    name: Quarkus Kubernetes
-    url: https://quarkus.io/guides/deploying-to-kubernetes
-    type: EXTENSION
-  - framework: Spring
-    name: spring-cloud-starter-kubernetes-client
-    url: https://spring.io/projects/spring-cloud-kubernetes
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-kubernetes
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-kubernetes
+    doc: https://quarkus.io/guides/kubernetes
+    scm: https://github.com/quarkusio/quarkus
+    description: Generate Kubernetes resources from annotations
     type: EXTENSION
+    since: Apr 2019
+  - framework: Spring
+    name: spring-cloud-starter-kubernetes-client
+    doc: https://spring.io/projects/spring-cloud-kubernetes
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-kubernetes
+    doc: https://quarkus.io/guides/kubernetes
+    scm: https://github.com/quarkusio/quarkus
+    description: Generate Kubernetes resources from annotations
+    type: EXTENSION
+    since: Apr 2019
   - framework: Spring
     name: Spring Cloud Function
-    url: https://spring.io/projects/spring-cloud-function
+    doc: https://spring.io/projects/spring-cloud-function
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Funqy
-    url: https://quarkus.io/guides/funqy
+    name: quarkus-funqy-google-cloud-functions
+    doc: https://quarkus.io/guides/funqy-gcp-functions
+    scm: https://github.com/quarkusio/quarkus
+    description: Google Cloud Functions Binding for Quarkus Funqy framework
     type: EXTENSION
+    since: Jul 2020
   - framework: Spring
     name: spring-cloud-function-context
-    url: https://spring.io/projects/spring-cloud-function
+    doc: https://spring.io/projects/spring-cloud-function
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-funqy-http
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-funqy-http
+    doc: https://quarkus.io/guides/funqy-http
+    scm: https://github.com/quarkusio/quarkus
+    description: HTTP Binding for Quarkus Funqy framework
     type: EXTENSION
+    since: Apr 2020
 
 - category: Spring CredHub
   entries:
   - framework: Spring
     name: Spring CredHub
-    url: https://spring.io/projects/spring-credhub
-    github: https://github.com/spring-projects/spring-credhub
+    doc: https://spring.io/projects/spring-credhub
+    scm: https://github.com/spring-projects/spring-credhub
     description: "Client-side support for storing, retrieving, and deleting credentials\
       \ from a CredHub server"
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Data
+  tags: "reactive, reactive, reactive, reactive"
   entries:
   - framework: Spring
     name: Spring Data
-    url: https://spring.io/projects/spring-data
-    github: https://github.com/spring-projects/spring-data-commons
+    doc: https://spring.io/projects/spring-data
+    scm: https://github.com/spring-projects/spring-data-commons
     description: Familiar and consistent Spring-based programming model for data access
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Hibernate ORM Panache
-    url: https://quarkus.io/guides/hibernate-orm-panache
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/panache
-    description: Simplified Hibernate ORM layer that makes writing entities trivial
-      and fun in Quarkus
+    name: quarkus-hibernate-orm-panache
+    doc: https://quarkus.io/guides/hibernate-orm-panache
+    scm: https://github.com/quarkusio/quarkus
+    description: Simplify your persistence code for Hibernate ORM via the active record
+      or the repository pattern
     type: EXTENSION
+    since: Mar 2019
   - framework: Spring
     name: Spring Data JPA
-    url: https://spring.io/projects/spring-data-jpa
+    doc: https://spring.io/projects/spring-data-jpa
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Hibernate ORM Panache
-    url: https://quarkus.io/guides/hibernate-orm-panache
+    name: quarkus-hibernate-orm-panache
+    doc: https://quarkus.io/guides/hibernate-orm-panache
+    scm: https://github.com/quarkusio/quarkus
+    description: Simplify your persistence code for Hibernate ORM via the active record
+      or the repository pattern
     type: EXTENSION
+    since: Mar 2019
   - framework: Spring
     name: spring-boot-starter-data-jpa
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: Spring Data MongoDB
-    url: https://spring.io/projects/spring-data-mongodb
+    doc: https://spring.io/projects/spring-data-mongodb
     type: STARTER
-  - framework: Quarkus
-    name: MongoDB Panache
-    url: https://quarkus.io/guides/mongodb-panache
-    type: EXTENSION
-  - framework: Spring
-    name: spring-boot-starter-data-mongodb
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-mongodb-panache
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-mongodb-panache
+    doc: https://quarkus.io/guides/mongodb-panache
+    scm: https://github.com/quarkusio/quarkus
+    description: Simplify your persistence code for MongoDB via the active record
+      or the repository pattern
     type: EXTENSION
+    since: Oct 2019
+  - framework: Spring
+    name: spring-boot-starter-data-mongodb
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-mongodb-panache
+    doc: https://quarkus.io/guides/mongodb-panache
+    scm: https://github.com/quarkusio/quarkus
+    description: Simplify your persistence code for MongoDB via the active record
+      or the repository pattern
+    type: EXTENSION
+    since: Oct 2019
   - framework: Spring
     name: Spring Data Redis
-    url: https://spring.io/projects/spring-data-redis
+    doc: https://spring.io/projects/spring-data-redis
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Redis
-    url: https://quarkus.io/guides/redis
+    name: quarkus-redis-cache
+    doc: https://quarkus.io/guides/cache-redis-reference
+    scm: https://github.com/quarkusio/quarkus
+    description: Use Redis as the caching backend
     type: EXTENSION
+    since: Mar 2023
+    comment: "Registry categories: data, reactive"
   - framework: Spring
     name: spring-boot-starter-data-redis
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: quarkus-redis
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-redis
+    name: quarkus-redis-cache
+    doc: https://quarkus.io/guides/cache-redis-reference
+    scm: https://github.com/quarkusio/quarkus
+    description: Use Redis as the caching backend
     type: EXTENSION
+    since: Mar 2023
+    comment: "Registry categories: data, reactive"
   - framework: Spring
     name: Spring Data R2DBC
-    url: https://spring.io/projects/spring-data-r2dbc
+    doc: https://spring.io/projects/spring-data-r2dbc
     type: STARTER
-  - framework: Quarkus
-    name: Hibernate Reactive Panache
-    url: https://quarkus.io/guides/hibernate-reactive-panache
-    type: EXTENSION
-  - framework: Spring
-    name: spring-boot-starter-data-r2dbc
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-hibernate-reactive-panache
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-hibernate-reactive-panache
+    doc: https://quarkus.io/guides/hibernate-reactive-panache
+    scm: https://github.com/quarkusio/quarkus
+    description: Simplify your persistence code for Hibernate Reactive via the active
+      record or the repository pattern
     type: EXTENSION
+    since: Oct 2020
+  - framework: Spring
+    name: spring-boot-starter-data-r2dbc
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-hibernate-reactive-panache
+    doc: https://quarkus.io/extensions/io.quarkus/quarkus-hibernate-reactive-panache
+    scm: https://github.com/quarkusio/quarkus
+    description: Simplify your persistence code for Hibernate Reactive via the active
+      record or the repository pattern
+    type: EXTENSION
+    since: Oct 2020
   - framework: Spring
     name: Spring Data Elasticsearch
-    url: https://spring.io/projects/spring-data-elasticsearch
+    doc: https://spring.io/projects/spring-data-elasticsearch
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Elasticsearch
-    url: https://quarkus.io/guides/elasticsearch
+    name: quarkus-elasticsearch-rest-client-common
+    doc: https://quarkus.io/guides/elasticsearch
+    scm: https://github.com/quarkusio/quarkus
+    description: Elasticsearch REST client common
     type: EXTENSION
+    since: Jul 2020
   - framework: Spring
     name: spring-boot-starter-data-elasticsearch
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-elasticsearch-rest-client
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-elasticsearch-rest-client
+    doc: https://quarkus.io/guides/elasticsearch
+    scm: https://github.com/quarkusio/quarkus
+    description: Connect to an Elasticsearch cluster using the REST low level client
     type: EXTENSION
+    since: May 2019
   - framework: Spring
     name: Spring Data Neo4j
-    url: https://spring.io/projects/spring-data-neo4j
+    doc: https://spring.io/projects/spring-data-neo4j
     type: STARTER
-  - framework: Quarkus
-    name: Quarkus Neo4j
-    url: https://quarkus.io/extensions/io.quarkiverse.neo4j/quarkus-neo4j
-    type: EXTENSION
-  - framework: Spring
-    name: spring-boot-starter-data-neo4j
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-neo4j
-    url: https://quarkus.io/extensions/io.quarkiverse.neo4j/quarkus-neo4j
+    doc: https://quarkus.io/guides/neo4j
+    description: Connect to Neo4j graph datastore
     type: EXTENSION
+    since: Jul 2019
+  - framework: Spring
+    name: spring-boot-starter-data-neo4j
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-neo4j
+    doc: https://quarkus.io/guides/neo4j
+    description: Connect to Neo4j graph datastore
+    type: EXTENSION
+    since: Jul 2019
   - framework: Spring
     name: Spring Data JDBC
-    url: https://spring.io/projects/spring-data-jdbc
+    doc: https://spring.io/projects/spring-data-jdbc
     type: STARTER
-  - framework: Quarkus
-    name: Agroal
-    url: https://quarkus.io/guides/datasource
-    type: EXTENSION
-  - framework: Spring
-    name: spring-boot-starter-data-jdbc
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-agroal
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-agroal
+    doc: https://quarkus.io/guides/datasource
+    scm: https://github.com/quarkusio/quarkus
+    description: Pool JDBC database connections (included in Hibernate ORM)
     type: EXTENSION
+    since: Mar 2019
+  - framework: Spring
+    name: spring-boot-starter-data-jdbc
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-agroal
+    doc: https://quarkus.io/guides/datasource
+    scm: https://github.com/quarkusio/quarkus
+    description: Pool JDBC database connections (included in Hibernate ORM)
+    type: EXTENSION
+    since: Mar 2019
   - framework: Spring
     name: Spring Data REST
-    url: https://spring.io/projects/spring-data-rest
+    doc: https://spring.io/projects/spring-data-rest
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: spring-boot-starter-data-rest
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: Spring Data Cassandra
-    url: https://spring.io/projects/spring-data-cassandra
+    doc: https://spring.io/projects/spring-data-cassandra
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Cassandra
-    url: https://quarkus.io/extensions/com.datastax.oss.quarkus/cassandra-quarkus-client
+    name: camel-quarkus-cassandraql
+    doc: https://camel.apache.org/camel-quarkus/latest/reference/extensions/cassandraql.html
+    scm: https://github.com/apache/camel-quarkus
+    description: Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API).
+      Based on Cassandra Java Driver provided by DataStax
     type: EXTENSION
+    since: Apr 2020
   - framework: Spring
     name: spring-boot-starter-data-cassandra
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: cassandra-quarkus-client
-    url: https://quarkus.io/extensions/com.datastax.oss.quarkus/cassandra-quarkus-client
+    doc: https://quarkus.io/guides/cassandra
+    scm: https://github.com/datastax/cassandra-quarkus
+    description: "Connect to Apache Cassandra, DataStax Enterprise and DataStax Astra\
+      \ databases"
     type: EXTENSION
+    since: Jun 2020
 
 - category: Spring Flo
   entries:
   - framework: Spring
     name: Spring Flo
-    url: https://spring.io/projects/spring-flo
-    github: https://github.com/spring-projects/spring-flo
+    doc: https://spring.io/projects/spring-flo
+    scm: https://github.com/spring-projects/spring-flo
     description: JavaScript library offering an embeddable HTML5 visual builder for
       pipelines and simple graphs
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Framework
+  tags: "reactive, reactive, reactive, reactive, reactive, reactive, reactive, reactive"
   entries:
   - framework: Spring
     name: Spring Framework
-    url: https://spring.io/projects/spring-framework
-    github: https://github.com/spring-projects/spring-framework
+    doc: https://spring.io/projects/spring-framework
+    scm: https://github.com/spring-projects/spring-framework
     description: Comprehensive programming and configuration model for modern Java-based
       enterprise applications
     type: STARTER
-  - framework: Quarkus
-    name: Quarkus REST (RESTEasy)
-    url: https://quarkus.io/guides/rest
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/resteasy-reactive
-    description: "Jakarta REST implementation built on Vert.x, fully reactive and\
-      \ tightly integrated with Quarkus"
-    type: EXTENSION
-  - framework: Spring
-    name: Spring MVC
-    url: https://docs.spring.io/spring-framework/reference/web/webmvc.html
-    type: STARTER
-  - framework: Quarkus
-    name: RESTEasy Reactive
-    url: https://quarkus.io/guides/rest
-    type: EXTENSION
-  - framework: Spring
-    name: spring-boot-starter-web
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
-  - framework: Spring
-    name: Spring WebFlux
-    url: https://docs.spring.io/spring-framework/reference/web/webflux.html
-    type: STARTER
-  - framework: Quarkus
-    name: Quarkus Reactive
-    url: https://quarkus.io/guides/getting-started-reactive
-    type: EXTENSION
-  - framework: Spring
-    name: spring-boot-starter-webflux
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-rest
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-rest
+    doc: https://quarkus.io/guides/rest
+    scm: https://github.com/quarkusio/quarkus
+    description: "A Jakarta REST implementation utilizing build time processing and\
+      \ Vert.x. This extension is not compatible with the quarkus-resteasy extension,\
+      \ or any of the extensions that depend on it."
     type: EXTENSION
+    since: Mar 2024
+    comment: "Registry categories: web, reactive"
+  - framework: Spring
+    name: Spring MVC
+    doc: https://docs.spring.io/spring-framework/reference/web/webmvc.html
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-resteasy-reactive
+    doc: https://quarkus.io/guides/resteasy-reactive
+    scm: https://github.com/quarkusio/quarkus
+    description: "A Jakarta REST implementation utilizing build time processing and\
+      \ Vert.x. This extension is not compatible with the quarkus-resteasy extension,\
+      \ or any of the extensions that depend on it."
+    type: EXTENSION
+    since: Dec 2020
+    comment: "Registry categories: web, reactive"
+  - framework: Spring
+    name: spring-boot-starter-web
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Spring
+    name: Spring WebFlux
+    doc: https://docs.spring.io/spring-framework/reference/web/webflux.html
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-reactive-transactions
+    doc: https://quarkus.io/guides/getting-started-reactive
+    scm: https://github.com/quarkusio/quarkus
+    description: Quarkus - Reactive Transaction manager
+    type: EXTENSION
+    comment: "Registry categories: data, reactive; First release date not found on\
+      \ Maven Central"
+  - framework: Spring
+    name: spring-boot-starter-webflux
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-rest
+    doc: https://quarkus.io/guides/rest
+    scm: https://github.com/quarkusio/quarkus
+    description: "A Jakarta REST implementation utilizing build time processing and\
+      \ Vert.x. This extension is not compatible with the quarkus-resteasy extension,\
+      \ or any of the extensions that depend on it."
+    type: EXTENSION
+    since: Mar 2024
+    comment: "Registry categories: web, reactive"
   - framework: Spring
     name: Spring AOP
-    url: https://docs.spring.io/spring-framework/reference/core/aop.html
+    doc: https://docs.spring.io/spring-framework/reference/core/aop.html
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: ArC Interceptors
-    url: https://quarkus.io/guides/cdi
+    doc: https://quarkus.io/guides/cdi
     type: EXTENSION
+    comment: Not found in Quarkus registry
   - framework: Spring
     name: Spring WebSocket
-    url: https://docs.spring.io/spring-framework/reference/web/websocket.html
+    doc: https://docs.spring.io/spring-framework/reference/web/websocket.html
     type: STARTER
-  - framework: Quarkus
-    name: Quarkus WebSockets Next
-    url: https://quarkus.io/guides/websockets-next-tutorial
-    type: EXTENSION
-  - framework: Spring
-    name: spring-boot-starter-websocket
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-websockets-next
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-websockets-next
+    doc: https://quarkus.io/guides/websockets-next-reference
+    scm: https://github.com/quarkusio/quarkus
+    description: Implementation of the WebSocket API with enhanced efficiency and
+      usability
     type: EXTENSION
+    since: Mar 2024
+  - framework: Spring
+    name: spring-boot-starter-websocket
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-websockets-next
+    doc: https://quarkus.io/guides/websockets-next-reference
+    scm: https://github.com/quarkusio/quarkus
+    description: Implementation of the WebSocket API with enhanced efficiency and
+      usability
+    type: EXTENSION
+    since: Mar 2024
 
 - category: Spring GraphQL
   entries:
   - framework: Spring
     name: Spring GraphQL
-    url: https://spring.io/projects/spring-graphql
-    github: https://github.com/spring-projects/spring-graphql
+    doc: https://spring.io/projects/spring-graphql
+    scm: https://github.com/spring-projects/spring-graphql
     description: Provides support for Spring applications built on GraphQL Java
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus SmallRye GraphQL
-    url: https://quarkus.io/guides/smallrye-graphql
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/smallrye-graphql
-    description: Expose GraphQL APIs as a query language for fulfilling queries with
-      your existing data
+    name: quarkus-smallrye-graphql
+    doc: https://quarkus.io/guides/smallrye-graphql
+    scm: https://github.com/quarkusio/quarkus
+    description: Create GraphQL Endpoints using the code-first approach from MicroProfile
+      GraphQL
     type: EXTENSION
+    since: May 2020
   - framework: Spring
     name: spring-boot-starter-graphql
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring HATEOAS
+  tags: "reactive, reactive"
   entries:
   - framework: Spring
     name: Spring HATEOAS
-    url: https://spring.io/projects/spring-hateoas
-    github: https://github.com/spring-projects/spring-hateoas
+    doc: https://spring.io/projects/spring-hateoas
+    scm: https://github.com/spring-projects/spring-hateoas
     description: APIs to ease creating REST representations that follow the HATEOAS
       principle with Spring MVC
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus REST Links
-    url: https://quarkus.io/guides/rest#links
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/hal
-    description: Automatically inject web links into HTTP response headers using annotations
+    name: quarkus-rest-links
+    doc: https://quarkus.io/guides/resteasy-reactive#web-links-support
+    scm: https://github.com/quarkusio/quarkus
+    description: Web Links support for Quarkus REST. Inject web links into response
+      HTTP headers by annotating your endpoint resources.
     type: EXTENSION
+    since: Mar 2024
+    comment: "Registry categories: web, reactive"
   - framework: Spring
     name: spring-boot-starter-hateoas
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Integration
   entries:
   - framework: Spring
     name: Spring Integration
-    url: https://spring.io/projects/spring-integration
-    github: https://github.com/spring-projects/spring-integration
+    doc: https://spring.io/projects/spring-integration
+    scm: https://github.com/spring-projects/spring-integration
     description: Extends the Spring programming model to support the well-known Enterprise
       Integration Patterns
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: Apache Camel Quarkus
-    url: https://camel.apache.org/camel-quarkus/latest/
-    github: https://github.com/apache/camel-quarkus
+    doc: https://camel.apache.org/camel-quarkus/latest/
+    scm: https://github.com/apache/camel-quarkus
     description: Brings Apache Camel integration capabilities and its vast component
       library to the Quarkus runtime
     type: EXTENSION
+    comment: Not found in Quarkus registry
   - framework: Spring
     name: spring-boot-starter-integration
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring JMS
   entries:
   - framework: Spring
     name: Spring JMS
-    url: https://docs.spring.io/spring-boot/reference/messaging/jms.html
-    github: https://github.com/spring-projects/spring-framework
+    doc: https://docs.spring.io/spring-boot/reference/messaging/jms.html
+    scm: https://github.com/spring-projects/spring-framework
     description: JMS messaging support for Spring applications
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus JMS
-    url: https://quarkus.io/guides/jms
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/artemis-jms
-    description: Use JMS messaging in Quarkus with Apache Qpid AMQP or ActiveMQ Artemis
-      clients
+    name: camel-quarkus-jms
+    doc: https://camel.apache.org/camel-quarkus/latest/reference/extensions/jms.html
+    scm: https://github.com/apache/camel-quarkus
+    description: Sent and receive messages to/from a JMS Queue or Topic
     type: EXTENSION
+    since: Mar 2020
   - framework: Spring
     name: spring-boot-starter-artemis
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring LDAP
   entries:
   - framework: Spring
     name: Spring LDAP
-    url: https://spring.io/projects/spring-ldap
-    github: https://github.com/spring-projects/spring-ldap
+    doc: https://spring.io/projects/spring-ldap
+    scm: https://github.com/spring-projects/spring-ldap
     description: "Library to simplify LDAP programming in Java, built on the same\
       \ principles as Spring JDBC"
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus LDAP
-    url: https://quarkus.io/guides/security-ldap
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/elytron-security-ldap
-    description: Authenticate and authorize user identities using an LDAP server
+    name: camel-quarkus-ldap
+    doc: https://camel.apache.org/camel-quarkus/latest/reference/extensions/ldap.html
+    scm: https://github.com/apache/camel-quarkus
+    description: Perform searches on LDAP servers
     type: EXTENSION
+    since: Sep 2020
   - framework: Spring
     name: spring-boot-starter-data-ldap
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Mail
   entries:
   - framework: Spring
     name: Spring Mail
-    url: https://docs.spring.io/spring-boot/reference/io/email.html
-    github: https://github.com/spring-projects/spring-framework
+    doc: https://docs.spring.io/spring-boot/reference/io/email.html
+    scm: https://github.com/spring-projects/spring-framework
     description: Email sending support with JavaMail integration
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Mailer
-    url: https://quarkus.io/guides/mailer
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/mailer
-    description: Send emails using SMTP with imperative or reactive APIs
+    name: quarkus-mailer
+    doc: https://quarkus.io/guides/mailer
+    scm: https://github.com/quarkusio/quarkus
+    description: Send emails
     type: EXTENSION
+    since: Jun 2019
   - framework: Spring
     name: spring-boot-starter-mail
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Micrometer Metrics
   entries:
   - framework: Spring
     name: Spring Micrometer Metrics
-    url: https://docs.spring.io/spring-boot/reference/actuator/metrics.html
-    github: https://github.com/micrometer-metrics/micrometer
+    doc: https://docs.spring.io/spring-boot/reference/actuator/metrics.html
+    scm: https://github.com/micrometer-metrics/micrometer
     description: Application metrics facade with dimensional data model
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Micrometer
-    url: https://quarkus.io/guides/micrometer
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/micrometer
-    description: Instrument runtime and applications with dimensional metrics using
-      Micrometer
+    name: quarkus-micrometer
+    doc: https://quarkus.io/guides/micrometer
+    scm: https://github.com/quarkusio/quarkus
+    description: Instrument the runtime and your application with dimensional metrics
+      using Micrometer.
     type: EXTENSION
+    since: Sep 2020
   - framework: Spring
     name: spring-boot-starter-actuator
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Modulith
   entries:
   - framework: Spring
     name: Spring Modulith
-    url: https://spring.io/projects/spring-modulith
-    github: https://github.com/spring-projects/spring-modulith
+    doc: https://spring.io/projects/spring-modulith
+    scm: https://github.com/spring-projects/spring-modulith
     description: Build well-structured Spring Boot applications with domain-driven
       application modules
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
     name: spring-modulith-starter-core
-    url: https://spring.io/projects/spring-modulith
+    doc: https://spring.io/projects/spring-modulith
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Native / AOT
   entries:
   - framework: Spring
     name: Spring Native / AOT
-    url: https://docs.spring.io/spring-boot/how-to/native-image.html
-    github: https://github.com/spring-projects/spring-framework
+    doc: https://docs.spring.io/spring-boot/how-to/native-image.html
+    scm: https://github.com/spring-projects/spring-framework
     description: Ahead-of-time compilation and native image support for Spring Boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: Quarkus Native
-    url: https://quarkus.io/guides/building-native-image
-    github: https://github.com/quarkusio/quarkus
+    doc: https://quarkus.io/guides/building-native-image
+    scm: https://github.com/quarkusio/quarkus
     description: Build self-contained native executables with GraalVM for faster startup
       and smaller footprint
     type: EXTENSION
+    comment: Not found in Quarkus registry
 
 - category: Spring Quartz Scheduler
   entries:
   - framework: Spring
     name: Spring Quartz Scheduler
-    url: https://docs.spring.io/spring-boot/reference/io/quartz.html
-    github: https://github.com/spring-projects/spring-framework
+    doc: https://docs.spring.io/spring-boot/reference/io/quartz.html
+    scm: https://github.com/spring-projects/spring-framework
     description: Advanced job scheduling using Quartz
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Quartz
-    url: https://quarkus.io/guides/quartz
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/quartz
-    description: Schedule periodic clustered tasks using the Quartz scheduler extension
+    name: quarkus-quartz
+    doc: https://quarkus.io/guides/quartz
+    scm: https://github.com/quarkusio/quarkus
+    description: Schedule clustered tasks with Quartz
     type: EXTENSION
+    since: Dec 2019
   - framework: Spring
     name: spring-boot-starter-quartz
-    url: https://spring.io/projects/spring-boot
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring REST Docs
   entries:
   - framework: Spring
     name: Spring REST Docs
-    url: https://spring.io/projects/spring-restdocs
-    github: https://github.com/spring-projects/spring-restdocs
+    doc: https://spring.io/projects/spring-restdocs
+    scm: https://github.com/spring-projects/spring-restdocs
     description: Helps you to document RESTful services
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: SmallRye OpenAPI
-    url: https://quarkus.io/guides/openapi-swaggerui
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/smallrye-openapi
-    description: Generate OpenAPI v3 specifications and expose them through a Swagger
-      UI interface
+    name: quarkus-smallrye-openapi
+    doc: https://quarkus.io/guides/openapi-swaggerui
+    scm: https://github.com/quarkusio/quarkus
+    description: Document your REST APIs with OpenAPI - comes with Swagger UI
     type: EXTENSION
+    since: Mar 2019
   - framework: Spring
     name: spring-restdocs-mockmvc
-    url: https://spring.io/projects/spring-restdocs
+    doc: https://spring.io/projects/spring-restdocs
     type: STARTER
+    comment: Not found in spring-projects GitHub org
 
 - category: Spring Security
   entries:
   - framework: Spring
     name: Spring Security
-    url: https://spring.io/projects/spring-security
-    github: https://github.com/spring-projects/spring-security
+    doc: https://spring.io/projects/spring-security
+    scm: https://github.com/spring-projects/spring-security
     description: Powerful and highly customizable authentication and access-control
       framework
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
-    name: Quarkus Security
-    url: https://quarkus.io/guides/security-overview
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/security
-    description: "Framework providing authentication, authorization, and tools for\
-      \ building secure Java applications"
+    name: quarkus-security
+    doc: https://quarkus.io/guides/security-overview
+    scm: https://github.com/quarkusio/quarkus
+    description: Security
     type: EXTENSION
+    since: Oct 2019
   - framework: Spring
     name: Spring Authorization Server
-    url: https://spring.io/projects/spring-authorization-server
+    doc: https://spring.io/projects/spring-authorization-server
     type: STARTER
-  - framework: Quarkus
-    name: OIDC
-    url: https://quarkus.io/guides/security-oidc-code-flow-authentication
-    type: EXTENSION
-  - framework: Spring
-    name: spring-boot-starter-security
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
-  - framework: Spring
-    name: Spring Security OAuth2
-    url: https://docs.spring.io/spring-security/reference/servlet/oauth2/index.html
-    type: STARTER
-  - framework: Quarkus
-    name: SmallRye JWT
-    url: https://quarkus.io/guides/security-jwt
-    type: EXTENSION
-  - framework: Spring
-    name: spring-boot-starter-oauth2-client
-    url: https://spring.io/projects/spring-boot
-    type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-oidc
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-oidc
+    doc: https://quarkus.io/guides/security-openid-connect
+    scm: https://github.com/quarkusio/quarkus
+    description: Verify Bearer access tokens and authenticate users with Authorization
+      Code Flow
     type: EXTENSION
+    since: Oct 2019
   - framework: Spring
-    name: Spring Session
-    url: https://spring.io/projects/spring-session
+    name: spring-boot-starter-security
+    doc: https://spring.io/projects/spring-boot
     type: STARTER
-  - framework: Quarkus
-    name: Keycloak Authorization
-    url: https://quarkus.io/guides/security-keycloak-authorization
-    type: EXTENSION
+    comment: Not found in spring-projects GitHub org
   - framework: Spring
-    name: spring-boot-starter-oauth2-resource-server
-    url: https://spring.io/projects/spring-boot
+    name: Spring Security OAuth2
+    doc: https://docs.spring.io/spring-security/reference/servlet/oauth2/index.html
     type: STARTER
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-smallrye-jwt
-    url: https://quarkus.io/extensions/io.quarkus/quark
+    doc: https://quarkus.io/guides/security-jwt
+    scm: https://github.com/quarkusio/quarkus
+    description: Secure your applications with JSON Web Token
+    type: EXTENSION
+    since: Mar 2019
+  - framework: Spring
+    name: spring-boot-starter-oauth2-client
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-oidc
+    doc: https://quarkus.io/guides/security-openid-connect
+    scm: https://github.com/quarkusio/quarkus
+    description: Verify Bearer access tokens and authenticate users with Authorization
+      Code Flow
+    type: EXTENSION
+    since: Oct 2019
+  - framework: Spring
+    name: Spring Session
+    doc: https://spring.io/projects/spring-session
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-keycloak-authorization
+    doc: https://quarkus.io/guides/security-keycloak-authorization
+    scm: https://github.com/quarkusio/quarkus
+    description: Policy enforcer using Keycloak-managed permissions to control access
+      to protected resources
+    type: EXTENSION
+    since: Oct 2019
+  - framework: Spring
+    name: spring-boot-starter-oauth2-resource-server
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: quarkus-smallrye-jwt
+    doc: https://quarkus.io/guides/security-jwt
+    scm: https://github.com/quarkusio/quarkus
+    description: Secure your applications with JSON Web Token
+    type: EXTENSION
+    since: Mar 2019
+
+- category: messaging
+  tags: "messaging, AMQP"
+  entries:
+  - framework: Spring
+    name: Spring AMQP
+    doc: https://spring.io/projects/spring-amqp
+    scm: https://github.com/spring-projects/spring-amqp
+    description: Applies core Spring concepts to the development of AMQP-based messaging
+      solutions
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+  - framework: Quarkus
+    name: camel-quarkus-amqp
+    doc: https://camel.apache.org/camel-quarkus/latest/reference/extensions/amqp.html
+    scm: https://github.com/apache/camel-quarkus
+    description: Messaging with AMQP protocol using Apache QPid Client
+    type: EXTENSION
+    since: Apr 2020
+  - framework: Spring
+    name: spring-boot-starter-amqp
+    doc: https://spring.io/projects/spring-boot
+    type: STARTER
+    comment: Not found in spring-projects GitHub org
+
+- category: reactive
+  description: Toolkit for building reactive applications
+  tags: "vert.x, reactive"
+  reviewBy: Charles Moulliard
+  reviewDate: 2026-07-15
+  entries:
+  - framework: Quarkus
+    name: quarkus-vertx
+    doc: https://quarkus.io/guides/vertx
+    scm: https://github.com/quarkusio/quarkus
+    description: Write reactive applications with the Vert.x API
+    type: EXTENSION
+    since: Mar 2019
 
 - category: streaming
   description: Technology supporting high-scalable distributed event streaming.
@@ -914,22 +1202,23 @@
   entries:
   - framework: Spring
     name: spring-boot-starter-kafka
-    url: https://spring.io/projects/spring-kafka
-    github: https://github.com/spring-projects/spring-kafka
+    doc: https://spring.io/projects/spring-kafka
+    scm: https://github.com/spring-projects/spring-kafka
     description: Starter for using Apache Kafka
     type: STARTER
     since: Nov 2025
+    comment: Not found in spring-projects GitHub org
   - framework: Quarkus
     name: quarkus-kafka-client
-    url: https://quarkus.io/guides/kafka
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/kafka-client
+    doc: https://quarkus.io/guides/kafka
+    scm: https://github.com/quarkusio/quarkus
     description: Connect to Apache Kafka with its native API
     type: EXTENSION
-    since: "Mar 6, 2019"
+    since: Mar 2019
   - framework: Quarkus
     name: quarkus-kafka-streams
-    url: https://quarkus.io/guides/kafka
-    github: https://github.com/quarkusio/quarkus/tree/main/extensions/kafka-streams
+    doc: https://quarkus.io/guides/kafka-streams
+    scm: https://github.com/quarkusio/quarkus
     description: Implement stream processing applications based on Apache Kafka
     type: EXTENSION
-    since: "June 19, 2019"
+    since: Jun 2019

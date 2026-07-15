@@ -11,6 +11,7 @@ import io.snowdrop.cartography.model.FrameworkEntry;
 import io.snowdrop.cartography.repository.CapabilityRepository;
 import io.snowdrop.cartography.service.DataService;
 import io.snowdrop.cartography.service.ExportService;
+import io.snowdrop.cartography.service.RegistryEnrichmentService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -58,6 +59,9 @@ public class CapabilityResource {
 
     @Inject
     ExportService exportService;
+
+    @Inject
+    RegistryEnrichmentService enrichmentService;
 
     @GET
     @Produces(MediaType.TEXT_HTML)
@@ -204,6 +208,14 @@ public class CapabilityResource {
         return Response.seeOther(URI.create("/capabilities?saved=true")).build();
     }
 
+    @POST
+    @Path("/enrich")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response enrichFromRegistry() {
+        var result = enrichmentService.enrich();
+        return Response.ok(result).build();
+    }
+
     private void applyEntries(Capability c, String entriesJson) {
         if (entriesJson == null || entriesJson.isBlank()) return;
         try {
@@ -214,11 +226,12 @@ public class CapabilityResource {
                 FrameworkEntry entry = new FrameworkEntry();
                 entry.setFramework(parseFramework(dto.framework));
                 entry.setName(dto.name.trim());
-                entry.setUrl(blankToNull(dto.url));
-                entry.setGithub(blankToNull(dto.github));
+                entry.setDoc(blankToNull(dto.doc));
+                entry.setScm(blankToNull(dto.scm));
                 entry.setDescription(blankToNull(dto.description));
                 entry.setType(parseType(dto.type));
                 entry.setSince(blankToNull(dto.since));
+                entry.setComment(blankToNull(dto.comment));
                 c.addEntry(entry);
             }
         } catch (Exception e) {
@@ -260,10 +273,11 @@ public class CapabilityResource {
     public static class EntryDto {
         public String framework;
         public String name;
-        public String url;
-        public String github;
+        public String doc;
+        public String scm;
         public String description;
         public String type;
         public String since;
+        public String comment;
     }
 }

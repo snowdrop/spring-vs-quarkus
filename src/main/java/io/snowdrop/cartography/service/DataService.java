@@ -139,9 +139,9 @@ public class DataService {
         var entry = new FrameworkEntry();
         entry.setFramework(framework);
         entry.setName(project.label());
-        entry.setUrl(project.url());
+        entry.setDoc(project.url());
         if (github != null) {
-            entry.setGithub(github.url());
+            entry.setScm(github.url());
         }
         entry.setType(framework == Framework.Spring ? ComponentType.STARTER : ComponentType.EXTENSION);
         c.addEntry(entry);
@@ -154,7 +154,7 @@ public class DataService {
             var e = new FrameworkEntry();
             e.setFramework(Framework.Spring);
             e.setName(springSub.label());
-            e.setUrl(springSub.url());
+            e.setDoc(springSub.url());
             e.setType(ComponentType.STARTER);
             capability.addEntry(e);
         }
@@ -162,7 +162,7 @@ public class DataService {
             var e = new FrameworkEntry();
             e.setFramework(Framework.Quarkus);
             e.setName(quarkusSub.label());
-            e.setUrl(quarkusSub.url());
+            e.setDoc(quarkusSub.url());
             e.setType(ComponentType.EXTENSION);
             capability.addEntry(e);
         }
@@ -170,7 +170,7 @@ public class DataService {
             var e = new FrameworkEntry();
             e.setFramework(Framework.Spring);
             e.setName(starter.label());
-            e.setUrl(starter.url());
+            e.setDoc(starter.url());
             e.setType(ComponentType.STARTER);
             capability.addEntry(e);
         }
@@ -178,7 +178,7 @@ public class DataService {
             var e = new FrameworkEntry();
             e.setFramework(Framework.Quarkus);
             e.setName(extension.label());
-            e.setUrl(extension.url());
+            e.setDoc(extension.url());
             e.setType(ComponentType.EXTENSION);
             capability.addEntry(e);
         }
@@ -250,21 +250,23 @@ public class DataService {
     public record FrameworkEntryDto(
             Framework framework,
             String name,
-            String url,
-            String github,
+            String doc,
+            String scm,
             String description,
             ComponentType type,
-            String since
+            String since,
+            String comment
     ) {
         static FrameworkEntryDto fromEntity(FrameworkEntry e) {
             return new FrameworkEntryDto(
                     e.getFramework(),
                     e.getName(),
-                    e.getUrl(),
-                    e.getGithub(),
+                    e.getDoc(),
+                    e.getScm(),
                     e.getDescription(),
                     e.getType(),
-                    e.getSince()
+                    e.getSince(),
+                    e.getComment()
             );
         }
 
@@ -272,11 +274,12 @@ public class DataService {
             var e = new FrameworkEntry();
             e.setFramework(framework);
             e.setName(name);
-            e.setUrl(url);
-            e.setGithub(github);
+            e.setDoc(doc);
+            e.setScm(scm);
             e.setDescription(description);
             e.setType(type);
             e.setSince(since);
+            e.setComment(comment);
             return e;
         }
     }

@@ -6,6 +6,7 @@
 .sort-icon::after { content: '\2195'; opacity: 0.3; margin-left: 0.25rem; font-size: 0.75rem; }
 .sortable.asc .sort-icon::after { content: '\25B2'; opacity: 0.8; }
 .sortable.desc .sort-icon::after { content: '\25BC'; opacity: 0.8; }
+table tbody td { vertical-align: top; }
 {/extraStyles}
 {#content}
 
@@ -52,6 +53,7 @@
             <th class="sortable" data-col="3" data-type="text">Spring <span class="sort-icon"></span></th>
             <th class="sortable" data-col="4" data-type="text">Quarkus <span class="sort-icon"></span></th>
             <th class="sortable" data-col="5" data-type="num">Entries <span class="sort-icon"></span></th>
+            <th class="sortable" data-col="6" data-type="text">Reviewed <span class="sort-icon"></span></th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -61,27 +63,36 @@
             <td><a href="/capabilities/{c.id}/edit">{c.category}</a></td>
             <td>
                 {#if c.springEntries.size > 0}
-                    {#let first=c.springEntries.get(0)}
-                    <a href="{first.url}" target="_blank">{first.name}</a>
-                    {#if first.github}<br><a href="{first.github}" target="_blank" style="font-size:0.75rem;">GitHub</a>{/if}
-                    {/let}
+                    {#for entry in c.springEntries}
+                    {#if !entry_isFirst}<hr style="margin:0.35rem 0;border:0;border-top:1px solid var(--pico-color);">{/if}
+                    <div>
+                        {#if entry.doc}<span style="font-size:0.75rem;">doc: </span><a href="{entry.doc}" target="_blank">{entry.name}</a>{/if}
+                        {#if entry.scm}<br><span style="font-size:0.75rem;">scm: </span><a href="{entry.scm}" target="_blank">{entry.scmRepoName}</a>{/if}
+                        {#if entry.comment}<br><span style="font-size:0.7rem;color:var(--pico-muted-color);" title="{entry.comment}">Note: {entry.comment}</span>{/if}
+                    </div>
+                    {/for}
                 {#else}
                     <span class="gap">---</span>
                 {/if}
             </td>
             <td>
                 {#if c.quarkusEntries.size > 0}
-                    {#let first=c.quarkusEntries.get(0)}
-                    <a href="{first.url}" target="_blank">{first.name}</a>
-                    {#if first.github}<br><a href="{first.github}" target="_blank" style="font-size:0.75rem;">GitHub</a>{/if}
-                    {/let}
+                    {#for entry in c.quarkusEntries}
+                    {#if !entry_isFirst}<hr style="margin:0.35rem 0;border:0;border-top:1px solid var(--pico-color);">{/if}
+                    <div>
+                        {#if entry.doc}<span style="font-size:0.75rem;">doc: </span><a href="{entry.doc}" target="_blank">{entry.name}</a>{/if}
+                        {#if entry.scm}<br><span style="font-size:0.75rem;">scm: </span><a href="{entry.scm}" target="_blank">{entry.scmRepoName}</a>{/if}
+                        {#if entry.comment}<br><span style="font-size:0.7rem;color:var(--pico-muted-color);" title="{entry.comment}">Note: {entry.comment}</span>{/if}
+                    </div>
+                    {/for}
                 {#else}
                     <span class="gap">---</span>
                 {/if}
             </td>
-            <td>{#if c.springSupported}<span class="badge badge-spring">Yes</span>{#else}<span class="badge badge-gap">No</span>{/if}</td>
-            <td>{#if c.quarkusSupported}<span class="badge badge-quarkus">Yes</span>{#else}<span class="badge badge-gap">No</span>{/if}</td>
+            <td>{#if c.springSupported}<span class="badge badge-yes">Yes</span>{#else}<span class="badge badge-no">No</span>{/if}</td>
+            <td>{#if c.quarkusSupported}<span class="badge badge-yes">Yes</span>{#else}<span class="badge badge-no">No</span>{/if}</td>
             <td>{c.entries.size}</td>
+            <td>{#if c.reviewDate}{c.reviewBy.orEmpty}<br><span style="font-size:0.75rem;">{c.reviewDate}</span>{#else}<span class="gap">--</span>{/if}</td>
             <td style="white-space:nowrap;">
                 <button type="button" class="outline" style="font-size:0.75rem;padding:0.2rem 0.5rem;margin:0;"
                         onclick="location.href='/capabilities/{c.id}/edit'">Edit</button>

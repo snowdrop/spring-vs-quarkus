@@ -26,9 +26,9 @@ public class FrameworkEntry {
     @Column(nullable = false)
     private String name;
 
-    private String url;
+    private String doc;
 
-    private String github;
+    private String scm;
 
     @Column(length = 1024)
     private String description;
@@ -37,6 +37,9 @@ public class FrameworkEntry {
     private ComponentType type;
 
     private String since;
+
+    @Column(length = 1024)
+    private String comment;
 
     @ManyToOne
     @JsonIgnore
@@ -69,20 +72,28 @@ public class FrameworkEntry {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getDoc() {
+        return doc;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDoc(String doc) {
+        this.doc = doc;
     }
 
-    public String getGithub() {
-        return github;
+    public String getScm() {
+        return scm;
     }
 
-    public void setGithub(String github) {
-        this.github = github;
+    @JsonIgnore
+    public String getScmRepoName() {
+        if (scm == null || scm.isEmpty()) return "";
+        String trimmed = scm.endsWith("/") ? scm.substring(0, scm.length() - 1) : scm;
+        int lastSlash = trimmed.lastIndexOf('/');
+        return lastSlash >= 0 ? trimmed.substring(lastSlash + 1) : trimmed;
+    }
+
+    public void setScm(String scm) {
+        this.scm = scm;
     }
 
     public String getDescription() {
@@ -107,6 +118,14 @@ public class FrameworkEntry {
 
     public void setSince(String since) {
         this.since = since;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Capability getCapability() {

@@ -104,11 +104,12 @@ var existingEntries = [
   {
     framework: '{e.framework}',
     name: '{#if e.name}{e.name}{/if}',
-    url: '{#if e.url}{e.url}{/if}',
-    github: '{#if e.github}{e.github}{/if}',
+    doc: '{#if e.doc}{e.doc}{/if}',
+    scm: '{#if e.scm}{e.scm}{/if}',
     description: '{#if e.description}{e.description}{/if}',
     type: '{#if e.type}{e.type}{/if}',
-    since: '{#if e.since}{e.since}{/if}'
+    since: '{#if e.since}{e.since}{/if}',
+    comment: '{#if e.comment}{e.comment}{/if}'
   },
 {/for}
 {/if}
@@ -142,12 +143,16 @@ function addEntryCard(data) {
         '<textarea class="e-desc" rows="2" placeholder="Description">' + esc(d.description||'') + '</textarea>' +
       '</div>' +
       '<div class="field field-full">' +
-        '<label>Project home</label>' +
-        '<input type="text" class="e-url" value="' + esc(d.url||'') + '" placeholder="https://...">' +
+        '<label>Doc url</label>' +
+        '<input type="text" class="e-doc" value="' + esc(d.doc||'') + '" placeholder="https://...">' +
       '</div>' +
       '<div class="field field-full">' +
-        '<label>GitHub repo</label>' +
-        '<input type="text" class="e-github" value="' + esc(d.github||'') + '" placeholder="https://github.com/...">' +
+        '<label>Scm url</label>' +
+        '<input type="text" class="e-scm" value="' + esc(d.scm||'') + '" placeholder="https://github.com/...">' +
+      '</div>' +
+      '<div class="field field-full">' +
+        '<label>Comment</label>' +
+        '<textarea class="e-comment" rows="2" placeholder="Review notes...">' + esc(d.comment||'') + '</textarea>' +
       '</div>' +
     '</div>' +
     '<button type="button" class="btn-delete" onclick="this.closest(\'.entry-card\').remove()">Delete</button>';
@@ -176,11 +181,12 @@ document.getElementById('compForm').addEventListener('submit', function() {
     entries.push({
       framework: c.querySelector('.e-fw').value,
       name: c.querySelector('.e-name').value,
-      url: c.querySelector('.e-url').value,
-      github: c.querySelector('.e-github').value,
+      doc: c.querySelector('.e-doc').value,
+      scm: c.querySelector('.e-scm').value,
       description: c.querySelector('.e-desc').value,
       type: c.querySelector('.e-type').value,
-      since: c.querySelector('.e-since').value
+      since: c.querySelector('.e-since').value,
+      comment: c.querySelector('.e-comment').value
     });
   });
   document.getElementById('entriesJson').value = JSON.stringify(entries);

@@ -1,7 +1,6 @@
 package io.snowdrop.cartography.service;
 
 import io.snowdrop.cartography.model.Capability;
-import io.snowdrop.cartography.model.ComponentType;
 import io.snowdrop.cartography.model.FrameworkEntry;
 import io.snowdrop.cartography.repository.CapabilityRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -16,108 +15,28 @@ public class ExportService {
 
     public String exportCsv() {
         var sb = new StringBuilder();
-        sb.append("Spring project,Github repo,Spring sub-projects,Quarkus project,Quarkus Github repo,Quarkus sub-projects,Spring Boot starter,Quarkus extension,Spring supported,Quarkus supported\n");
+        sb.append("Category,Framework,Name,Doc URL,SCM URL,Description,Type,Since\n");
 
         List<Capability> capabilities = repository.findAllOrdered();
         for (Capability c : capabilities) {
-            List<FrameworkEntry> springEntries = c.getSpringEntries();
-            List<FrameworkEntry> quarkusEntries = c.getQuarkusEntries();
-
-            FrameworkEntry springProject = springEntries.isEmpty() ? null : springEntries.get(0);
-            FrameworkEntry quarkusProject = quarkusEntries.isEmpty() ? null : quarkusEntries.get(0);
-
-            List<FrameworkEntry> springSubs = springEntries.stream()
-                    .filter(e -> e.getType() == ComponentType.STARTER)
-                    .filter(e -> e != springProject)
-                    .toList();
-            List<FrameworkEntry> quarkusSubs = quarkusEntries.stream()
-                    .filter(e -> e.getType() == ComponentType.EXTENSION)
-                    .filter(e -> e != quarkusProject)
-                    .toList();
-            List<FrameworkEntry> starters = springEntries.stream()
-                    .filter(e -> e.getType() == ComponentType.STARTER)
-                    .toList();
-            List<FrameworkEntry> extensions = quarkusEntries.stream()
-                    .filter(e -> e.getType() == ComponentType.EXTENSION)
-                    .toList();
-
-            int rows = Math.max(1, Math.max(
-                    Math.max(springSubs.size(), quarkusSubs.size()),
-                    Math.max(starters.size(), extensions.size())));
-
-            for (int i = 0; i < rows; i++) {
-                boolean firstRow = (i == 0);
-
-                if (firstRow) {
-                    sb.append(hyperlink(springProject));
-                    sb.append(',');
-                    sb.append(githubLink(springProject));
-                } else {
-                    sb.append(',');
+            if (c.getEntries().isEmpty()) {
+                sb.append(csvField(c.getCategory()));
+                sb.append(",,,,,,,\n");
+            } else {
+                for (FrameworkEntry e : c.getEntries()) {
+                    sb.append(csvField(c.getCategory())).append(',');
+                    sb.append(csvField(e.getFramework() != null ? e.getFramework().name() : "")).append(',');
+                    sb.append(csvField(e.getName())).append(',');
+                    sb.append(csvField(e.getDoc())).append(',');
+                    sb.append(csvField(e.getScm())).append(',');
+                    sb.append(csvField(e.getDescription())).append(',');
+                    sb.append(csvField(e.getType() != null ? e.getType().name() : "")).append(',');
+                    sb.append(csvField(e.getSince()));
+                    sb.append('\n');
                 }
-                sb.append(',');
-                sb.append(i < springSubs.size() ? hyperlink(springSubs.get(i)) : "");
-                sb.append(',');
-                if (firstRow) {
-                    sb.append(hyperlink(quarkusProject));
-                    sb.append(',');
-                    sb.append(githubLink(quarkusProject));
-                } else {
-                    sb.append(',');
-                }
-                sb.append(',');
-                sb.append(i < quarkusSubs.size() ? hyperlink(quarkusSubs.get(i)) : "");
-                sb.append(',');
-                sb.append(i < starters.size() ? hyperlink(starters.get(i)) : "");
-                sb.append(',');
-                sb.append(i < extensions.size() ? hyperlink(extensions.get(i)) : "");
-                sb.append(',');
-                sb.append(c.isSpringSupported() ? "YES" : "NO");
-                sb.append(',');
-                sb.append(c.isQuarkusSupported() ? "YES" : "NO");
-                sb.append('\n');
             }
         }
         return sb.toString();
-    }
-
-    private String hyperlink(FrameworkEntry entry) {
-        if (entry == null || entry.getName() == null) return "";
-        if (entry.getUrl() != null) {
-            return "\"=HYPERLINK(\"\"" + entry.getUrl() + "\"\",\"\"" + escapeCsv(entry.getName()) + "\"\")\"";
-        }
-        return csvField(entry.getName());
-    }
-
-    private String githubLink(FrameworkEntry entry) {
-        if (entry == null || entry.getGithub() == null) return "";
-        String repoName = extractRepoName(entry.getGithub());
-        return "\"=HYPERLINK(\"\"" + entry.getGithub() + "\"\",\"\"" + escapeCsv(repoName) + "\"\")\"";
-    }
-
-    private String extractRepoName(String githubUrl) {
-        if (githubUrl == null) return "";
-        String path = githubUrl.replaceFirst("https?://github\\.com/", "");
-        if (path.contains("/tree/")) {
-            path = path.substring(0, path.indexOf("/tree/"));
-        }
-        int slash = path.indexOf('/');
-        if (slash >= 0) {
-            return path.substring(slash + 1);
-        }
-        return path;
-    }
-
-    private String csvField(String value) {
-        if (value == null) return "";
-        if (value.contains(",") || value.contains("\"") || value.contains("\n")) {
-            return "\"" + value.replace("\"", "\"\"") + "\"";
-        }
-        return value;
-    }
-
-    private String escapeCsv(String value) {
-        return value == null ? "" : value.replace("\"", "\"\"");
     }
 
     public String exportMarkdown() {
@@ -137,58 +56,47 @@ public class ExportService {
         sb.append("| Spring only | ").append(springOnly).append(" |\n");
         sb.append("| Quarkus only | ").append(quarkusOnly).append(" |\n\n");
 
-        sb.append("## Comparison Table\n\n");
-        sb.append("| Category | Spring | Quarkus | Spring Supported | Quarkus Supported |\n");
-        sb.append("|----------|--------|---------|:----------------:|:-----------------:|\n");
+        sb.append("## Capabilities\n\n");
+        sb.append("| Category | Framework | Name | Description | Type | Since |\n");
+        sb.append("|----------|-----------|------|-------------|------|-------|\n");
         for (Capability c : capabilities) {
-            FrameworkEntry springMain = c.getSpringEntries().isEmpty() ? null : c.getSpringEntries().get(0);
-            FrameworkEntry quarkusMain = c.getQuarkusEntries().isEmpty() ? null : c.getQuarkusEntries().get(0);
-            sb.append("| ").append(c.getCategory());
-            sb.append(" | ").append(mdLink(springMain));
-            sb.append(" | ").append(mdLink(quarkusMain));
-            sb.append(" | ").append(c.isSpringSupported() ? "Yes" : "**No**");
-            sb.append(" | ").append(c.isQuarkusSupported() ? "Yes" : "**No**");
-            sb.append(" |\n");
-        }
-
-        sb.append("\n## Details\n\n");
-        for (Capability c : capabilities) {
-            sb.append("### ").append(c.getCategory()).append("\n\n");
-            if (c.getDescription() != null) {
-                sb.append(c.getDescription()).append("\n\n");
-            }
-            if (!c.getEntries().isEmpty()) {
-                sb.append("| Framework | Feature | Type |\n");
-                sb.append("|-----------|---------|------|\n");
+            if (c.getEntries().isEmpty()) {
+                sb.append("| ").append(c.getCategory());
+                sb.append(" | | | | | |\n");
+            } else {
                 for (FrameworkEntry e : c.getEntries()) {
-                    sb.append("| ").append(e.getFramework());
+                    sb.append("| ").append(c.getCategory());
+                    sb.append(" | ").append(e.getFramework() != null ? e.getFramework() : "");
                     sb.append(" | ").append(mdEntryLink(e));
+                    sb.append(" | ").append(e.getDescription() != null ? e.getDescription() : "");
                     sb.append(" | ").append(e.getType() != null ? e.getType() : "");
+                    sb.append(" | ").append(e.getSince() != null ? e.getSince() : "");
                     sb.append(" |\n");
                 }
-                sb.append("\n");
             }
         }
         return sb.toString();
     }
 
-    private String mdLink(FrameworkEntry entry) {
-        if (entry == null || entry.getName() == null) return "---";
-        if (entry.getUrl() != null) return "[" + entry.getName() + "](" + entry.getUrl() + ")";
-        return entry.getName();
-    }
-
     private String mdEntryLink(FrameworkEntry e) {
         if (e == null || e.getName() == null) return "---";
         var s = new StringBuilder();
-        if (e.getUrl() != null) {
-            s.append("[").append(e.getName()).append("](").append(e.getUrl()).append(")");
+        if (e.getDoc() != null) {
+            s.append("[").append(e.getName()).append("](").append(e.getDoc()).append(")");
         } else {
             s.append(e.getName());
         }
-        if (e.getGithub() != null) {
-            s.append(" ([GitHub](").append(e.getGithub()).append("))");
+        if (e.getScm() != null) {
+            s.append(" ([SCM](").append(e.getScm()).append("))");
         }
         return s.toString();
+    }
+
+    private String csvField(String value) {
+        if (value == null) return "";
+        if (value.contains(",") || value.contains("\"") || value.contains("\n")) {
+            return "\"" + value.replace("\"", "\"\"") + "\"";
+        }
+        return value;
     }
 }
