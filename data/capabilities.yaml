@@ -1,43 +1,36 @@
 - category: Quarkus Vert.x
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Quarkus
     name: Quarkus Vert.x
     url: https://quarkus.io/guides/vertx
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/vertx
-    description: "Reactive toolkit for building event-driven, non-blocking applications\
-      \ on the Vert.x engine"
-    type: SUB_PROJECT
-    since: null
-  - framework: Quarkus
-    name: quarkus-vertx
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-vertx
-    github: null
-    description: null
+    description: Reactive toolkit for building event-driven, non-blocking applications
+      on the Vert.x engine
     type: EXTENSION
-    since: null
+    since:
 - category: Scheduler
-  description: null
-  tags: "scheduler, quartz"
+  description:
+  tags: scheduler, quartz
   entries:
   - framework: Spring
     name: Spring @Scheduled
     url: https://docs.spring.io/spring-framework/reference/integration/scheduling.html
     github: https://github.com/spring-projects/spring-framework
     description: Annotation-driven task scheduling in Spring Framework
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Scheduler
     url: https://quarkus.io/guides/scheduler
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/scheduler
     description: Schedule periodic tasks in your application using simple annotations
     type: EXTENSION
-    since: null
+    since:
 - category: Service Discovery
   description: Service discovery and client-side load-balancing
-  tags: "service-discovery, load balancing"
+  tags: service-discovery, load balancing
   entries:
   - framework: Quarkus
     name: Quarkus Stork (Service Discovery)
@@ -46,10 +39,10 @@
     description: Service discovery and client-side load balancing with extensible
       mechanisms
     type: EXTENSION
-    since: null
+    since:
 - category: Spring AI
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring AI
@@ -57,75 +50,68 @@
     github: https://github.com/spring-projects/spring-ai
     description: Application framework for AI engineering using Spring ecosystem design
       principles
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus LangChain4j
     url: https://docs.quarkiverse.io/quarkus-langchain4j/dev/
     github: https://github.com/quarkiverse/quarkus-langchain4j
-    description: "Integrate Large Language Models into Quarkus services with a declarative,\
-      \ developer-friendly API"
-    type: SUB_PROJECT
-    since: null
+    description: Integrate Large Language Models into Quarkus services with a declarative,
+      developer-friendly API
+    type: EXTENSION
+    since:
   - framework: Spring
     name: Chat Client
     url: https://docs.spring.io/spring-ai/reference/api/chatclient.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: AI Services
     url: https://docs.quarkiverse.io/quarkus-langchain4j/dev/
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-ai-openai-spring-boot-starter
     url: https://spring.io/projects/spring-ai
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-langchain4j-openai
-    url: https://quarkus.io/extensions/io.quarkiverse.langchain4j/quarkus-langchain4j-openai
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Vector Stores
     url: https://docs.spring.io/spring-ai/reference/api/vectordbs.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: RAG / Embedding Stores
     url: https://docs.quarkiverse.io/quarkus-langchain4j/dev/rag.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-ai-pgvector-store-spring-boot-starter
     url: https://spring.io/projects/spring-ai
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-langchain4j-pgvector
     url: https://quarkus.io/extensions/io.quarkiverse.langchain4j/quarkus-langchain4j-pgvector
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
 - category: Spring AMQP
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring AMQP
@@ -133,32 +119,25 @@
     github: https://github.com/spring-projects/spring-amqp
     description: Applies core Spring concepts to the development of AMQP-based messaging
       solutions
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus AMQP
     url: https://quarkus.io/guides/amqp
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/smallrye-reactive-messaging-amqp
     description: Interact with AMQP 1.0 messaging brokers using Quarkus Messaging
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-amqp
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-smallrye-reactive-messaging-amqp
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-reactive-messaging-amqp
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Authorization Server
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Authorization Server
@@ -166,259 +145,224 @@
     github: https://github.com/spring-projects/spring-authorization-server
     description: Framework providing implementations of the OAuth 2.1 and OpenID Connect
       1.0 specifications
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Spring
     name: spring-boot-starter-oauth2-authorization-server
     url: https://spring.io/projects/spring-authorization-server
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
 - category: Spring Batch
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Batch
     url: https://spring.io/projects/spring-batch
     github: https://github.com/spring-projects/spring-batch
-    description: "Lightweight, comprehensive batch framework for robust batch applications\
-      \ in enterprise systems"
-    type: SUB_PROJECT
-    since: null
+    description: Lightweight, comprehensive batch framework for robust batch applications
+      in enterprise systems
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus JBeret
     url: https://quarkiverse.github.io/quarkiverse-docs/quarkus-jberet/dev/
     github: https://github.com/quarkiverse/quarkus-jberet
     description: Adds support for JSR-352 Batch Applications for the Java Platform
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-batch
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-jberet
-    url: https://quarkus.io/extensions/io.quarkiverse.jberet/quarkus-jberet
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Boot
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Boot
     url: https://spring.io/projects/spring-boot
     github: https://github.com/spring-projects/spring-boot
-    description: "Makes it easy to create stand-alone, production-grade Spring based\
-      \ applications"
-    type: SUB_PROJECT
-    since: null
+    description: Makes it easy to create stand-alone, production-grade Spring based
+      applications
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus
     url: https://quarkus.io/guides/getting-started
     github: https://github.com/quarkusio/quarkus
     description: Supersonic Subatomic Java framework tailored for GraalVM and OpenJDK
       with fast startup and low memory
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: Spring Boot Actuator
     url: https://docs.spring.io/spring-boot/reference/actuator/
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: SmallRye Health
     url: https://quarkus.io/guides/smallrye-health
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-core
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-core
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Boot DevTools
     url: https://docs.spring.io/spring-boot/reference/using/devtools.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Dev Mode
     url: https://quarkus.io/guides/dev-mode-differences
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-devtools
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-vertx-http
     url: https://quarkus.io/extensions/io.quarkus/quarkus-vertx-http
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Boot Docker Compose
     url: https://docs.spring.io/spring-boot/reference/features/docker-compose.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Dev Services
     url: https://quarkus.io/guides/dev-services
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-docker-compose
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Spring
     name: Spring Boot Testcontainers
     url: https://docs.spring.io/spring-boot/reference/features/testcontainers.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Spring
     name: spring-boot-testcontainers
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
 - category: Spring Boot Flyway
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Boot Flyway
     url: https://docs.spring.io/spring-boot/how-to/data-initialization.html
     github: https://github.com/flyway/flyway
     description: Database migration support using Flyway
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Flyway
     url: https://quarkus.io/guides/flyway
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/flyway
     description: Handle database schema migrations using Flyway
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: flyway-core
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-flyway
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-flyway
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Boot Liquibase
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Boot Liquibase
     url: https://docs.spring.io/spring-boot/how-to/data-initialization.html
     github: https://github.com/liquibase/liquibase
     description: Database migration support using Liquibase
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Liquibase
     url: https://quarkus.io/guides/liquibase
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/liquibase
     description: Manage database schema changes using Liquibase
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: liquibase-core
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-liquibase
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-liquibase
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Cache
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Cache
     url: https://docs.spring.io/spring-boot/reference/io/caching.html
     github: https://github.com/spring-projects/spring-framework
     description: Declarative cache abstraction with pluggable cache providers
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Cache
     url: https://quarkus.io/guides/cache
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/cache
     description: Enable application data caching in any CDI managed bean of your Quarkus
       application
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-cache
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-cache
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-cache
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Cloud
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Cloud
@@ -426,512 +370,498 @@
     github: https://github.com/spring-cloud
     description: Tools for developers to quickly build common patterns in distributed
       systems
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: SmallRye Config
     url: https://quarkus.io/guides/config-reference
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/config-yaml
-    description: "Unified configuration leveraging SmallRye Config API, an implementation\
-      \ of MicroProfile Config"
-    type: SUB_PROJECT
-    since: null
+    description: Unified configuration leveraging SmallRye Config API, an implementation
+      of MicroProfile Config
+    type: EXTENSION
+    since:
   - framework: Spring
     name: Spring Cloud Config
     url: https://docs.spring.io/spring-cloud-config/reference/
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: SmallRye Config
     url: https://quarkus.io/guides/config-reference
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-cloud-starter-config
     url: https://spring.io/projects/spring-cloud-config
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-config-yaml
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-config-yaml
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Cloud Gateway
     url: https://spring.io/projects/spring-cloud-gateway
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Spring
     name: spring-cloud-starter-gateway
     url: https://spring.io/projects/spring-cloud-gateway
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Spring
     name: Spring Cloud OpenFeign
     url: https://docs.spring.io/spring-cloud-openfeign/reference/
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus REST Client
     url: https://quarkus.io/guides/rest-client
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-cloud-starter-openfeign
     url: https://spring.io/projects/spring-cloud-openfeign
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-rest-client
     url: https://quarkus.io/extensions/io.quarkus/quarkus-rest-client
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Cloud Circuit Breaker
     url: https://spring.io/projects/spring-cloud-circuitbreaker
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: SmallRye Fault Tolerance
     url: https://quarkus.io/guides/smallrye-fault-tolerance
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-cloud-starter-circuitbreaker-resilience4j
     url: https://spring.io/projects/spring-cloud-circuitbreaker
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-smallrye-fault-tolerance
     url: https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-fault-tolerance
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Cloud Stream
     url: https://spring.io/projects/spring-cloud-stream
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: SmallRye Reactive Messaging
     url: https://quarkus.io/guides/messaging
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-cloud-starter-stream-kafka
     url: https://spring.io/projects/spring-cloud-stream
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-smallrye-reactive-messaging
     url: https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-reactive-messaging
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Micrometer Tracing
     url: https://docs.spring.io/spring-boot/reference/actuator/tracing.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: OpenTelemetry
     url: https://quarkus.io/guides/opentelemetry
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: micrometer-tracing
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-opentelemetry
     url: https://quarkus.io/extensions/io.quarkus/quarkus-opentelemetry
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Cloud Netflix (Eureka)
     url: https://spring.io/projects/spring-cloud-netflix
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Spring
     name: spring-cloud-starter-netflix-eureka-client
     url: https://spring.io/projects/spring-cloud-netflix
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Spring
     name: Spring Cloud Kubernetes
     url: https://spring.io/projects/spring-cloud-kubernetes
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Kubernetes
     url: https://quarkus.io/guides/deploying-to-kubernetes
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-cloud-starter-kubernetes-client
     url: https://spring.io/projects/spring-cloud-kubernetes
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-kubernetes
     url: https://quarkus.io/extensions/io.quarkus/quarkus-kubernetes
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Cloud Function
     url: https://spring.io/projects/spring-cloud-function
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Funqy
     url: https://quarkus.io/guides/funqy
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-cloud-function-context
     url: https://spring.io/projects/spring-cloud-function
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-funqy-http
     url: https://quarkus.io/extensions/io.quarkus/quarkus-funqy-http
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
 - category: Spring CredHub
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring CredHub
     url: https://spring.io/projects/spring-credhub
     github: https://github.com/spring-projects/spring-credhub
-    description: "Client-side support for storing, retrieving, and deleting credentials\
-      \ from a CredHub server"
-    type: SUB_PROJECT
-    since: null
+    description: Client-side support for storing, retrieving, and deleting credentials
+      from a CredHub server
+    type: STARTER
+    since:
 - category: Spring Data
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Data
     url: https://spring.io/projects/spring-data
     github: https://github.com/spring-projects/spring-data-commons
     description: Familiar and consistent Spring-based programming model for data access
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Hibernate ORM Panache
     url: https://quarkus.io/guides/hibernate-orm-panache
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/panache
     description: Simplified Hibernate ORM layer that makes writing entities trivial
       and fun in Quarkus
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: Spring Data JPA
     url: https://spring.io/projects/spring-data-jpa
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Hibernate ORM Panache
     url: https://quarkus.io/guides/hibernate-orm-panache
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-data-jpa
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-hibernate-orm-panache
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-hibernate-orm-panache
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Data MongoDB
     url: https://spring.io/projects/spring-data-mongodb
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: MongoDB Panache
     url: https://quarkus.io/guides/mongodb-panache
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-data-mongodb
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-mongodb-panache
     url: https://quarkus.io/extensions/io.quarkus/quarkus-mongodb-panache
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Data Redis
     url: https://spring.io/projects/spring-data-redis
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Redis
     url: https://quarkus.io/guides/redis
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-data-redis
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-redis
     url: https://quarkus.io/extensions/io.quarkus/quarkus-redis
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Data R2DBC
     url: https://spring.io/projects/spring-data-r2dbc
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Hibernate Reactive Panache
     url: https://quarkus.io/guides/hibernate-reactive-panache
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-data-r2dbc
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-hibernate-reactive-panache
     url: https://quarkus.io/extensions/io.quarkus/quarkus-hibernate-reactive-panache
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Data Elasticsearch
     url: https://spring.io/projects/spring-data-elasticsearch
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Elasticsearch
     url: https://quarkus.io/guides/elasticsearch
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-data-elasticsearch
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-elasticsearch-rest-client
     url: https://quarkus.io/extensions/io.quarkus/quarkus-elasticsearch-rest-client
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Data Neo4j
     url: https://spring.io/projects/spring-data-neo4j
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Neo4j
     url: https://quarkus.io/extensions/io.quarkiverse.neo4j/quarkus-neo4j
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-data-neo4j
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-neo4j
     url: https://quarkus.io/extensions/io.quarkiverse.neo4j/quarkus-neo4j
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Data JDBC
     url: https://spring.io/projects/spring-data-jdbc
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Agroal
     url: https://quarkus.io/guides/datasource
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-data-jdbc
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-agroal
     url: https://quarkus.io/extensions/io.quarkus/quarkus-agroal
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Data REST
     url: https://spring.io/projects/spring-data-rest
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Spring
     name: spring-boot-starter-data-rest
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Spring
     name: Spring Data Cassandra
     url: https://spring.io/projects/spring-data-cassandra
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Cassandra
     url: https://quarkus.io/extensions/com.datastax.oss.quarkus/cassandra-quarkus-client
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-data-cassandra
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: cassandra-quarkus-client
     url: https://quarkus.io/extensions/com.datastax.oss.quarkus/cassandra-quarkus-client
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
 - category: Spring Flo
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Flo
@@ -939,11 +869,11 @@
     github: https://github.com/spring-projects/spring-flo
     description: JavaScript library offering an embeddable HTML5 visual builder for
       pipelines and simple graphs
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
 - category: Spring Framework
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Framework
@@ -951,150 +881,136 @@
     github: https://github.com/spring-projects/spring-framework
     description: Comprehensive programming and configuration model for modern Java-based
       enterprise applications
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus REST (RESTEasy)
     url: https://quarkus.io/guides/rest
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/resteasy-reactive
-    description: "Jakarta REST implementation built on Vert.x, fully reactive and\
-      \ tightly integrated with Quarkus"
-    type: SUB_PROJECT
-    since: null
+    description: Jakarta REST implementation built on Vert.x, fully reactive and tightly
+      integrated with Quarkus
+    type: EXTENSION
+    since:
   - framework: Spring
     name: Spring MVC
     url: https://docs.spring.io/spring-framework/reference/web/webmvc.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: RESTEasy Reactive
     url: https://quarkus.io/guides/rest
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-web
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-rest
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-rest
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring WebFlux
     url: https://docs.spring.io/spring-framework/reference/web/webflux.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Reactive
     url: https://quarkus.io/guides/getting-started-reactive
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-webflux
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-rest
     url: https://quarkus.io/extensions/io.quarkus/quarkus-rest
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring AOP
     url: https://docs.spring.io/spring-framework/reference/core/aop.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: ArC Interceptors
     url: https://quarkus.io/guides/cdi
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: Spring WebSocket
     url: https://docs.spring.io/spring-framework/reference/web/websocket.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus WebSockets Next
     url: https://quarkus.io/guides/websockets-next-tutorial
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-websocket
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-websockets-next
     url: https://quarkus.io/extensions/io.quarkus/quarkus-websockets-next
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
 - category: Spring GraphQL
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring GraphQL
     url: https://spring.io/projects/spring-graphql
     github: https://github.com/spring-projects/spring-graphql
     description: Provides support for Spring applications built on GraphQL Java
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus SmallRye GraphQL
     url: https://quarkus.io/guides/smallrye-graphql
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/smallrye-graphql
     description: Expose GraphQL APIs as a query language for fulfilling queries with
       your existing data
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-graphql
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-smallrye-graphql
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-graphql
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring HATEOAS
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring HATEOAS
@@ -1102,32 +1018,25 @@
     github: https://github.com/spring-projects/spring-hateoas
     description: APIs to ease creating REST representations that follow the HATEOAS
       principle with Spring MVC
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus REST Links
     url: https://quarkus.io/guides/rest#links
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/hal
     description: Automatically inject web links into HTTP response headers using annotations
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-hateoas
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-hal
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-hal
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Integration
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Integration
@@ -1135,66 +1044,52 @@
     github: https://github.com/spring-projects/spring-integration
     description: Extends the Spring programming model to support the well-known Enterprise
       Integration Patterns
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Apache Camel Quarkus
     url: https://camel.apache.org/camel-quarkus/latest/
     github: https://github.com/apache/camel-quarkus
     description: Brings Apache Camel integration capabilities and its vast component
       library to the Quarkus runtime
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-integration
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: camel-quarkus-core
-    url: https://quarkus.io/extensions/org.apache.camel.quarkus/camel-quarkus-core
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring JMS
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring JMS
     url: https://docs.spring.io/spring-boot/reference/messaging/jms.html
     github: https://github.com/spring-projects/spring-framework
     description: JMS messaging support for Spring applications
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus JMS
     url: https://quarkus.io/guides/jms
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/artemis-jms
     description: Use JMS messaging in Quarkus with Apache Qpid AMQP or ActiveMQ Artemis
       clients
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-artemis
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-artemis-jms
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-artemis-jms
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Kafka
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Kafka
@@ -1202,131 +1097,103 @@
     github: https://github.com/spring-projects/spring-kafka
     description: Applies core Spring concepts to the development of Kafka-based messaging
       solutions
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Kafka
     url: https://quarkus.io/guides/kafka
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/kafka-client
     description: Interact with Apache Kafka using Quarkus Messaging and a flexible
       reactive programming model
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-kafka
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-smallrye-reactive-messaging-kafka
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-reactive-messaging-kafka
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring LDAP
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring LDAP
     url: https://spring.io/projects/spring-ldap
     github: https://github.com/spring-projects/spring-ldap
-    description: "Library to simplify LDAP programming in Java, built on the same\
-      \ principles as Spring JDBC"
-    type: SUB_PROJECT
-    since: null
+    description: Library to simplify LDAP programming in Java, built on the same principles
+      as Spring JDBC
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus LDAP
     url: https://quarkus.io/guides/security-ldap
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/elytron-security-ldap
     description: Authenticate and authorize user identities using an LDAP server
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-data-ldap
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-elytron-security-ldap
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-elytron-security-ldap
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Mail
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Mail
     url: https://docs.spring.io/spring-boot/reference/io/email.html
     github: https://github.com/spring-projects/spring-framework
     description: Email sending support with JavaMail integration
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Mailer
     url: https://quarkus.io/guides/mailer
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/mailer
     description: Send emails using SMTP with imperative or reactive APIs
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-mail
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-mailer
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-mailer
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Micrometer Metrics
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Micrometer Metrics
     url: https://docs.spring.io/spring-boot/reference/actuator/metrics.html
     github: https://github.com/micrometer-metrics/micrometer
     description: Application metrics facade with dimensional data model
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Micrometer
     url: https://quarkus.io/guides/micrometer
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/micrometer
     description: Instrument runtime and applications with dimensional metrics using
       Micrometer
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-actuator
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-micrometer
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-micrometer
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Modulith
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Modulith
@@ -1334,102 +1201,88 @@
     github: https://github.com/spring-projects/spring-modulith
     description: Build well-structured Spring Boot applications with domain-driven
       application modules
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Spring
     name: spring-modulith-starter-core
     url: https://spring.io/projects/spring-modulith
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
 - category: Spring Native / AOT
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Native / AOT
     url: https://docs.spring.io/spring-boot/how-to/native-image.html
     github: https://github.com/spring-projects/spring-framework
     description: Ahead-of-time compilation and native image support for Spring Boot
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Native
     url: https://quarkus.io/guides/building-native-image
     github: https://github.com/quarkusio/quarkus
     description: Build self-contained native executables with GraalVM for faster startup
       and smaller footprint
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
 - category: Spring Quartz Scheduler
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Quartz Scheduler
     url: https://docs.spring.io/spring-boot/reference/io/quartz.html
     github: https://github.com/spring-projects/spring-framework
     description: Advanced job scheduling using Quartz
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Quartz
     url: https://quarkus.io/guides/quartz
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/quartz
     description: Schedule periodic clustered tasks using the Quartz scheduler extension
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-quartz
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-quartz
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-quartz
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring REST Docs
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring REST Docs
     url: https://spring.io/projects/spring-restdocs
     github: https://github.com/spring-projects/spring-restdocs
     description: Helps you to document RESTful services
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: SmallRye OpenAPI
     url: https://quarkus.io/guides/openapi-swaggerui
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/smallrye-openapi
     description: Generate OpenAPI v3 specifications and expose them through a Swagger
       UI interface
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-restdocs-mockmvc
     url: https://spring.io/projects/spring-restdocs
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-smallrye-openapi
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-openapi
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Security
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Security
@@ -1437,160 +1290,146 @@
     github: https://github.com/spring-projects/spring-security
     description: Powerful and highly customizable authentication and access-control
       framework
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Security
     url: https://quarkus.io/guides/security-overview
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/security
-    description: "Framework providing authentication, authorization, and tools for\
-      \ building secure Java applications"
-    type: SUB_PROJECT
-    since: null
+    description: Framework providing authentication, authorization, and tools for
+      building secure Java applications
+    type: EXTENSION
+    since:
   - framework: Spring
     name: Spring Authorization Server
     url: https://spring.io/projects/spring-authorization-server
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: OIDC
     url: https://quarkus.io/guides/security-oidc-code-flow-authentication
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-security
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-security
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-security
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Security OAuth2
     url: https://docs.spring.io/spring-security/reference/servlet/oauth2/index.html
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: SmallRye JWT
     url: https://quarkus.io/guides/security-jwt
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-oauth2-client
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-oidc
     url: https://quarkus.io/extensions/io.quarkus/quarkus-oidc
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
   - framework: Spring
     name: Spring Session
     url: https://spring.io/projects/spring-session
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Keycloak Authorization
     url: https://quarkus.io/guides/security-keycloak-authorization
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-oauth2-resource-server
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
   - framework: Quarkus
     name: quarkus-smallrye-jwt
     url: https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-jwt
-    github: null
-    description: null
+    github:
+    description:
     type: EXTENSION
-    since: null
+    since:
 - category: Spring Session
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Session
     url: https://spring.io/projects/spring-session
     github: https://github.com/spring-projects/spring-session
     description: API and implementations for managing a user's session information
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Spring
     name: Spring Session Data Redis
     url: https://spring.io/projects/spring-session-data-redis
-    github: null
-    description: null
-    type: SUB_PROJECT
-    since: null
+    github:
+    description:
+    type: STARTER
+    since:
   - framework: Spring
     name: spring-boot-starter-data-redis
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
 - category: Spring Shell
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Shell
     url: https://spring.io/projects/spring-shell
     github: https://github.com/spring-projects/spring-shell
     description: Build a fully featured shell (command line) application using Spring
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Picocli
     url: https://quarkus.io/guides/picocli
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/picocli
     description: Create rich command-line applications using the Picocli framework
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-shell-starter
     url: https://spring.io/projects/spring-shell
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-picocli
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-picocli
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring State Machine
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring State Machine
@@ -1598,167 +1437,139 @@
     github: https://github.com/spring-projects/spring-statemachine
     description: Framework for application developers to use state machine concepts
       with Spring
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Spring
     name: spring-statemachine-starter
     url: https://spring.io/projects/spring-statemachine
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
 - category: Spring Thymeleaf
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Thymeleaf
     url: https://docs.spring.io/spring-boot/reference/web/servlet.html#web.servlet.spring-mvc.template-engines
     github: https://github.com/spring-projects/spring-framework
     description: Server-side template engine for Spring MVC
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Qute
     url: https://quarkus.io/guides/qute
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/qute
     description: Templating engine designed specifically for Quarkus with minimal
       reflection usage
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-thymeleaf
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-rest-qute
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-rest-qute
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Validation
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Validation
     url: https://docs.spring.io/spring-boot/reference/io/validation.html
     github: https://github.com/spring-projects/spring-framework
     description: Bean validation using Hibernate Validator
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Hibernate Validator
     url: https://quarkus.io/guides/validation
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/hibernate-validator
     description: Validate input/output of REST services and method parameters using
       Bean Validation
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-validation
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-hibernate-validator
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-hibernate-validator
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Vault
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Vault
     url: https://spring.io/projects/spring-vault
     github: https://github.com/spring-projects/spring-vault
-    description: "Spring abstractions for accessing, storing, and revoking secrets"
-    type: SUB_PROJECT
-    since: null
+    description: Spring abstractions for accessing, storing, and revoking secrets
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Vault
     url: https://quarkiverse.github.io/quarkiverse-docs/quarkus-vault/dev/
     github: https://github.com/quarkiverse/quarkus-vault
-    description: "Access HashiCorp Vault to protect credentials, certificates, access\
-      \ tokens, and encryption keys"
-    type: SUB_PROJECT
-    since: null
+    description: Access HashiCorp Vault to protect credentials, certificates, access
+      tokens, and encryption keys
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-cloud-starter-vault-config
     url: https://spring.io/projects/spring-cloud-vault
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-vault
-    url: https://quarkus.io/extensions/io.quarkiverse.vault/quarkus-vault
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring Web Flow
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Web Flow
     url: https://spring.io/projects/spring-webflow
     github: https://github.com/spring-projects/spring-webflow
     description: Builds on Spring MVC and allows implementing the flows of a web application
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Spring
     name: spring-webflow
     url: https://spring.io/projects/spring-webflow
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
+    since:
 - category: Spring Web Services
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Web Services
     url: https://spring.io/projects/spring-ws
     github: https://github.com/spring-projects/spring-ws
     description: Focused on creating document-driven Web services
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus CXF
     url: https://quarkiverse.github.io/quarkiverse-docs/quarkus-cxf/dev/
     github: https://github.com/quarkiverse/quarkus-cxf
     description: Apache CXF ported to Quarkus with full GraalVM native image support
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-web-services
     url: https://spring.io/projects/spring-boot
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-cxf
-    url: https://quarkus.io/extensions/io.quarkiverse.cxf/quarkus-cxf
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring for Apache Pulsar
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring for Apache Pulsar
@@ -1766,106 +1577,85 @@
     github: https://github.com/spring-projects/spring-pulsar
     description: Applies core Spring concepts to the development of Pulsar-based messaging
       solutions
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Pulsar
     url: https://quarkus.io/guides/pulsar
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/smallrye-reactive-messaging-pulsar
     description: Interact with Apache Pulsar for cloud-native event streaming using
       Quarkus Messaging
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-boot-starter-pulsar
     url: https://spring.io/projects/spring-pulsar
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-smallrye-reactive-messaging-pulsar
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-smallrye-reactive-messaging-pulsar
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Spring gRPC
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring gRPC
     url: https://grpc.io/docs/languages/java/
     github: https://github.com/spring-projects/spring-grpc
     description: gRPC framework integration for Spring Boot
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus gRPC
     url: https://quarkus.io/guides/grpc
     github: https://github.com/quarkusio/quarkus/tree/main/extensions/grpc
     description: Integrate high-performance gRPC services with reactive development
       support
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: spring-grpc-spring-boot-starter
     url: https://github.com/spring-projects/spring-grpc
-    github: null
-    description: null
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-grpc
-    url: https://quarkus.io/extensions/io.quarkus/quarkus-grpc
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: Test Category
-  description: null
-  tags: null
+  description:
+  tags:
   entries:
   - framework: Spring
     name: Spring Test
     url: https://spring.io/test
-    github: null
+    github:
     description: Testing support for Spring applications
-    type: SUB_PROJECT
-    since: null
+    type: STARTER
+    since:
   - framework: Quarkus
     name: Quarkus Test
     url: https://quarkus.io/test
-    github: null
+    github:
     description: Testing support for Quarkus applications
-    type: SUB_PROJECT
-    since: null
+    type: EXTENSION
+    since:
   - framework: Spring
     name: starter-test
-    url: null
-    github: null
-    description: null
+    url:
+    github:
+    description:
     type: STARTER
-    since: null
-  - framework: Quarkus
-    name: quarkus-test
-    url: null
-    github: null
-    description: null
-    type: EXTENSION
-    since: null
+    since:
 - category: single-page application
-  description: null
-  tags: "single-page application, web"
+  description:
+  tags: single-page application, web
   entries:
   - framework: Quarkus
     name: Quarkus Quinoa
     url: https://docs.quarkiverse.io/quarkus-quinoa/dev/index.html
     github: https://github.com/quarkiverse/quarkus-quinoa
-    description: "Quinoa is a Quarkus extension which eases the development, the build\
-      \ and serving of single page apps or web components (built with npm : React,\
-      \ Angular, Vue, Lit, Svelte, Astro, SolidJS …) alongside Quarkus. It is possible\
-      \ to use it with a Quarkus backend in a single project."
+    description: 'Quinoa is a Quarkus extension which eases the development, the build
+      and serving of single page apps or web components (built with npm : React, Angular,
+      Vue, Lit, Svelte, Astro, SolidJS …) alongside Quarkus. It is possible to use
+      it with a Quarkus backend in a single project.'
     type: EXTENSION
-    since: null
+    since:

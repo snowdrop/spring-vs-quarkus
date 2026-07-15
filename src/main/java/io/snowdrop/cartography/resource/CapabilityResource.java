@@ -1,16 +1,16 @@
-package io.snowdrop.springvsquarkus.resource;
+package io.snowdrop.cartography.resource;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
-import io.snowdrop.springvsquarkus.model.Comparison;
-import io.snowdrop.springvsquarkus.model.FeatureType;
-import io.snowdrop.springvsquarkus.model.Framework;
-import io.snowdrop.springvsquarkus.model.FrameworkEntry;
-import io.snowdrop.springvsquarkus.repository.ComparisonRepository;
-import io.snowdrop.springvsquarkus.service.DataService;
-import io.snowdrop.springvsquarkus.service.ExportService;
+import io.snowdrop.cartography.model.Capability;
+import io.snowdrop.cartography.model.ComponentType;
+import io.snowdrop.cartography.model.Framework;
+import io.snowdrop.cartography.model.FrameworkEntry;
+import io.snowdrop.cartography.repository.CapabilityRepository;
+import io.snowdrop.cartography.service.DataService;
+import io.snowdrop.cartography.service.ExportService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -27,12 +27,12 @@ import java.net.URI;
 import java.util.List;
 
 @Path("/")
-public class ComparisonResource {
+public class CapabilityResource {
 
     @CheckedTemplate
     public static class Templates {
         public static native TemplateInstance list(
-                List<Comparison> comparisons,
+                List<Capability> capabilities,
                 long totalCount,
                 long bothCount,
                 long springOnlyCount,
@@ -43,14 +43,14 @@ public class ComparisonResource {
                 boolean saved);
 
         public static native TemplateInstance form(
-                Comparison comparison,
+                Capability capability,
                 boolean isNew,
-                List<FeatureType> featureTypes,
+                List<ComponentType> componentTypes,
                 List<Framework> frameworks);
     }
 
     @Inject
-    ComparisonRepository repository;
+    CapabilityRepository repository;
 
     @Inject
     DataService dataService;
@@ -61,11 +61,11 @@ public class ComparisonResource {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public Response root() {
-        return Response.seeOther(URI.create("/comparisons")).build();
+        return Response.seeOther(URI.create("/capabilities")).build();
     }
 
     @GET
-    @Path("/comparisons")
+    @Path("/capabilities")
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance list(
             @QueryParam("name") String name,
@@ -78,15 +78,15 @@ public class ComparisonResource {
         Boolean quarkusSupported = "yes".equals(quarkus) ? Boolean.TRUE
                 : "no".equals(quarkus) ? Boolean.FALSE : null;
 
-        List<Comparison> comparisons;
+        List<Capability> capabilities;
         if ((name == null || name.isBlank()) && springSupported == null && quarkusSupported == null) {
-            comparisons = repository.findAllOrdered();
+            capabilities = repository.findAllOrdered();
         } else {
-            comparisons = repository.findFiltered(name, springSupported, quarkusSupported);
+            capabilities = repository.findFiltered(name, springSupported, quarkusSupported);
         }
 
         return Templates.list(
-                comparisons,
+                capabilities,
                 repository.count(),
                 repository.countBoth(),
                 repository.countSpringOnly(),
@@ -98,27 +98,27 @@ public class ComparisonResource {
     }
 
     @GET
-    @Path("/comparisons/new")
+    @Path("/capabilities/new")
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance newForm() {
-        return Templates.form(new Comparison(""), true,
-                List.of(FeatureType.values()), List.of(Framework.values()));
+        return Templates.form(new Capability(""), true,
+                List.of(ComponentType.values()), List.of(Framework.values()));
     }
 
     @GET
-    @Path("/comparisons/{id}/edit")
+    @Path("/capabilities/{id}/edit")
     @Produces(MediaType.TEXT_HTML)
     public Response editForm(@PathParam("id") Long id) {
-        Comparison c = repository.findById(id);
+        Capability c = repository.findById(id);
         if (c == null) {
-            return Response.seeOther(URI.create("/comparisons")).build();
+            return Response.seeOther(URI.create("/capabilities")).build();
         }
         return Response.ok(Templates.form(c, false,
-                List.of(FeatureType.values()), List.of(Framework.values()))).build();
+                List.of(ComponentType.values()), List.of(Framework.values()))).build();
     }
 
     @POST
-    @Path("/comparisons")
+    @Path("/capabilities")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
     public Response create(
@@ -127,16 +127,16 @@ public class ComparisonResource {
             @FormParam("tags") String tags,
             @FormParam("entriesJson") String entriesJson) {
 
-        Comparison c = new Comparison(category);
+        Capability c = new Capability(category);
         c.setDescription(blankToNull(description));
         c.setTags(blankToNull(tags));
         applyEntries(c, entriesJson);
         repository.persist(c);
-        return Response.seeOther(URI.create("/comparisons/" + c.getId() + "/edit")).build();
+        return Response.seeOther(URI.create("/capabilities/" + c.getId() + "/edit")).build();
     }
 
     @POST
-    @Path("/comparisons/{id}")
+    @Path("/capabilities/{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
     public Response update(
@@ -146,9 +146,9 @@ public class ComparisonResource {
             @FormParam("tags") String tags,
             @FormParam("entriesJson") String entriesJson) {
 
-        Comparison c = repository.findById(id);
+        Capability c = repository.findById(id);
         if (c == null) {
-            return Response.seeOther(URI.create("/comparisons")).build();
+            return Response.seeOther(URI.create("/capabilities")).build();
         }
 
         c.setCategory(category);
@@ -156,15 +156,15 @@ public class ComparisonResource {
         c.setTags(blankToNull(tags));
         c.getEntries().clear();
         applyEntries(c, entriesJson);
-        return Response.seeOther(URI.create("/comparisons/" + id + "/edit")).build();
+        return Response.seeOther(URI.create("/capabilities/" + id + "/edit")).build();
     }
 
     @POST
-    @Path("/comparisons/{id}/delete")
+    @Path("/capabilities/{id}/delete")
     @Transactional
     public Response delete(@PathParam("id") Long id) {
         repository.deleteById(id);
-        return Response.seeOther(URI.create("/comparisons")).build();
+        return Response.seeOther(URI.create("/capabilities")).build();
     }
 
     @GET
@@ -192,10 +192,10 @@ public class ComparisonResource {
     @Transactional
     public Response saveToYaml() {
         dataService.saveToYaml();
-        return Response.seeOther(URI.create("/comparisons?saved=true")).build();
+        return Response.seeOther(URI.create("/capabilities?saved=true")).build();
     }
 
-    private void applyEntries(Comparison c, String entriesJson) {
+    private void applyEntries(Capability c, String entriesJson) {
         if (entriesJson == null || entriesJson.isBlank()) return;
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -226,12 +226,12 @@ public class ComparisonResource {
         }
     }
 
-    private FeatureType parseType(String type) {
-        if (type == null || type.isBlank()) return FeatureType.SUB_PROJECT;
+    private ComponentType parseType(String type) {
+        if (type == null || type.isBlank()) return ComponentType.EXTENSION;
         try {
-            return FeatureType.valueOf(type);
+            return ComponentType.valueOf(type);
         } catch (IllegalArgumentException e) {
-            return FeatureType.SUB_PROJECT;
+            return ComponentType.EXTENSION;
         }
     }
 

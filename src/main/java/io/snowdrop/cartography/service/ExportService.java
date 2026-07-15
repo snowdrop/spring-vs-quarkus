@@ -1,9 +1,9 @@
-package io.snowdrop.springvsquarkus.service;
+package io.snowdrop.cartography.service;
 
-import io.snowdrop.springvsquarkus.model.Comparison;
-import io.snowdrop.springvsquarkus.model.FeatureType;
-import io.snowdrop.springvsquarkus.model.FrameworkEntry;
-import io.snowdrop.springvsquarkus.repository.ComparisonRepository;
+import io.snowdrop.cartography.model.Capability;
+import io.snowdrop.cartography.model.ComponentType;
+import io.snowdrop.cartography.model.FrameworkEntry;
+import io.snowdrop.cartography.repository.CapabilityRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.List;
@@ -12,14 +12,14 @@ import java.util.List;
 public class ExportService {
 
     @Inject
-    ComparisonRepository repository;
+    CapabilityRepository repository;
 
     public String exportCsv() {
         var sb = new StringBuilder();
         sb.append("Spring project,Github repo,Spring sub-projects,Quarkus project,Quarkus Github repo,Quarkus sub-projects,Spring Boot starter,Quarkus extension,Spring supported,Quarkus supported\n");
 
-        List<Comparison> comparisons = repository.findAllOrdered();
-        for (Comparison c : comparisons) {
+        List<Capability> capabilities = repository.findAllOrdered();
+        for (Capability c : capabilities) {
             List<FrameworkEntry> springEntries = c.getSpringEntries();
             List<FrameworkEntry> quarkusEntries = c.getQuarkusEntries();
 
@@ -27,18 +27,18 @@ public class ExportService {
             FrameworkEntry quarkusProject = quarkusEntries.isEmpty() ? null : quarkusEntries.get(0);
 
             List<FrameworkEntry> springSubs = springEntries.stream()
-                    .filter(e -> e.getType() == FeatureType.SUB_PROJECT)
+                    .filter(e -> e.getType() == ComponentType.STARTER)
                     .filter(e -> e != springProject)
                     .toList();
             List<FrameworkEntry> quarkusSubs = quarkusEntries.stream()
-                    .filter(e -> e.getType() == FeatureType.SUB_PROJECT)
+                    .filter(e -> e.getType() == ComponentType.EXTENSION)
                     .filter(e -> e != quarkusProject)
                     .toList();
             List<FrameworkEntry> starters = springEntries.stream()
-                    .filter(e -> e.getType() == FeatureType.STARTER)
+                    .filter(e -> e.getType() == ComponentType.STARTER)
                     .toList();
             List<FrameworkEntry> extensions = quarkusEntries.stream()
-                    .filter(e -> e.getType() == FeatureType.EXTENSION)
+                    .filter(e -> e.getType() == ComponentType.EXTENSION)
                     .toList();
 
             int rows = Math.max(1, Math.max(
@@ -122,17 +122,17 @@ public class ExportService {
 
     public String exportMarkdown() {
         var sb = new StringBuilder();
-        List<Comparison> comparisons = repository.findAllOrdered();
-        long total = comparisons.size();
-        long both = comparisons.stream().filter(c -> c.isSpringSupported() && c.isQuarkusSupported()).count();
-        long springOnly = comparisons.stream().filter(c -> c.isSpringSupported() && !c.isQuarkusSupported()).count();
-        long quarkusOnly = comparisons.stream().filter(c -> !c.isSpringSupported() && c.isQuarkusSupported()).count();
+        List<Capability> capabilities = repository.findAllOrdered();
+        long total = capabilities.size();
+        long both = capabilities.stream().filter(c -> c.isSpringSupported() && c.isQuarkusSupported()).count();
+        long springOnly = capabilities.stream().filter(c -> c.isSpringSupported() && !c.isQuarkusSupported()).count();
+        long quarkusOnly = capabilities.stream().filter(c -> !c.isSpringSupported() && c.isQuarkusSupported()).count();
 
-        sb.append("# Spring vs Quarkus Feature Comparison\n\n");
+        sb.append("# Spring vs Quarkus Capability Comparison\n\n");
         sb.append("## Summary\n\n");
         sb.append("| Metric | Count |\n");
         sb.append("|--------|-------|\n");
-        sb.append("| Total comparisons | ").append(total).append(" |\n");
+        sb.append("| Total capabilities | ").append(total).append(" |\n");
         sb.append("| Both supported | ").append(both).append(" |\n");
         sb.append("| Spring only | ").append(springOnly).append(" |\n");
         sb.append("| Quarkus only | ").append(quarkusOnly).append(" |\n\n");
@@ -140,7 +140,7 @@ public class ExportService {
         sb.append("## Comparison Table\n\n");
         sb.append("| Category | Spring | Quarkus | Spring Supported | Quarkus Supported |\n");
         sb.append("|----------|--------|---------|:----------------:|:-----------------:|\n");
-        for (Comparison c : comparisons) {
+        for (Capability c : capabilities) {
             FrameworkEntry springMain = c.getSpringEntries().isEmpty() ? null : c.getSpringEntries().get(0);
             FrameworkEntry quarkusMain = c.getQuarkusEntries().isEmpty() ? null : c.getQuarkusEntries().get(0);
             sb.append("| ").append(c.getCategory());
@@ -152,7 +152,7 @@ public class ExportService {
         }
 
         sb.append("\n## Details\n\n");
-        for (Comparison c : comparisons) {
+        for (Capability c : capabilities) {
             sb.append("### ").append(c.getCategory()).append("\n\n");
             if (c.getDescription() != null) {
                 sb.append(c.getDescription()).append("\n\n");

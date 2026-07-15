@@ -1,4 +1,4 @@
-package io.snowdrop.springvsquarkus.model;
+package io.snowdrop.cartography.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -9,12 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "comparison")
-public class Comparison {
+@Table(name = "capability")
+public class Capability {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +30,21 @@ public class Comparison {
     @Column(name = "tags")
     private String tags;
 
-    @OneToMany(mappedBy = "comparison", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private String topic;
+
+    @Column(name = "review_by")
+    private String reviewBy;
+
+    @Column(name = "review_date")
+    private LocalDate reviewDate;
+
+    @OneToMany(mappedBy = "capability", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<FrameworkEntry> entries = new ArrayList<>();
 
-    public Comparison() {
+    public Capability() {
     }
 
-    public Comparison(String category) {
+    public Capability(String category) {
         this.category = category;
     }
 
@@ -71,6 +80,30 @@ public class Comparison {
         this.tags = tags;
     }
 
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public String getReviewBy() {
+        return reviewBy;
+    }
+
+    public void setReviewBy(String reviewBy) {
+        this.reviewBy = reviewBy;
+    }
+
+    public LocalDate getReviewDate() {
+        return reviewDate;
+    }
+
+    public void setReviewDate(LocalDate reviewDate) {
+        this.reviewDate = reviewDate;
+    }
+
     public List<FrameworkEntry> getEntries() {
         return entries;
     }
@@ -81,12 +114,12 @@ public class Comparison {
 
     public void addEntry(FrameworkEntry entry) {
         entries.add(entry);
-        entry.setComparison(this);
+        entry.setCapability(this);
     }
 
     public void removeEntry(FrameworkEntry entry) {
         entries.remove(entry);
-        entry.setComparison(null);
+        entry.setCapability(null);
     }
 
     public boolean isSpringSupported() {

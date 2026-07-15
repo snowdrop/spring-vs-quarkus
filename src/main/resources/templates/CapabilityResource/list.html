@@ -1,5 +1,5 @@
 {#include layout.html}
-{#title}Comparisons - Spring vs Quarkus{/title}
+{#title}Capabilities - Spring vs Quarkus{/title}
 {#extraStyles}
 .sortable { cursor: pointer; user-select: none; white-space: nowrap; }
 .sortable:hover { background: var(--pico-card-background-color); }
@@ -13,16 +13,16 @@
 <div class="flash">Data saved to YAML successfully.</div>
 {/if}
 
-<h2>Feature Comparisons</h2>
+<h2>Capabilities</h2>
 
 <div class="stats">
-    <a href="/comparisons"><strong>{totalCount}</strong> total</a>
-    <a href="/comparisons?spring=yes&quarkus=yes"><strong>{bothCount}</strong> both</a>
-    <a href="/comparisons?spring=yes&quarkus=no"><strong>{springOnlyCount}</strong> Spring only</a>
-    <a href="/comparisons?spring=no&quarkus=yes"><strong>{quarkusOnlyCount}</strong> Quarkus only</a>
+    <a href="/capabilities"><strong>{totalCount}</strong> total</a>
+    <a href="/capabilities?spring=yes&quarkus=yes"><strong>{bothCount}</strong> both</a>
+    <a href="/capabilities?spring=yes&quarkus=no"><strong>{springOnlyCount}</strong> Spring only</a>
+    <a href="/capabilities?spring=no&quarkus=yes"><strong>{quarkusOnlyCount}</strong> Quarkus only</a>
 </div>
 
-<form method="get" action="/comparisons" role="search" style="display:flex;gap:0.5rem;align-items:end;margin-bottom:1rem;">
+<form method="get" action="/capabilities" role="search" style="display:flex;gap:0.5rem;align-items:end;margin-bottom:1rem;">
     <input type="text" name="name" placeholder="Filter by name..." value="{nameFilter.orEmpty}" style="margin-bottom:0;">
     <select name="spring" style="margin-bottom:0;width:auto;">
         <option value="">Spring: All</option>
@@ -56,9 +56,9 @@
         </tr>
     </thead>
     <tbody>
-        {#for c in comparisons}
+        {#for c in capabilities}
         <tr>
-            <td><a href="/comparisons/{c.id}/edit">{c.category}</a></td>
+            <td><a href="/capabilities/{c.id}/edit">{c.category}</a></td>
             <td>
                 {#if c.springEntries.size > 0}
                     {#let first=c.springEntries.get(0)}
@@ -83,8 +83,8 @@
             <td>{#if c.quarkusSupported}<span class="badge badge-quarkus">Yes</span>{#else}<span class="badge badge-gap">No</span>{/if}</td>
             <td>{c.entries.size}</td>
             <td style="white-space:nowrap;">
-                <a href="/comparisons/{c.id}/edit" style="font-size:0.8rem;">Edit</a>
-                <form method="post" action="/comparisons/{c.id}/delete" style="display:inline;margin:0;"
+                <a href="/capabilities/{c.id}/edit" style="font-size:0.8rem;">Edit</a>
+                <form method="post" action="/capabilities/{c.id}/delete" style="display:inline;margin:0;"
                       onsubmit="return confirm('Delete {c.category}?')">
                     <button type="submit" class="outline secondary" style="font-size:0.75rem;padding:0.2rem 0.5rem;margin:0;">Delete</button>
                 </form>

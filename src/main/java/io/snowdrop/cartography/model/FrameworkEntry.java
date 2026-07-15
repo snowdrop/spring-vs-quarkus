@@ -1,4 +1,4 @@
-package io.snowdrop.springvsquarkus.model;
+package io.snowdrop.cartography.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
@@ -34,13 +34,13 @@ public class FrameworkEntry {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    private FeatureType type;
+    private ComponentType type;
 
     private String since;
 
     @ManyToOne
     @JsonIgnore
-    private Comparison comparison;
+    private Capability capability;
 
     public FrameworkEntry() {
     }
@@ -93,11 +93,11 @@ public class FrameworkEntry {
         this.description = description;
     }
 
-    public FeatureType getType() {
+    public ComponentType getType() {
         return type;
     }
 
-    public void setType(FeatureType type) {
+    public void setType(ComponentType type) {
         this.type = type;
     }
 
@@ -109,11 +109,11 @@ public class FrameworkEntry {
         this.since = since;
     }
 
-    public Comparison getComparison() {
-        return comparison;
+    public Capability getCapability() {
+        return capability;
     }
 
-    public void setComparison(Comparison comparison) {
-        this.comparison = comparison;
+    public void setCapability(Capability capability) {
+        this.capability = capability;
     }
 }

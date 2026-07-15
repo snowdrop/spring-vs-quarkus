@@ -1,4 +1,4 @@
-package io.snowdrop.springvsquarkus.service;
+package io.snowdrop.cartography.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,11 +6,11 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.opencsv.CSVReader;
 import io.quarkus.runtime.StartupEvent;
-import io.snowdrop.springvsquarkus.model.Comparison;
-import io.snowdrop.springvsquarkus.model.FeatureType;
-import io.snowdrop.springvsquarkus.model.Framework;
-import io.snowdrop.springvsquarkus.model.FrameworkEntry;
-import io.snowdrop.springvsquarkus.repository.ComparisonRepository;
+import io.snowdrop.cartography.model.Capability;
+import io.snowdrop.cartography.model.ComponentType;
+import io.snowdrop.cartography.model.Framework;
+import io.snowdrop.cartography.model.FrameworkEntry;
+import io.snowdrop.cartography.repository.CapabilityRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
@@ -19,7 +19,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,13 +30,13 @@ public class DataService {
 
     private static final Logger LOG = Logger.getLogger(DataService.class);
 
-    private static final Path YAML_FILE = Path.of("data/comparisons.yaml");
+    private static final Path YAML_FILE = Path.of("data/capabilities.yaml");
     private static final Path CSV_FILE = Path.of("spring-quarkus-comparison.csv");
     private static final Pattern HYPERLINK_PATTERN =
             Pattern.compile("=HYPERLINK\\(\"([^\"]+)\",\"([^\"]+)\"\\)");
 
     @Inject
-    ComparisonRepository repository;
+    CapabilityRepository repository;
 
     @Transactional
     void onStart(@Observes StartupEvent ev) {
@@ -46,20 +46,20 @@ public class DataService {
             importFromCsv();
             saveToYaml();
         } else {
-            LOG.warn("No data/comparisons.yaml or spring-quarkus-comparison.csv found");
+            LOG.warn("No data/capabilities.yaml or spring-quarkus-comparison.csv found");
         }
     }
 
     void loadFromYaml() {
         try {
             var mapper = createYamlMapper();
-            List<ComparisonDto> dtos = mapper.readValue(
-                    YAML_FILE.toFile(), new TypeReference<List<ComparisonDto>>() {});
-            for (ComparisonDto dto : dtos) {
-                Comparison c = dto.toEntity();
+            List<CapabilityDto> dtos = mapper.readValue(
+                    YAML_FILE.toFile(), new TypeReference<List<CapabilityDto>>() {});
+            for (CapabilityDto dto : dtos) {
+                Capability c = dto.toEntity();
                 repository.persist(c);
             }
-            LOG.infof("Loaded %d comparisons from %s", dtos.size(), YAML_FILE);
+            LOG.infof("Loaded %d capabilities from %s", dtos.size(), YAML_FILE);
         } catch (IOException e) {
             LOG.error("Failed to load YAML", e);
         }
@@ -69,10 +69,10 @@ public class DataService {
         try {
             Files.createDirectories(YAML_FILE.getParent());
             var mapper = createYamlMapper();
-            List<Comparison> comparisons = repository.findAllOrdered();
-            List<ComparisonDto> dtos = comparisons.stream().map(ComparisonDto::fromEntity).toList();
+            List<Capability> capabilities = repository.findAllOrdered();
+            List<CapabilityDto> dtos = capabilities.stream().map(CapabilityDto::fromEntity).toList();
             mapper.writeValue(YAML_FILE.toFile(), dtos);
-            LOG.infof("Saved %d comparisons to %s", dtos.size(), YAML_FILE);
+            LOG.infof("Saved %d capabilities to %s", dtos.size(), YAML_FILE);
         } catch (IOException e) {
             LOG.error("Failed to save YAML", e);
         }
@@ -82,7 +82,7 @@ public class DataService {
         try (var reader = new CSVReader(new FileReader(CSV_FILE.toFile()))) {
             reader.readNext();
             String[] row;
-            Comparison current = null;
+            Capability current = null;
 
             while ((row = reader.readNext()) != null) {
                 if (row.length < 10) continue;
@@ -105,13 +105,13 @@ public class DataService {
                     }
 
                     if (isNewProject) {
-                        current = new Comparison(col0.label());
+                        current = new Capability(col0.label());
                         addProjectEntry(current, Framework.Spring, col0, col1);
                         if (col3 != null) {
                             addProjectEntry(current, Framework.Quarkus, col3, col4);
                         }
                     } else {
-                        current = new Comparison(col3.label());
+                        current = new Capability(col3.label());
                         addProjectEntry(current, Framework.Quarkus, col3, col4);
                     }
                 }
@@ -125,13 +125,13 @@ public class DataService {
                 repository.persist(current);
             }
 
-            LOG.infof("Imported %d comparisons from CSV", repository.count());
+            LOG.infof("Imported %d capabilities from CSV", repository.count());
         } catch (Exception e) {
             LOG.error("Failed to import CSV", e);
         }
     }
 
-    private void addProjectEntry(Comparison c, Framework framework, HyperlinkValue project, HyperlinkValue github) {
+    private void addProjectEntry(Capability c, Framework framework, HyperlinkValue project, HyperlinkValue github) {
         var entry = new FrameworkEntry();
         entry.setFramework(framework);
         entry.setName(project.label());
@@ -139,11 +139,11 @@ public class DataService {
         if (github != null) {
             entry.setGithub(github.url());
         }
-        entry.setType(FeatureType.SUB_PROJECT);
+        entry.setType(framework == Framework.Spring ? ComponentType.STARTER : ComponentType.EXTENSION);
         c.addEntry(entry);
     }
 
-    private void addEntriesFromRow(Comparison comparison,
+    private void addEntriesFromRow(Capability capability,
                                     HyperlinkValue springSub, HyperlinkValue quarkusSub,
                                     HyperlinkValue starter, HyperlinkValue extension) {
         if (springSub != null) {
@@ -151,32 +151,32 @@ public class DataService {
             e.setFramework(Framework.Spring);
             e.setName(springSub.label());
             e.setUrl(springSub.url());
-            e.setType(FeatureType.SUB_PROJECT);
-            comparison.addEntry(e);
+            e.setType(ComponentType.STARTER);
+            capability.addEntry(e);
         }
         if (quarkusSub != null) {
             var e = new FrameworkEntry();
             e.setFramework(Framework.Quarkus);
             e.setName(quarkusSub.label());
             e.setUrl(quarkusSub.url());
-            e.setType(FeatureType.SUB_PROJECT);
-            comparison.addEntry(e);
+            e.setType(ComponentType.EXTENSION);
+            capability.addEntry(e);
         }
         if (starter != null) {
             var e = new FrameworkEntry();
             e.setFramework(Framework.Spring);
             e.setName(starter.label());
             e.setUrl(starter.url());
-            e.setType(FeatureType.STARTER);
-            comparison.addEntry(e);
+            e.setType(ComponentType.STARTER);
+            capability.addEntry(e);
         }
         if (extension != null) {
             var e = new FrameworkEntry();
             e.setFramework(Framework.Quarkus);
             e.setName(extension.label());
             e.setUrl(extension.url());
-            e.setType(FeatureType.EXTENSION);
-            comparison.addEntry(e);
+            e.setType(ComponentType.EXTENSION);
+            capability.addEntry(e);
         }
     }
 
@@ -197,30 +197,41 @@ public class DataService {
         var factory = new YAMLFactory()
                 .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
                 .enable(YAMLGenerator.Feature.MINIMIZE_QUOTES);
-        return new ObjectMapper(factory);
+        var mapper = new ObjectMapper(factory);
+        mapper.setSerializationInclusion(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL);
+        return mapper;
     }
 
     record HyperlinkValue(String url, String label) {}
 
-    public record ComparisonDto(
+    public record CapabilityDto(
             String category,
             String description,
             String tags,
+            String topic,
+            String reviewBy,
+            LocalDate reviewDate,
             List<FrameworkEntryDto> entries
     ) {
-        static ComparisonDto fromEntity(Comparison c) {
-            return new ComparisonDto(
+        static CapabilityDto fromEntity(Capability c) {
+            return new CapabilityDto(
                     c.getCategory(),
                     c.getDescription(),
                     c.getTags(),
+                    c.getTopic(),
+                    c.getReviewBy(),
+                    c.getReviewDate(),
                     c.getEntries().stream().map(FrameworkEntryDto::fromEntity).toList()
             );
         }
 
-        Comparison toEntity() {
-            var c = new Comparison(category);
+        Capability toEntity() {
+            var c = new Capability(category);
             c.setDescription(description);
             c.setTags(tags);
+            c.setTopic(topic);
+            c.setReviewBy(reviewBy);
+            c.setReviewDate(reviewDate);
             if (entries != null) {
                 for (var dto : entries) {
                     c.addEntry(dto.toEntity());
@@ -236,7 +247,7 @@ public class DataService {
             String url,
             String github,
             String description,
-            FeatureType type,
+            ComponentType type,
             String since
     ) {
         static FrameworkEntryDto fromEntity(FrameworkEntry e) {
