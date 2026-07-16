@@ -27,6 +27,12 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- jbang -->
+        <dependency>
+            <groupId>org.aesh</groupId>
+            <artifactId>aesh</artifactId>
+            <version>3.16.5</version>
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-rest</artifactId>
