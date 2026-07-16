@@ -85,6 +85,62 @@ Edit `data/capabilities.yaml` directly to add, modify, or remove capabilities. C
 
 You can also edit data through the web UI at `/capabilities` and then save back to YAML (see below).
 
+## Fetching Spring starters and Quarkus extensions
+
+A standalone [JBang](https://www.jbang.dev/) script is included to fetch the full list of Spring Boot starters from [start.spring.io](https://start.spring.io) and Quarkus extensions from the [Quarkus registry](https://registry.quarkus.io). It requires no build step — JBang resolves dependencies and runs the script directly.
+
+### Prerequisites
+
+Install JBang (if not already available):
+
+```bash
+curl -Ls https://sh.jbang.dev | bash -s - app setup
+```
+
+### Usage
+
+```bash
+jbang src/main/java/io/snowdrop/cartography/cli/FetchComponents.java [options]
+```
+
+### Options
+
+| Option | Description |
+|--------|-------------|
+| `-t`, `--target` | Framework(s) to fetch: `spring`, `quarkus`, or `both` (default: `both`) |
+| `-f`, `--format` | Output format: `md` (Markdown table) or `csv` (default: `md`) |
+| `-o <file>` | Write output to a file instead of stdout |
+| `--boot-version` | Spring Boot version to query (default: latest stable) |
+| `-h`, `--help` | Show help |
+
+### Examples
+
+Fetch both Spring starters and Quarkus extensions as a Markdown table:
+
+```bash
+jbang src/main/java/io/snowdrop/cartography/cli/FetchComponents.java
+```
+
+Fetch only Spring starters and save as CSV:
+
+```bash
+jbang src/main/java/io/snowdrop/cartography/cli/FetchComponents.java -t spring -f csv -o spring-starters.csv
+```
+
+Fetch only Quarkus extensions:
+
+```bash
+jbang src/main/java/io/snowdrop/cartography/cli/FetchComponents.java -t quarkus
+```
+
+Fetch Spring starters for a specific Boot version:
+
+```bash
+jbang src/main/java/io/snowdrop/cartography/cli/FetchComponents.java -t spring --boot-version 3.4.1
+```
+
+When using `--target both`, the script maps Spring starter categories to Quarkus extension categories and attempts to match equivalent components side by side.
+
 ## Exporting data
 
 ### CSV export
