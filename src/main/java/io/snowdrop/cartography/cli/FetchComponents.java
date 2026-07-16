@@ -147,7 +147,7 @@ public class FetchComponents implements Command<CommandInvocation> {
             for (var s : starters) {
                 out.printf("%s,%s,%s,%s,\"%s\",%s,%s%n",
                         csvEsc(s.category), csvEsc(s.id), csvEsc(s.name), csvEsc(s.artifact),
-                        csvEsc(s.description), csvEsc(s.refDoc), csvEsc(s.guide));
+                        csvEsc(truncate(s.description, 200)), csvEsc(s.refDoc), csvEsc(s.guide));
             }
         } else {
             out.println("| Category | Starter ID | Name | Maven Artifact | Description | Reference Doc | Guide |");
@@ -156,7 +156,7 @@ public class FetchComponents implements Command<CommandInvocation> {
             for (var s : starters) {
                 String cat = s.category.equals(prevCat) ? "" : s.category;
                 prevCat = s.category;
-                String desc = s.description.length() > 100 ? s.description.substring(0, 100) : s.description;
+                String desc = truncate(s.description, 100);
                 String art = s.artifact.isEmpty() ? "--" : "`" + s.artifact + "`";
                 String ref = s.refDoc.isEmpty() ? "--" : "[ref](" + s.refDoc + ")";
                 String guide = s.guide.isEmpty() ? "--" : "[guide](" + s.guide + ")";
@@ -176,7 +176,7 @@ public class FetchComponents implements Command<CommandInvocation> {
         JsonNode root = fetchJson(QUARKUS_REGISTRY_URL, null);
         JsonNode extensions = root.path("extensions");
 
-        var result = new ArrayList<QuarkusExtension>();
+        var byArtifactId = new LinkedHashMap<String, QuarkusExtension>();
         for (JsonNode ext : extensions) {
             String gav = ext.path("artifact").asText("");
             String artifactId = extractArtifactId(gav);
@@ -194,9 +194,13 @@ public class FetchComponents implements Command<CommandInvocation> {
                     : "miscellaneous";
 
             String mavenArtifact = groupId + ":" + artifactId;
-            result.add(new QuarkusExtension(cat, artifactId, name, mavenArtifact, desc, guide, scm));
+            var candidate = new QuarkusExtension(cat, artifactId, name, mavenArtifact, desc, guide, scm);
+
+            byArtifactId.merge(artifactId, candidate, (existing, newer) ->
+                    metadataScore(newer) > metadataScore(existing) ? newer : existing);
         }
 
+        var result = new ArrayList<>(byArtifactId.values());
         System.err.printf("Fetched %d Quarkus extensions%n", result.size());
         return result;
     }
@@ -209,7 +213,7 @@ public class FetchComponents implements Command<CommandInvocation> {
             for (var e : extensions) {
                 out.printf("%s,%s,%s,%s,\"%s\",%s,%s%n",
                         csvEsc(e.category), csvEsc(e.artifactId), csvEsc(e.name),
-                        csvEsc(e.artifact), csvEsc(e.description), csvEsc(e.guide), csvEsc(e.scm));
+                        csvEsc(e.artifact), csvEsc(truncate(e.description, 200)), csvEsc(e.guide), csvEsc(e.scm));
             }
         } else {
             out.println("| Category | ArtifactId | Name | Maven Artifact | Description | Guide | SCM |");
@@ -218,7 +222,7 @@ public class FetchComponents implements Command<CommandInvocation> {
             for (var e : extensions) {
                 String cat = e.category.equals(prevCat) ? "" : e.category;
                 prevCat = e.category;
-                String desc = e.description.length() > 100 ? e.description.substring(0, 100) : e.description;
+                String desc = truncate(e.description, 100);
                 String art = "`" + e.artifact + "`";
                 String guide = e.guide.isEmpty() ? "--" : "[guide](" + e.guide + ")";
                 String scm = e.scm.isEmpty() ? "--" : "[scm](" + e.scm + ")";
@@ -266,10 +270,10 @@ public class FetchComponents implements Command<CommandInvocation> {
         }
 
         if ("csv".equals(format)) {
-            out.println("Category,Spring Starter,Spring Artifact,Spring Description,Quarkus Extension,Quarkus Artifact,Quarkus Description");
+            out.println("Category,Spring Starter,Spring Artifact,Spring Description,Quarkus Extension,Quarkus Artifact,Quarkus Description,Quarkus SCM URL");
         } else {
-            out.println("| Category | Spring Starter | Spring Artifact | Spring Description | Quarkus Extension | Quarkus Artifact | Quarkus Description |");
-            out.println("|----------|---------------|-----------------|-------------------|-------------------|------------------|---------------------|");
+            out.println("| Category | Spring Starter | Spring Artifact | Spring Description | Quarkus Extension | Quarkus Artifact | Quarkus Description | Quarkus SCM |");
+            out.println("|----------|---------------|-----------------|-------------------|-------------------|------------------|---------------------|-------------|");
         }
 
         Set<String> matchedQuarkus = new HashSet<>();
@@ -283,19 +287,21 @@ public class FetchComponents implements Command<CommandInvocation> {
             prevCat = s.category;
 
             if ("csv".equals(format)) {
-                out.printf("%s,%s,%s,\"%s\",%s,%s,\"%s\"%n",
+                out.printf("%s,%s,%s,\"%s\",%s,%s,\"%s\",%s%n",
                         csvEsc(cat), csvEsc(s.name), csvEsc(s.artifact),
                         csvEsc(truncate(s.description, 120)),
                         match != null ? csvEsc(match.name) : "",
                         match != null ? csvEsc(match.artifact) : "",
-                        match != null ? csvEsc(truncate(match.description, 120)) : "");
+                        match != null ? csvEsc(truncate(match.description, 120)) : "",
+                        match != null ? csvEsc(match.scm) : "");
             } else {
                 String sArt = s.artifact.isEmpty() ? "--" : "`" + s.artifact + "`";
                 String qName = match != null ? match.name : "";
                 String qArt = match != null ? "`" + match.artifact + "`" : "";
                 String qDesc = match != null ? truncate(match.description, 80) : "";
-                out.printf("| %s | %s | %s | %s | %s | %s | %s |%n",
-                        cat, s.name, sArt, truncate(s.description, 80), qName, qArt, qDesc);
+                String qScm = match != null && !match.scm.isEmpty() ? "[scm](" + match.scm + ")" : "--";
+                out.printf("| %s | %s | %s | %s | %s | %s | %s | %s |%n",
+                        cat, s.name, sArt, truncate(s.description, 80), qName, qArt, qDesc, qScm);
             }
         }
 
@@ -366,6 +372,14 @@ public class FetchComponents implements Command<CommandInvocation> {
 
     // --- Utilities ---
 
+    static int metadataScore(QuarkusExtension ext) {
+        int score = 0;
+        if (!ext.scm.isEmpty()) score++;
+        if (!ext.guide.isEmpty()) score++;
+        if (!ext.description.isEmpty()) score++;
+        return score;
+    }
+
     static JsonNode fetchJson(String url, String accept) throws IOException, InterruptedException {
         var builder = HttpRequest.newBuilder(URI.create(url)).GET();
         if (accept != null) builder.header("Accept", accept);
@@ -394,6 +408,7 @@ public class FetchComponents implements Command<CommandInvocation> {
 
     static String truncate(String s, int max) {
         if (s == null) return "";
+        s = s.replaceAll("[\\r\\n]+", " ").replaceAll("\\s{2,}", " ").strip();
         return s.length() > max ? s.substring(0, max) + "..." : s;
     }
 
