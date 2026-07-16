@@ -28,12 +28,10 @@ import java.util.stream.Collectors;
 public class FetchComponents implements Command<CommandInvocation> {
 
     @Option(name = "target", shortName = 't', defaultValue = "both",
-            allowedValues = {"spring", "quarkus", "both"},
             description = "Framework(s) to fetch: spring, quarkus or both. Default: both")
     private String target;
 
     @Option(name = "format", shortName = 'f', defaultValue = "md",
-            allowedValues = {"md", "csv"},
             description = "Output format: md, csv. Default: md")
     private String format;
 

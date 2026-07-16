@@ -54,16 +54,44 @@
     type: EXTENSION
     since: Dec 2023
 
-- category: Scheduler
-  tags: "scheduler, quartz, tasks, periodic-tasks"
+- category: Batch
+  description: "Processing of large volumes of records, including logging/tracing,\
+    \ transaction management, job processing statistics, job restart, skip, and resource\
+    \ management."
+  tags: "integration, batch, batch-processing, job"
+  reviewBy: Charles Moulliard
+  reviewDate: 2026-07-16
+  quarkusStatus: no action
   entries:
   - framework: Spring
-    name: Spring @Scheduled
+    name: spring-boot-starter-batch
+    doc: https://docs.spring.io/spring-boot/reference/io/spring-batch.html
+    scm: https://github.com/spring-projects/spring-boot/blob/main/starter/spring-boot-starter-batch/build.gradle
+    description: Spring Batch is a framework for writing batch applications using
+      Java and Spring
+    type: STARTER
+    since: Nov 2010
+  - framework: Quarkus
+    name: quarkus-jberet
+    doc: https://docs.quarkiverse.io/quarkus-jberet/dev/index.html
+    scm: https://github.com/quarkiverse/quarkus-jberet
+    description: Write Batch Applications with JBeret a JSR-352 implementation
+    type: EXTENSION
+    since: Oct 2020
+
+- category: Scheduler
+  tags: "scheduler, quartz, tasks, periodic-tasks"
+  reviewBy: Charles Moulliard
+  reviewDate: 2026-07-16
+  quarkusStatus: no action
+  entries:
+  - framework: Spring
+    name: spring-boot-starter-quartz
     doc: https://docs.spring.io/spring-framework/reference/integration/scheduling.html
-    scm: https://github.com/spring-projects/spring-framework
+    scm: https://github.com/spring-projects/spring-boot
     description: Annotation-driven task scheduling in Spring Framework
     type: STARTER
-    comment: Not found in spring-projects GitHub org
+    comment: "The starter just encapsulate dependencies: https://github.com/spring-projects/spring-boot/blob/main/starter/spring-boot-starter-quartz/build.gradle"
   - framework: Quarkus
     name: quarkus-scheduler
     doc: https://quarkus.io/guides/scheduler
@@ -84,34 +112,6 @@
       mechanisms
     type: EXTENSION
     comment: Not found in Quarkus registry
-
-- category: Spring Batch
-  tags: "integration, integration, batch, batch-processing, java, spring"
-  entries:
-  - framework: Spring
-    name: Spring Batch
-    doc: https://spring.io/projects/spring-batch
-    scm: https://github.com/spring-projects/spring-batch
-    description: "Lightweight, comprehensive batch framework for robust batch applications\
-      \ in enterprise systems"
-    type: STARTER
-    since: Nov 2010
-  - framework: Quarkus
-    name: quarkus-jberet
-    doc: https://docs.quarkiverse.io/quarkus-jberet/dev/index.html
-    scm: https://github.com/quarkiverse/quarkus-jberet
-    description: Write Batch Applications with JBeret a JSR-352 implementation
-    type: EXTENSION
-    since: Oct 2020
-    comment: "Registry categories: data, integration"
-  - framework: Spring
-    name: spring-boot-starter-batch
-    doc: https://spring.io/projects/spring-boot
-    scm: https://github.com/spring-projects/spring-batch
-    description: Spring Batch is a framework for writing batch applications using
-      Java and Spring
-    type: STARTER
-    since: Nov 2010
 
 - category: Spring Boot
   tags: "reactive, reactive"
@@ -1116,15 +1116,6 @@
     description: Security
     type: EXTENSION
     since: Oct 2019
-  - framework: Spring
-    name: Spring Authorization Server
-    doc: https://docs.spring.io/spring-security/reference/servlet/oauth2/index.html
-    scm: https://github.com/spring-projects/spring-security
-    description: "The Authorization Server features provide implementations of the\
-      \ OAuth 2.1 and OpenID Connect 1.0 specifications and other related specifications.\
-      \ It provides a secure, light-weight, and customizable foundation for building\
-      \ OpenID Connect 1.0 Identity Providers and OAuth 2.1 Authorization Server products."
-    type: STARTER
   - framework: Quarkus
     name: quarkus-oidc
     doc: https://quarkus.io/guides/security-openid-connect
@@ -1136,11 +1127,6 @@
   - framework: Spring
     name: spring-boot-starter-security
     doc: https://spring.io/projects/spring-boot
-    type: STARTER
-    comment: Not found in spring-projects GitHub org
-  - framework: Spring
-    name: Spring Security OAuth2
-    doc: https://docs.spring.io/spring-security/reference/servlet/oauth2/index.html
     type: STARTER
     comment: Not found in spring-projects GitHub org
   - framework: Quarkus
@@ -1188,6 +1174,19 @@
     description: Secure your applications with JSON Web Token
     type: EXTENSION
     since: Mar 2019
+
+- category: security-oauth2
+  tags: "security, oauth2"
+  entries:
+  - framework: Spring
+    name: Spring Authorization Server
+    doc: https://docs.spring.io/spring-security/reference/servlet/oauth2/index.html
+    scm: https://github.com/spring-projects/spring-security
+    description: "The Authorization Server features provide implementations of the\
+      \ OAuth 2.1 and OpenID Connect 1.0 specifications and other related specifications.\
+      \ It provides a secure, light-weight, and customizable foundation for building\
+      \ OpenID Connect 1.0 Identity Providers and OAuth 2.1 Authorization Server products."
+    type: STARTER
 
 - category: streaming
   description: Technology supporting high-scalable distributed event streaming.

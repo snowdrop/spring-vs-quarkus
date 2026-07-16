@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{#insert title}Spring vs Quarkus{/insert}</title>
+    <title>{#insert title}Framework Features Registry{/insert}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
     <style>
         table { font-size: 0.875rem; }
@@ -24,10 +24,11 @@
 <body>
 <header class="container">
     <nav>
-        <ul><li><strong>Spring vs Quarkus</strong></li></ul>
+        <ul></ul>
         <ul>
-            <li><a href="/capabilities">Capabilities</a></li>
-            <li><a href="/capabilities/new">Add</a></li>
+            <li><a href="/registry" role="button" class="outline" style="font-size:0.875rem;padding:0.3rem 0.8rem;margin:0;">Registry</a></li>
+            <li><a href="/capabilities" role="button" class="outline" style="font-size:0.875rem;padding:0.3rem 0.8rem;margin:0;">Capabilities</a></li>
+            <li><form method="post" action="/save" style="margin:0;"><button type="submit" class="outline" style="font-size:0.875rem;padding:0.3rem 0.8rem;margin:0;">Save to YAML</button></form></li>
         </ul>
     </nav>
 </header>

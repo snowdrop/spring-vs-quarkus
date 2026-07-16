@@ -2,7 +2,7 @@
 
 The goal of this project is to inventory the capabilities (REST, Web, JPA, persistence, transactions, security, etc.) offered by frameworks like Quarkus and Spring Boot, and to compare which framework supports each capability as a starter or extension. Each capability references the frameworks that support it, along with a description, a link to the project home page, and the source repository.
 
-Data is stored in `data/capabilities.yaml` and loaded into an H2 in-memory database on startup. The web UI lets you browse, filter, add, and edit capabilities, then export or persist changes back to YAML.
+Data is stored in `data/registry.yaml` and loaded into an H2 in-memory database on startup. The web UI provides two screens for managing capabilities and their framework entries, with export and YAML persistence available from any page.
 
 ## Prerequisites
 
@@ -26,9 +26,36 @@ mvn package
 java -jar target/quarkus-app/quarkus-run.jar
 ```
 
+## Web UI
+
+The application has two main screens:
+
+### Registry (`/registry`)
+
+The full comparison view showing capabilities side by side with their Spring and Quarkus entries. Features:
+
+- Filter by name, Spring support, and Quarkus support
+- Sortable columns
+- Inline Quarkus status dropdown (AJAX)
+- Create/edit capabilities with their framework entries (starters and extensions)
+- Move entries between capabilities
+- Export to CSV or Markdown
+
+### Capabilities (`/capabilities`)
+
+A simpler CRUD screen focused on managing the capability entities themselves. Features:
+
+- Filter by name
+- Add, edit, and delete capabilities
+- Delete is only allowed when a capability has no framework entries associated
+
+### Save to YAML
+
+A **Save to YAML** button is available in the navigation bar on every page. It persists the current database state to `data/registry.yaml`. On startup, the application loads this file back into the database. Capabilities without entries (standalone) are flagged with a warning in the logs to help spot discrepancies.
+
 ## Data format
 
-All capability data lives in [`data/capabilities.yaml`](data/capabilities.yaml). Each capability represents a domain area (e.g. security, web, messaging) with entries for one or both frameworks:
+All capability data lives in [`data/registry.yaml`](data/registry.yaml). Each capability represents a domain area (e.g. security, web, messaging) with entries for one or both frameworks:
 
 ```yaml
 - category: streaming
@@ -81,9 +108,9 @@ All capability data lives in [`data/capabilities.yaml`](data/capabilities.yaml).
 
 ### Updating the data
 
-Edit `data/capabilities.yaml` directly to add, modify, or remove capabilities. Changes take effect on the next application restart.
+Edit `data/registry.yaml` directly to add, modify, or remove capabilities. Changes take effect on the next application restart.
 
-You can also edit data through the web UI at `/capabilities` and then save back to YAML (see below).
+You can also edit data through the web UI at `/registry` (full entry management) or `/capabilities` (capability-level CRUD), then click **Save to YAML** in the navigation bar to persist changes.
 
 ## Fetching Spring starters and Quarkus extensions
 
@@ -163,28 +190,28 @@ Produces a full comparison table with summary statistics and per-capability deta
 
 ### Export via the UI
 
-The web interface includes **Export CSV** and **Export Markdown** buttons in the toolbar above the capabilities table.
+The Registry screen includes **Export CSV** and **Export Markdown** buttons in the toolbar above the table.
 
 ## Saving to the local store
 
-The application loads `data/capabilities.yaml` into an in-memory H2 database at startup. After making changes through the web UI, click the **Save to YAML** button (or POST to `/save`) to persist the current database state back to `data/capabilities.yaml`:
+The application loads `data/registry.yaml` into an in-memory H2 database at startup. After making changes through the web UI, click the **Save to YAML** button in the navigation bar (or POST to `/save`) to persist the current database state back to `data/registry.yaml`:
 
 ```bash
 curl -X POST http://localhost:8080/save
 ```
 
-This overwrites the YAML file with the current state of all capabilities.
+This overwrites the YAML file with the current state of all capabilities and their entries.
 
-## Creating a PR when capabilities.yaml changes
+## Creating a PR when registry.yaml changes
 
 After modifying the data (either by editing the YAML directly or saving from the UI), create a pull request to track the change:
 
 ```bash
-git checkout -b update-capabilities
-git add data/capabilities.yaml
+git checkout -b update-registry
+git add data/registry.yaml
 git commit -m "Add new capability: authentication for Spring and Quarkus."
-git push -u origin update-capabilities
-gh pr create --title "Update capabilities data" --body "Add new capability: authentication for Spring and Quarkus."
+git push -u origin update-registry
+gh pr create --title "Update registry data" --body "Add new capability: authentication for Spring and Quarkus."
 ```
 
 If you also want to include refreshed export files in the PR:
@@ -193,17 +220,17 @@ If you also want to include refreshed export files in the PR:
 curl -o export/spring-quarkus-capabilities.csv http://localhost:8080/export/csv
 curl -o export/spring-quarkus-capabilities.md http://localhost:8080/export/markdown
 
-git add data/capabilities.yaml export/
-git commit -m "Update capabilities and regenerate exports"
-git push -u origin update-capabilities
-gh pr create --title "Update capabilities data" --body "Updated capabilities YAML and regenerated CSV/Markdown exports"
+git add data/registry.yaml export/
+git commit -m "Update registry and regenerate exports"
+git push -u origin update-registry
+gh pr create --title "Update registry data" --body "Updated registry YAML and regenerated CSV/Markdown exports"
 ```
 
 ## Project structure
 
 ```
 data/
-  capabilities.yaml              # Source of truth for all capability data
+  registry.yaml                  # Source of truth for all capability data
 export/                          # Generated export files (git-ignored)
 src/main/java/.../
   model/
@@ -214,11 +241,14 @@ src/main/java/.../
   repository/
     CapabilityRepository.java    # Panache repository with filtering queries
   resource/
-    CapabilityResource.java      # JAX-RS endpoints (UI + export + save)
+    RegistryResource.java        # JAX-RS endpoints for registry (UI + export + save)
+    CapabilityResource.java      # JAX-RS endpoints for capability CRUD
   service/
     DataService.java             # YAML/CSV load and save logic
     ExportService.java           # CSV and Markdown generation
 src/main/resources/
-  templates/                     # Qute HTML templates (list + form)
+  templates/
+    RegistryResource/            # Qute templates for registry (list + form)
+    CapabilityResource/          # Qute templates for capabilities (list + form)
   application.properties         # Quarkus configuration
 ```

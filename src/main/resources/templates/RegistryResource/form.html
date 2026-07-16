@@ -1,0 +1,259 @@
+{#include layout.html}
+{#title}{#if isNew}New Capability{#else}Edit: {capability.category}{/if}{/title}
+{#extraStyles}
+.entry-card {
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+.entry-card.fw-spring {
+  background: rgba(107, 170, 63, 0.12);
+  border-left: 4px solid #6baa3f;
+}
+.entry-card.fw-quarkus {
+  background: rgba(70, 149, 235, 0.08);
+  border-left: 4px solid #4695eb;
+}
+.entry-card .entry-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+.entry-card .entry-grid label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.15rem;
+}
+.entry-card .entry-grid input,
+.entry-card .entry-grid select,
+.entry-card .entry-grid textarea {
+  font-size: 0.85rem;
+  padding: 0.3rem 0.4rem;
+  margin-bottom: 0;
+}
+.entry-card .entry-grid textarea { resize: vertical; }
+.entry-card .entry-grid .field { display: flex; flex-direction: column; }
+.entry-card .entry-grid .field-full { grid-column: span 2; }
+.entry-card .btn-delete {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.8rem;
+  margin: 0.5rem 0 0 0;
+  width: auto;
+  background: var(--pico-del-color);
+  border-color: var(--pico-del-color);
+  color: white;
+}
+.entry-card .btn-delete:hover { opacity: 0.85; }
+.entry-card .btn-move {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.8rem;
+  margin: 0.5rem 0 0 0;
+  width: auto;
+  background: var(--pico-primary-background);
+  border-color: var(--pico-primary-background);
+  color: white;
+}
+.entry-card .btn-move:hover { opacity: 0.85; }
+.entry-card .entry-grid input[type="text"] { height: auto; padding-top: 0.35rem; padding-bottom: 0.35rem; }
+.btn-sm { font-size: 0.8rem; padding: 0.3rem 0.6rem; }
+.form-actions { display: flex; gap: 0.5rem; margin-top: 1.5rem; align-items: center; }
+.form-actions button[type="submit"] { padding: 0.5rem 1.5rem; width: auto; margin-bottom: 0; }
+.form-actions a[role="button"] { padding: 0.5rem 1rem; width: auto; font-size: 0.85rem; margin-bottom: 0; }
+{/extraStyles}
+{#content}
+
+<h2>{#if isNew}New Capability{#else}Edit: {capability.category}{/if}</h2>
+
+<form id="compForm" method="post" action="{#if isNew}/registry{#else}/registry/{capability.id}{/if}">
+
+    <label for="category">Category</label>
+    <input type="text" id="category" name="category" value="{capability.category}" required placeholder="e.g. Security, Data, Web...">
+
+    <label for="description">Description</label>
+    <textarea id="description" name="description" rows="2" placeholder="Brief description of this capability...">{capability.description}</textarea>
+
+    <label for="tags">Tags</label>
+    <input type="text" id="tags" name="tags" value="{capability.tags}" placeholder="e.g. web, security, data (comma or space separated)">
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:0.5rem;">
+        <div>
+            <label for="reviewBy">Review by</label>
+            <input type="text" id="reviewBy" name="reviewBy" value="{capability.reviewBy}" placeholder="e.g. John Doe">
+        </div>
+        <div>
+            <label for="reviewDate">Review date</label>
+            <input type="date" id="reviewDate" name="reviewDate" value="{capability.reviewDate}">
+        </div>
+    </div>
+
+    <label for="quarkusStatus">Quarkus status</label>
+    <select id="quarkusStatus" name="quarkusStatus" style="width:auto;">
+        <option value="">--</option>
+        <option value="to develop" {#if capability.quarkusStatus == 'to develop'}selected{/if}>to develop</option>
+        <option value="no action" {#if capability.quarkusStatus == 'no action'}selected{/if}>no action</option>
+        <option value="approved" {#if capability.quarkusStatus == 'approved'}selected{/if}>approved</option>
+        <option value="in progress" {#if capability.quarkusStatus == 'in progress'}selected{/if}>in progress</option>
+        <option value="done" {#if capability.quarkusStatus == 'done'}selected{/if}>done</option>
+    </select>
+
+    <h3 style="margin-top:1.5rem;">Entries</h3>
+    <p style="font-size:0.85rem;color:var(--pico-muted-color);">Each entry represents a Spring Boot starter or Quarkus extension.</p>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:0.5rem;">
+        <div>
+            <h4 style="color:#6baa3f; border-bottom:2px solid #6baa3f; padding-bottom:0.3rem;">Spring</h4>
+            <div id="entries-spring"></div>
+            <button type="button" class="outline btn-sm" onclick="addEntryCard(\{framework:'Spring'\})" style="margin-top:0.5rem;">+ Add Spring Entry</button>
+        </div>
+        <div>
+            <h4 style="color:#4695eb; border-bottom:2px solid #4695eb; padding-bottom:0.3rem;">Quarkus</h4>
+            <div id="entries-quarkus"></div>
+            <button type="button" class="outline btn-sm" onclick="addEntryCard(\{framework:'Quarkus'\})" style="margin-top:0.5rem;">+ Add Quarkus Entry</button>
+        </div>
+    </div>
+
+    <input type="hidden" id="entriesJson" name="entriesJson" value="">
+
+    <div class="form-actions">
+        <button type="submit">{#if isNew}Create{#else}Update{/if}</button>
+        <a href="/registry" role="button" class="outline secondary">Cancel</a>
+    </div>
+</form>
+
+{#if !isNew}
+<dialog id="moveDialog">
+  <article style="max-width:28rem; margin:0;">
+    <header>
+      <button type="button" aria-label="Close" rel="prev"
+              onclick="document.getElementById('moveDialog').close()"></button>
+      <h3>Move entry to another capability</h3>
+    </header>
+    <form id="moveForm" method="post" action="">
+      <label for="targetCapabilityId">Target capability</label>
+      <select id="targetCapabilityId" name="targetCapabilityId" required>
+        <option value="">-- Select capability --</option>
+        {#for c in allCapabilities}
+        {#if c.id != capability.id}
+        <option value="{c.id}">{c.category}</option>
+        {/if}
+        {/for}
+      </select>
+      <div style="display:flex; gap:0.5rem; margin-top:1rem;">
+        <button type="submit">Move</button>
+        <button type="button" class="secondary"
+                onclick="document.getElementById('moveDialog').close()">Cancel</button>
+      </div>
+    </form>
+  </article>
+</dialog>
+{/if}
+
+{/content}
+{#extraScripts}
+var frameworkOptions = '{#for f in frameworks}<option value="{f}">{f}</option>{/for}';
+var typeOptions = '{#for t in componentTypes}<option value="{t}">{t}</option>{/for}';
+var currentCapabilityId = {#if isNew}null{#else}{capability.id}{/if};
+
+function openMoveDialog(entryId) {
+  var dialog = document.getElementById('moveDialog');
+  var form = document.getElementById('moveForm');
+  form.action = '/registry/' + currentCapabilityId + '/entries/' + entryId + '/move';
+  document.getElementById('targetCapabilityId').value = '';
+  dialog.showModal();
+}
+
+var existingEntries = [
+{#if !isNew}
+{#for e in capability.entries}
+  {
+    id: {e.id},
+    framework: '{e.framework}',
+    name: '{#if e.name}{e.name}{/if}',
+    doc: '{#if e.doc}{e.doc}{/if}',
+    scm: '{#if e.scm}{e.scm}{/if}',
+    description: '{#if e.description}{e.description}{/if}',
+    type: '{#if e.type}{e.type}{/if}',
+    since: '{#if e.since}{e.since}{/if}',
+    comment: '{#if e.comment}{e.comment}{/if}'
+  },
+{/for}
+{/if}
+];
+
+function getContainer(fw) {
+  return document.getElementById(fw === 'Quarkus' ? 'entries-quarkus' : 'entries-spring');
+}
+
+function addEntryCard(data) {
+  var d = data || {};
+  var fw = d.framework || 'Spring';
+  var card = document.createElement('div');
+  card.className = 'entry-card';
+  card.innerHTML =
+    '<div class="entry-grid">' +
+      '<input type="hidden" class="e-fw" value="' + esc(fw) + '">' +
+      '<div class="field">' +
+        '<label>Type</label>' +
+        '<select class="e-type">' + typeOptions + '</select>' +
+      '</div>' +
+      '<div class="field">' +
+        '<label>Since</label>' +
+        '<input type="text" class="e-since" value="' + esc(d.since||'') + '" placeholder="e.g. March 7, 2014">' +
+      '</div>' +
+      '<div class="field">' +
+        '<label>Name</label>' +
+        '<input type="text" class="e-name" value="' + esc(d.name||'') + '" placeholder="Name">' +
+      '</div>' +
+      '<div class="field field-full">' +
+        '<label>Description</label>' +
+        '<textarea class="e-desc" rows="2" placeholder="Description">' + esc(d.description||'') + '</textarea>' +
+      '</div>' +
+      '<div class="field field-full">' +
+        '<label>Doc url</label>' +
+        '<input type="text" class="e-doc" value="' + esc(d.doc||'') + '" placeholder="https://...">' +
+      '</div>' +
+      '<div class="field field-full">' +
+        '<label>Scm url</label>' +
+        '<input type="text" class="e-scm" value="' + esc(d.scm||'') + '" placeholder="https://github.com/...">' +
+      '</div>' +
+      '<div class="field field-full">' +
+        '<label>Comment</label>' +
+        '<textarea class="e-comment" rows="2" placeholder="Review notes...">' + esc(d.comment||'') + '</textarea>' +
+      '</div>' +
+    '</div>' +
+    '<div style="display:flex; gap:0.5rem; margin-top:0.5rem;">' +
+    (d.id ? '<button type="button" class="btn-move" onclick="openMoveDialog(' + d.id + ')">Move</button>' : '') +
+    '<button type="button" class="btn-delete" onclick="this.closest(\'.entry-card\').remove()">Delete</button>' +
+    '</div>';
+  getContainer(fw).appendChild(card);
+  if (d.type) card.querySelector('.e-type').value = d.type;
+  card.classList.add(fw === 'Quarkus' ? 'fw-quarkus' : 'fw-spring');
+}
+
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+existingEntries.forEach(function(e) { addEntryCard(e); });
+
+document.getElementById('compForm').addEventListener('submit', function() {
+  var cards = document.querySelectorAll('#entries-spring .entry-card, #entries-quarkus .entry-card');
+  var entries = [];
+  cards.forEach(function(c) {
+    entries.push({
+      framework: c.querySelector('.e-fw').value,
+      name: c.querySelector('.e-name').value,
+      doc: c.querySelector('.e-doc').value,
+      scm: c.querySelector('.e-scm').value,
+      description: c.querySelector('.e-desc').value,
+      type: c.querySelector('.e-type').value,
+      since: c.querySelector('.e-since').value,
+      comment: c.querySelector('.e-comment').value
+    });
+  });
+  document.getElementById('entriesJson').value = JSON.stringify(entries);
+});
+{/extraScripts}
+{/include}

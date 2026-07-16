@@ -32,7 +32,7 @@ public class DataService {
 
     private static final Logger LOG = Logger.getLogger(DataService.class);
 
-    private static final Path YAML_FILE = Path.of("data/capabilities.yaml");
+    private static final Path YAML_FILE = Path.of("data/registry.yaml");
     private static final Path CSV_FILE = Path.of("spring-quarkus-comparison.csv");
     private static final Pattern HYPERLINK_PATTERN =
             Pattern.compile("=HYPERLINK\\(\"([^\"]+)\",\"([^\"]+)\"\\)");
@@ -57,11 +57,20 @@ public class DataService {
             var mapper = createYamlMapper();
             List<CapabilityDto> dtos = mapper.readValue(
                     YAML_FILE.toFile(), new TypeReference<List<CapabilityDto>>() {});
+            int withEntries = 0;
+            int withoutEntries = 0;
             for (CapabilityDto dto : dtos) {
                 Capability c = dto.toEntity();
                 repository.persist(c);
+                if (c.getEntries().isEmpty()) {
+                    withoutEntries++;
+                    LOG.warnf("Capability '%s' has no framework entries (standalone capability with no registry data)", c.getCategory());
+                } else {
+                    withEntries++;
+                }
             }
-            LOG.infof("Loaded %d capabilities from %s", dtos.size(), YAML_FILE);
+            LOG.infof("Loaded %d capabilities from %s (%d with entries, %d without entries)",
+                    dtos.size(), YAML_FILE, withEntries, withoutEntries);
         } catch (IOException e) {
             LOG.error("Failed to load YAML", e);
         }
