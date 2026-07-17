@@ -70,16 +70,10 @@ public class CapabilityResource {
     public Response create(
             @FormParam("category") String category,
             @FormParam("description") String description,
-            @FormParam("tags") String tags,
-            @FormParam("reviewBy") String reviewBy,
-            @FormParam("reviewDate") String reviewDate,
-            @FormParam("quarkusStatus") String quarkusStatus) {
+            @FormParam("tags") String tags) {
         Capability c = new Capability(category);
         c.setDescription(blankToNull(description));
         c.setTags(blankToNull(tags));
-        c.setReviewBy(blankToNull(reviewBy));
-        c.setReviewDate(parseDate(reviewDate));
-        c.setQuarkusStatus(blankToNull(quarkusStatus));
         repository.persist(c);
         return Response.seeOther(URI.create("/capabilities")).build();
     }
@@ -95,7 +89,8 @@ public class CapabilityResource {
             @FormParam("tags") String tags,
             @FormParam("reviewBy") String reviewBy,
             @FormParam("reviewDate") String reviewDate,
-            @FormParam("quarkusStatus") String quarkusStatus) {
+            @FormParam("quarkusStatus") String quarkusStatus,
+            @FormParam("statusComment") String statusComment) {
         Capability c = repository.findById(id);
         if (c == null) {
             return Response.seeOther(URI.create("/capabilities")).build();
@@ -106,6 +101,7 @@ public class CapabilityResource {
         c.setReviewBy(blankToNull(reviewBy));
         c.setReviewDate(parseDate(reviewDate));
         c.setQuarkusStatus(blankToNull(quarkusStatus));
+        c.setStatusComment(blankToNull(statusComment));
         return Response.seeOther(URI.create("/capabilities")).build();
     }
 

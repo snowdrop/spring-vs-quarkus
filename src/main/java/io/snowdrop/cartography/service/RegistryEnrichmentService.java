@@ -38,7 +38,7 @@ public class RegistryEnrichmentService {
     CapabilityRepository repository;
 
     @Inject
-    DataService dataService;
+    YamlDataService yamlDataService;
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
@@ -120,7 +120,7 @@ public class RegistryEnrichmentService {
 
         enrichSpringEntries(capabilities, result);
 
-        dataService.saveToYaml();
+        yamlDataService.saveToYaml();
         return result;
     }
 

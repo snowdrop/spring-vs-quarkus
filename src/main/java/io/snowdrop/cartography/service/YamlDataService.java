@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.opencsv.CSVReader;
 import io.quarkus.runtime.StartupEvent;
 import io.snowdrop.cartography.model.Capability;
 import io.snowdrop.cartography.model.ComponentType;
@@ -17,38 +16,37 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.jboss.logging.Logger;
 
 @ApplicationScoped
-public class DataService {
+public class YamlDataService {
 
-    private static final Logger LOG = Logger.getLogger(DataService.class);
+    private static final Logger LOG = Logger.getLogger(YamlDataService.class);
 
     private static final Path YAML_FILE = Path.of("data/registry.yaml");
     private static final Path CSV_FILE = Path.of("spring-quarkus-comparison.csv");
-    private static final Pattern HYPERLINK_PATTERN =
-            Pattern.compile("=HYPERLINK\\(\"([^\"]+)\",\"([^\"]+)\"\\)");
 
     @Inject
     CapabilityRepository repository;
 
+    @Inject
+    CsvService csvService;
+
     @Transactional
     void onStart(@Observes StartupEvent ev) {
+        if (repository.count() > 0) {
+            LOG.infof("Database already contains %d capabilities, skipping YAML import", repository.count());
+            return;
+        }
         if (Files.exists(YAML_FILE)) {
             loadFromYaml();
-        } else if (Files.exists(CSV_FILE)) {
-            importFromCsv();
-            saveToYaml();
         } else {
-            LOG.warn("No data/capabilities.yaml or spring-quarkus-comparison.csv found");
+            LOG.warn("No data/registry.yaml found");
         }
     }
 
@@ -91,121 +89,6 @@ public class DataService {
         }
     }
 
-    void importFromCsv() {
-        try (var reader = new CSVReader(new FileReader(CSV_FILE.toFile()))) {
-            reader.readNext();
-            String[] row;
-            Capability current = null;
-
-            while ((row = reader.readNext()) != null) {
-                if (row.length < 10) continue;
-
-                var col0 = parseHyperlink(row[0]);
-                var col1 = parseHyperlink(row[1]);
-                var col2 = parseHyperlink(row[2]);
-                var col3 = parseHyperlink(row[3]);
-                var col4 = parseHyperlink(row[4]);
-                var col5 = parseHyperlink(row[5]);
-                var col6 = parseHyperlink(row[6]);
-                var col7 = parseHyperlink(row[7]);
-
-                boolean isNewProject = col0 != null;
-                boolean isQuarkusOnly = col0 == null && col2 == null && col3 != null;
-
-                if (isNewProject || isQuarkusOnly) {
-                    if (current != null) {
-                        repository.persist(current);
-                    }
-
-                    if (isNewProject) {
-                        current = new Capability(col0.label());
-                        addProjectEntry(current, Framework.Spring, col0, col1);
-                        if (col3 != null) {
-                            addProjectEntry(current, Framework.Quarkus, col3, col4);
-                        }
-                    } else {
-                        current = new Capability(col3.label());
-                        addProjectEntry(current, Framework.Quarkus, col3, col4);
-                    }
-                }
-
-                if (current == null) continue;
-
-                addEntriesFromRow(current, col2, col5, col6, col7);
-            }
-
-            if (current != null) {
-                repository.persist(current);
-            }
-
-            LOG.infof("Imported %d capabilities from CSV", repository.count());
-        } catch (Exception e) {
-            LOG.error("Failed to import CSV", e);
-        }
-    }
-
-    private void addProjectEntry(Capability c, Framework framework, HyperlinkValue project, HyperlinkValue github) {
-        var entry = new FrameworkEntry();
-        entry.setFramework(framework);
-        entry.setName(project.label());
-        entry.setDoc(project.url());
-        if (github != null) {
-            entry.setScm(github.url());
-        }
-        entry.setType(framework == Framework.Spring ? ComponentType.STARTER : ComponentType.EXTENSION);
-        c.addEntry(entry);
-    }
-
-    private void addEntriesFromRow(Capability capability,
-                                    HyperlinkValue springSub, HyperlinkValue quarkusSub,
-                                    HyperlinkValue starter, HyperlinkValue extension) {
-        if (springSub != null) {
-            var e = new FrameworkEntry();
-            e.setFramework(Framework.Spring);
-            e.setName(springSub.label());
-            e.setDoc(springSub.url());
-            e.setType(ComponentType.STARTER);
-            capability.addEntry(e);
-        }
-        if (quarkusSub != null) {
-            var e = new FrameworkEntry();
-            e.setFramework(Framework.Quarkus);
-            e.setName(quarkusSub.label());
-            e.setDoc(quarkusSub.url());
-            e.setType(ComponentType.EXTENSION);
-            capability.addEntry(e);
-        }
-        if (starter != null) {
-            var e = new FrameworkEntry();
-            e.setFramework(Framework.Spring);
-            e.setName(starter.label());
-            e.setDoc(starter.url());
-            e.setType(ComponentType.STARTER);
-            capability.addEntry(e);
-        }
-        if (extension != null) {
-            var e = new FrameworkEntry();
-            e.setFramework(Framework.Quarkus);
-            e.setName(extension.label());
-            e.setDoc(extension.url());
-            e.setType(ComponentType.EXTENSION);
-            capability.addEntry(e);
-        }
-    }
-
-    static HyperlinkValue parseHyperlink(String cellValue) {
-        if (cellValue == null || cellValue.isBlank()) return null;
-        Matcher m = HYPERLINK_PATTERN.matcher(cellValue.trim());
-        if (m.matches()) {
-            return new HyperlinkValue(m.group(1), m.group(2));
-        }
-        String trimmed = cellValue.trim();
-        if (!trimmed.isEmpty()) {
-            return new HyperlinkValue(null, trimmed);
-        }
-        return null;
-    }
-
     private ObjectMapper createYamlMapper() {
         var factory = new YAMLFactory()
                 .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER)
@@ -218,8 +101,6 @@ public class DataService {
         return mapper;
     }
 
-    record HyperlinkValue(String url, String label) {}
-
     public record CapabilityDto(
             String category,
             String description,
@@ -228,6 +109,7 @@ public class DataService {
             String reviewBy,
             LocalDate reviewDate,
             String quarkusStatus,
+            String statusComment,
             List<FrameworkEntryDto> entries
     ) {
         static CapabilityDto fromEntity(Capability c) {
@@ -239,6 +121,7 @@ public class DataService {
                     c.getReviewBy(),
                     c.getReviewDate(),
                     c.getQuarkusStatus(),
+                    c.getStatusComment(),
                     c.getEntries().stream().map(FrameworkEntryDto::fromEntity).toList()
             );
         }
@@ -251,6 +134,7 @@ public class DataService {
             c.setReviewBy(reviewBy);
             c.setReviewDate(reviewDate);
             c.setQuarkusStatus(quarkusStatus);
+            c.setStatusComment(statusComment);
             if (entries != null) {
                 for (var dto : entries) {
                     c.addEntry(dto.toEntity());

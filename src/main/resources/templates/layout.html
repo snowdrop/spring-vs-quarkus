@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{#insert title}Framework Features Registry{/insert}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.cyan.min.css">
     <style>
         table { font-size: 0.875rem; }
         .stats { display: flex; gap: 1.5rem; margin-bottom: 1rem; }
@@ -18,6 +18,12 @@
         .badge-yes { background: #6db33f; color: white; }
         .badge-no { background: var(--pico-del-color); color: white; }
         .flash { padding: 0.75rem; margin-bottom: 1rem; border-radius: 4px; background: var(--pico-ins-color); color: white; }
+        .badge-status { font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 3px; color: white; }
+        .badge-status-to-develop { background: #e67e22; }
+        .badge-status-no-action { background: #95a5a6; }
+        .badge-status-approved { background: #3498db; }
+        .badge-status-in-progress { background: #9b59b6; }
+        .badge-status-done { background: #27ae60; }
         {#insert extraStyles}{/insert}
     </style>
 </head>

@@ -41,6 +41,9 @@ public class Capability {
     @Column(name = "quarkus_status")
     private String quarkusStatus;
 
+    @Column(name = "status_comment", length = 1024)
+    private String statusComment;
+
     @OneToMany(mappedBy = "capability", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<FrameworkEntry> entries = new ArrayList<>();
 
@@ -118,6 +121,14 @@ public class Capability {
 
     public void setQuarkusStatus(String quarkusStatus) {
         this.quarkusStatus = quarkusStatus;
+    }
+
+    public String getStatusComment() {
+        return statusComment;
+    }
+
+    public void setStatusComment(String statusComment) {
+        this.statusComment = statusComment;
     }
 
     public List<FrameworkEntry> getEntries() {

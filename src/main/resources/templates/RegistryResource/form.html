@@ -77,6 +77,7 @@
     <label for="tags">Tags</label>
     <input type="text" id="tags" name="tags" value="{capability.tags}" placeholder="e.g. web, security, data (comma or space separated)">
 
+    {#if !isNew}
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:0.5rem;">
         <div>
             <label for="reviewBy">Review by</label>
@@ -88,15 +89,24 @@
         </div>
     </div>
 
-    <label for="quarkusStatus">Quarkus status</label>
-    <select id="quarkusStatus" name="quarkusStatus" style="width:auto;">
-        <option value="">--</option>
-        <option value="to develop" {#if capability.quarkusStatus == 'to develop'}selected{/if}>to develop</option>
-        <option value="no action" {#if capability.quarkusStatus == 'no action'}selected{/if}>no action</option>
-        <option value="approved" {#if capability.quarkusStatus == 'approved'}selected{/if}>approved</option>
-        <option value="in progress" {#if capability.quarkusStatus == 'in progress'}selected{/if}>in progress</option>
-        <option value="done" {#if capability.quarkusStatus == 'done'}selected{/if}>done</option>
-    </select>
+    <div style="display:grid; grid-template-columns:auto 1fr; gap:1rem; margin-top:0.5rem; align-items:start;">
+        <div>
+            <label for="quarkusStatus">Quarkus status</label>
+            <select id="quarkusStatus" name="quarkusStatus" style="width:auto;">
+                <option value="">--</option>
+                <option value="to develop" {#if capability.quarkusStatus == 'to develop'}selected{/if}>to develop</option>
+                <option value="no action" {#if capability.quarkusStatus == 'no action'}selected{/if}>no action</option>
+                <option value="approved" {#if capability.quarkusStatus == 'approved'}selected{/if}>approved</option>
+                <option value="in progress" {#if capability.quarkusStatus == 'in progress'}selected{/if}>in progress</option>
+                <option value="done" {#if capability.quarkusStatus == 'done'}selected{/if}>done</option>
+            </select>
+        </div>
+        <div>
+            <label for="statusComment">Status comment</label>
+            <input type="text" id="statusComment" name="statusComment" value="{capability.statusComment}" placeholder="e.g. what to develop, investigate...">
+        </div>
+    </div>
+    {/if}
 
     <h3 style="margin-top:1.5rem;">Entries</h3>
     <p style="font-size:0.85rem;color:var(--pico-muted-color);">Each entry represents a Spring Boot starter or Quarkus extension.</p>

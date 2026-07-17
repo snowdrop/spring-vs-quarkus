@@ -10,8 +10,10 @@ import io.snowdrop.cartography.model.Framework;
 import io.snowdrop.cartography.model.FrameworkEntry;
 import io.snowdrop.cartography.repository.CapabilityRepository;
 import io.snowdrop.cartography.repository.FrameworkEntryRepository;
-import io.snowdrop.cartography.service.DataService;
-import io.snowdrop.cartography.service.ExportService;
+import io.snowdrop.cartography.service.CsvService;
+import io.snowdrop.cartography.service.ExcelService;
+import io.snowdrop.cartography.service.YamlDataService;
+import io.snowdrop.cartography.service.MarkdownService;
 import io.snowdrop.cartography.service.RegistryEnrichmentService;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -62,10 +64,16 @@ public class RegistryResource {
     FrameworkEntryRepository entryRepository;
 
     @Inject
-    DataService dataService;
+    YamlDataService yamlDataService;
 
     @Inject
-    ExportService exportService;
+    CsvService csvService;
+
+    @Inject
+    MarkdownService markdownService;
+
+    @Inject
+    ExcelService excelService;
 
     @Inject
     RegistryEnrichmentService enrichmentService;
@@ -139,17 +147,11 @@ public class RegistryResource {
             @FormParam("category") String category,
             @FormParam("description") String description,
             @FormParam("tags") String tags,
-            @FormParam("reviewBy") String reviewBy,
-            @FormParam("reviewDate") String reviewDate,
-            @FormParam("quarkusStatus") String quarkusStatus,
             @FormParam("entriesJson") String entriesJson) {
 
         Capability c = new Capability(category);
         c.setDescription(blankToNull(description));
         c.setTags(blankToNull(tags));
-        c.setReviewBy(blankToNull(reviewBy));
-        c.setReviewDate(parseDate(reviewDate));
-        c.setQuarkusStatus(blankToNull(quarkusStatus));
         applyEntries(c, entriesJson);
         repository.persist(c);
         return Response.seeOther(URI.create("/registry/" + c.getId() + "/edit")).build();
@@ -167,6 +169,7 @@ public class RegistryResource {
             @FormParam("reviewBy") String reviewBy,
             @FormParam("reviewDate") String reviewDate,
             @FormParam("quarkusStatus") String quarkusStatus,
+            @FormParam("statusComment") String statusComment,
             @FormParam("entriesJson") String entriesJson) {
 
         Capability c = repository.findById(id);
@@ -180,6 +183,7 @@ public class RegistryResource {
         c.setReviewBy(blankToNull(reviewBy));
         c.setReviewDate(parseDate(reviewDate));
         c.setQuarkusStatus(blankToNull(quarkusStatus));
+        c.setStatusComment(blankToNull(statusComment));
         c.getEntries().clear();
         applyEntries(c, entriesJson);
         return Response.seeOther(URI.create("/registry/" + id + "/edit")).build();
@@ -237,9 +241,19 @@ public class RegistryResource {
     @Path("/export/csv")
     @Produces("text/csv")
     public Response exportCsv() {
-        String csv = exportService.exportCsv();
+        String csv = csvService.exportCsv();
         return Response.ok(csv)
                 .header("Content-Disposition", "attachment; filename=\"spring-quarkus-comparison.csv\"")
+                .build();
+    }
+
+    @GET
+    @Path("/export/gsheet")
+    @Produces("text/csv")
+    public Response exportGSheetCsv() {
+        String csv = csvService.exportGSheetCsv();
+        return Response.ok(csv)
+                .header("Content-Disposition", "attachment; filename=\"spring-quarkus-comparison-gsheet.csv\"")
                 .build();
     }
 
@@ -247,9 +261,19 @@ public class RegistryResource {
     @Path("/export/markdown")
     @Produces("text/markdown")
     public Response exportMarkdown() {
-        String md = exportService.exportMarkdown();
+        String md = markdownService.exportMarkdown();
         return Response.ok(md)
                 .header("Content-Disposition", "attachment; filename=\"spring-quarkus-comparison.md\"")
+                .build();
+    }
+
+    @GET
+    @Path("/export/xlsx")
+    @Produces("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    public Response exportXlsx() throws java.io.IOException {
+        byte[] xlsx = excelService.exportXlsx();
+        return Response.ok(xlsx)
+                .header("Content-Disposition", "attachment; filename=\"spring-quarkus-comparison.xlsx\"")
                 .build();
     }
 
@@ -257,7 +281,7 @@ public class RegistryResource {
     @Path("/save")
     @Transactional
     public Response saveToYaml(@HeaderParam("Referer") String referer) {
-        dataService.saveToYaml();
+        yamlDataService.saveToYaml();
         String redirect = "/registry?saved=true";
         if (referer != null && referer.contains("/capabilities")) {
             redirect = "/capabilities?saved=true";
