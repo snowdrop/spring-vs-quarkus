@@ -2,7 +2,7 @@
 
 The goal of this project is to inventory the capabilities (REST, Web, JPA, persistence, transactions, security, etc.) offered by frameworks like Quarkus and Spring Boot, and to compare which framework supports each capability as a starter or extension. Each capability references the frameworks that support it, along with a description, a link to the project home page, and the source repository.
 
-Data is stored in `data/registry.yaml` and loaded into an H2 in-memory database on startup. The web UI provides two screens for managing capabilities and their framework entries, with export and YAML persistence available from any page.
+Data is stored in `data/registry.yaml` and loaded into an in-memory store on startup. Every create, update, or delete operation automatically saves back to YAML. The web UI provides two screens for managing capabilities and their framework entries, with export available from any page.
 
 ## Prerequisites
 
@@ -39,7 +39,7 @@ The full comparison view showing capabilities side by side with their Spring and
 - Inline Quarkus status dropdown (AJAX)
 - Create/edit capabilities with their framework entries (starters and extensions)
 - Move entries between capabilities
-- Export to CSV or Markdown
+- Export to CSV, Markdown, or XLSX
 
 ### Capabilities (`/capabilities`)
 
@@ -51,7 +51,7 @@ A simpler CRUD screen focused on managing the capability entities themselves. Fe
 
 ### Save to YAML
 
-A **Save to YAML** button is available in the navigation bar on every page. It persists the current database state to `data/registry.yaml`. On startup, the application loads this file back into the database. Capabilities without entries (standalone) are flagged with a warning in the logs to help spot discrepancies.
+Every create, update, or delete operation automatically persists changes to `data/registry.yaml`. A **Save to YAML** button is also available in the navigation bar for manual saves. On startup, the application loads the YAML into an in-memory store backed by `CopyOnWriteArrayList`.
 
 ## Data format
 
@@ -100,8 +100,8 @@ All capability data lives in [`data/registry.yaml`](data/registry.yaml). Each ca
 | `reviewDate` | Optional review date (ISO format)                                         |
 | `entries[].framework` | `Spring` or `Quarkus`                                                     |
 | `entries[].name` | Display name of the starter or extension                                  |
-| `entries[].url` | Project home page or documentation URL                                    |
-| `entries[].github` | GitHub repository URL                                                     |
+| `entries[].doc` | Project home page or documentation URL                                    |
+| `entries[].scm` | Source code repository URL                                                |
 | `entries[].description` | Optional entry-level description                                          |
 | `entries[].type` | `STARTER` (Spring) or `EXTENSION` (Quarkus)                               |
 | `entries[].since` | Optional version or year when introduced                                  |
@@ -110,7 +110,7 @@ All capability data lives in [`data/registry.yaml`](data/registry.yaml). Each ca
 
 Edit `data/registry.yaml` directly to add, modify, or remove capabilities. Changes take effect on the next application restart.
 
-You can also edit data through the web UI at `/registry` (full entry management) or `/capabilities` (capability-level CRUD), then click **Save to YAML** in the navigation bar to persist changes.
+You can also edit data through the web UI at `/registry` (full entry management) or `/capabilities` (capability-level CRUD). Changes are automatically saved to YAML on every mutation.
 
 ## Fetching Spring starters and Quarkus extensions
 
@@ -190,11 +190,11 @@ Produces a full comparison table with summary statistics and per-capability deta
 
 ### Export via the UI
 
-The Registry screen includes **Export CSV** and **Export Markdown** buttons in the toolbar above the table.
+The Registry screen includes **Export CSV**, **Export Markdown**, and **Export XLSX** buttons in the toolbar above the table. The XLSX export includes data validation dropdowns, auto-filter, hyperlinks, and colored status cells.
 
 ## Saving to the local store
 
-The application loads `data/registry.yaml` into an in-memory H2 database at startup. After making changes through the web UI, click the **Save to YAML** button in the navigation bar (or POST to `/save`) to persist the current database state back to `data/registry.yaml`:
+The application loads `data/registry.yaml` into an in-memory store at startup and automatically saves back to YAML on every create, update, or delete. You can also trigger a manual save via the **Save to YAML** button or:
 
 ```bash
 curl -X POST http://localhost:8080/save
@@ -231,24 +231,29 @@ gh pr create --title "Update registry data" --body "Updated registry YAML and re
 ```
 data/
   registry.yaml                  # Source of truth for all capability data
-export/                          # Generated export files (git-ignored)
 src/main/java/.../
   model/
-    Capability.java              # JPA entity: capability with framework entries
-    FrameworkEntry.java          # JPA entity: individual framework entry
+    Capability.java              # Capability with framework entries
+    FrameworkEntry.java          # Individual framework entry (starter or extension)
     Framework.java               # Enum: Spring, Quarkus
     ComponentType.java           # Enum: STARTER, EXTENSION
-  repository/
-    CapabilityRepository.java    # Panache repository with filtering queries
+  store/
+    RegistryStore.java           # In-memory store backed by YAML (CopyOnWriteArrayList)
   resource/
     RegistryResource.java        # JAX-RS endpoints for registry (UI + export + save)
     CapabilityResource.java      # JAX-RS endpoints for capability CRUD
   service/
-    DataService.java             # YAML/CSV load and save logic
-    ExportService.java           # CSV and Markdown generation
+    CsvService.java              # CSV export generation
+    ExcelService.java            # XLSX export with data validation and auto-filter
+    MarkdownService.java         # Markdown export generation
+    RegistryEnrichmentService.java # Enrich entries from Quarkus registry and GitHub
 src/main/resources/
   templates/
     RegistryResource/            # Qute templates for registry (list + form)
     CapabilityResource/          # Qute templates for capabilities (list + form)
   application.properties         # Quarkus configuration
+src/test/java/.../
+  resource/
+    RegistryCrudTest.java        # RestAssured tests for CRUD operations
+    RegistryQueryTest.java       # RestAssured tests for search and filter queries
 ```
