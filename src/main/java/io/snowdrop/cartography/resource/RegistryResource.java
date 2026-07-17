@@ -361,7 +361,7 @@ public class RegistryResource {
                 dto.comment = e.getComment();
                 return dto;
             }).toList();
-            return new RawString(mapper.writeValueAsString(dtos));
+            return new RawString(mapper.writeValueAsString(dtos).replace("</", "<\\/"));
         } catch (Exception e) {
             return new RawString("[]");
         }
