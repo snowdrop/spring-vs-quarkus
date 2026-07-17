@@ -4,6 +4,8 @@ The goal of this project is to inventory the capabilities (REST, Web, JPA, persi
 
 Data is stored in `data/registry.yaml` and loaded into an in-memory store on startup. Every create, update, or delete operation automatically saves back to YAML. The web UI provides two screens for managing capabilities and their framework entries, with export available from any page.
 
+![filter-registry.png](doc/filter-registry.png)
+
 ## Prerequisites
 
 - Java 21+

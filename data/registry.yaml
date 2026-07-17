@@ -61,7 +61,8 @@
   tags: "integration, batch, batch-processing, job"
   reviewBy: Charles Moulliard
   reviewDate: 2026-07-17
-  quarkusStatus: to develop
+  quarkusStatus: no action
+  statusComment: This feature is supported by Spring Boot like Quarkus
   entries:
   - framework: Spring
     name: spring-boot-starter-batch
@@ -78,12 +79,6 @@
     description: Write Batch Applications with JBeret a JSR-352 implementation
     type: EXTENSION
     since: Oct 2020
-  - framework: Quarkus
-    name: quarkus-dummy
-    doc: https://quarkus.io/guides/dummy
-    scm: https://github.com/quarkusio/dummy
-    description: quarkus dummy
-    type: EXTENSION
 
 - category: credentials-store
   description: "CredHub provides client-side support for storing, retrieving, and\
@@ -100,11 +95,6 @@
     description: "Client-side support for storing, retrieving, and deleting credentials\
       \ from a CredHub server"
     type: STARTER
-
-- category: dummy
-  description: dummy
-  tags: "dummy, dummy, dummy, test"
-  entries: []
 
 - category: messaging
   tags: "messaging, AMQP"
