@@ -107,7 +107,7 @@ public class CapabilityResource {
     @Path("/{id}/delete")
     public Response delete(@PathParam("id") Long id) {
         Capability capability = store.findById(id);
-        if (c == null || !c.getEntries().isEmpty()) {
+        if (capability == null || !capability.getEntries().isEmpty()) {
             return Response.seeOther(URI.create("/capabilities")).build();
         }
         store.deleteById(id);

@@ -196,11 +196,11 @@ public class RegistryResource {
             @PathParam("id") Long id,
             @FormParam("status") String status) {
         Capability capability = store.findById(id);
-        if (c == null) {
+        if (capability == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        c.setQuarkusStatus(blankToNull(status));
-        store.update(c);
+        capability.setQuarkusStatus(blankToNull(status));
+        store.update(capability);
         return Response.ok(Map.of("id", id, "quarkusStatus", status != null ? status : "")).build();
     }
 
