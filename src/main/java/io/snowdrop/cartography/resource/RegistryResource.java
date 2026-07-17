@@ -195,7 +195,7 @@ public class RegistryResource {
     public Response updateQuarkusStatus(
             @PathParam("id") Long id,
             @FormParam("status") String status) {
-        Capability c = store.findById(id);
+        Capability capability = store.findById(id);
         if (c == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
