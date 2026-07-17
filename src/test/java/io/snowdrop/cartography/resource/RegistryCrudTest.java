@@ -1,5 +1,6 @@
 package io.snowdrop.cartography.resource;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.MethodOrderer;
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
+@QuarkusTestResource(TestRegistryResource.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class RegistryCrudTest {
 

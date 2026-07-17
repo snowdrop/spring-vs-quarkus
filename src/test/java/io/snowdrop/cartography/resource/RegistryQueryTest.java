@@ -1,5 +1,6 @@
 package io.snowdrop.cartography.resource;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
 
@@ -8,6 +9,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 
 @QuarkusTest
+@QuarkusTestResource(TestRegistryResource.class)
 class RegistryQueryTest {
 
     @Test
