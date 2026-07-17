@@ -118,6 +118,7 @@ public class RegistryStore {
     }
 
     public void update(Capability c) {
+        assignEntryIds(c);
         capabilities.replaceAll(existing -> existing.getId().equals(c.getId()) ? c : existing);
         saveToYaml();
     }
