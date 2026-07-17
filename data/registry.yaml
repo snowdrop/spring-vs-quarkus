@@ -80,8 +80,8 @@
     since: Oct 2020
   - framework: Quarkus
     name: quarkus-dummy
-    doc: htttps://quarkus.io/guides/dummy
-    scm: htttps://github.comquarkusio/dummy
+    doc: https://quarkus.io/guides/dummy
+    scm: https://github.com/quarkusio/dummy
     description: quarkus dummy
     type: EXTENSION
 
