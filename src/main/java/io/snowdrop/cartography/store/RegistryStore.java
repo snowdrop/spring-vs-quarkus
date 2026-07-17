@@ -134,10 +134,9 @@ public class RegistryStore {
         if (from == null || to == null) return;
 
         FrameworkEntry entry = from.getEntries().stream()
-                .filter(e -> e.getId().equals(entryId))
+                .filter(e -> entryId != null && entryId.equals(e.getId()))
                 .findFirst()
                 .orElse(null);
-        if (entry == null) return;
 
         from.removeEntry(entry);
         to.addEntry(entry);
