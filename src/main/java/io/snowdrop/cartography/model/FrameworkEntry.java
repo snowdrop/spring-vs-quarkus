@@ -1,49 +1,18 @@
 package io.snowdrop.cartography.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "framework_entry")
 public class FrameworkEntry {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private Framework framework;
-
-    @Column(nullable = false)
     private String name;
-
     private String doc;
-
     private String scm;
-
-    @Column(length = 1024)
     private String description;
-
-    @Enumerated(EnumType.STRING)
     private ComponentType type;
-
     private String since;
-
-    @Column(length = 1024)
     private String comment;
-
-    @ManyToOne
-    @JsonIgnore
-    private Capability capability;
 
     public FrameworkEntry() {
     }
@@ -126,13 +95,5 @@ public class FrameworkEntry {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public Capability getCapability() {
-        return capability;
-    }
-
-    public void setCapability(Capability capability) {
-        this.capability = capability;
     }
 }

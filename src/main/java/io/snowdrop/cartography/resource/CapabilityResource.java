@@ -3,9 +3,8 @@ package io.snowdrop.cartography.resource;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
 import io.snowdrop.cartography.model.Capability;
-import io.snowdrop.cartography.repository.CapabilityRepository;
+import io.snowdrop.cartography.store.RegistryStore;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
@@ -30,7 +29,7 @@ public class CapabilityResource {
     }
 
     @Inject
-    CapabilityRepository repository;
+    RegistryStore store;
 
     @GET
     @Produces(MediaType.TEXT_HTML)
@@ -39,9 +38,9 @@ public class CapabilityResource {
             @QueryParam("saved") String saved) {
         List<Capability> capabilities;
         if (name == null || name.isBlank()) {
-            capabilities = repository.findAllOrdered();
+            capabilities = store.findAllOrdered();
         } else {
-            capabilities = repository.findFiltered(name, null, null);
+            capabilities = store.findFiltered(name, null, null);
         }
         return Templates.list(capabilities, name != null ? name : "", "true".equals(saved));
     }
@@ -57,7 +56,7 @@ public class CapabilityResource {
     @Path("/{id}/edit")
     @Produces(MediaType.TEXT_HTML)
     public Response editForm(@PathParam("id") Long id) {
-        Capability c = repository.findById(id);
+        Capability c = store.findById(id);
         if (c == null) {
             return Response.seeOther(URI.create("/capabilities")).build();
         }
@@ -66,7 +65,6 @@ public class CapabilityResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Transactional
     public Response create(
             @FormParam("category") String category,
             @FormParam("description") String description,
@@ -74,14 +72,13 @@ public class CapabilityResource {
         Capability c = new Capability(category);
         c.setDescription(blankToNull(description));
         c.setTags(blankToNull(tags));
-        repository.persist(c);
+        store.persist(c);
         return Response.seeOther(URI.create("/capabilities")).build();
     }
 
     @POST
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Transactional
     public Response update(
             @PathParam("id") Long id,
             @FormParam("category") String category,
@@ -91,7 +88,7 @@ public class CapabilityResource {
             @FormParam("reviewDate") String reviewDate,
             @FormParam("quarkusStatus") String quarkusStatus,
             @FormParam("statusComment") String statusComment) {
-        Capability c = repository.findById(id);
+        Capability c = store.findById(id);
         if (c == null) {
             return Response.seeOther(URI.create("/capabilities")).build();
         }
@@ -102,18 +99,18 @@ public class CapabilityResource {
         c.setReviewDate(parseDate(reviewDate));
         c.setQuarkusStatus(blankToNull(quarkusStatus));
         c.setStatusComment(blankToNull(statusComment));
+        store.update(c);
         return Response.seeOther(URI.create("/capabilities")).build();
     }
 
     @POST
     @Path("/{id}/delete")
-    @Transactional
     public Response delete(@PathParam("id") Long id) {
-        Capability c = repository.findById(id);
-        if (c == null || !c.getEntries().isEmpty()) {
+        Capability capability = store.findById(id);
+        if (capability == null || !capability.getEntries().isEmpty()) {
             return Response.seeOther(URI.create("/capabilities")).build();
         }
-        repository.deleteById(id);
+        store.deleteById(id);
         return Response.seeOther(URI.create("/capabilities")).build();
     }
 

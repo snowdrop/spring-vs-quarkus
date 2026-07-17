@@ -115,12 +115,12 @@
         <div>
             <h4 style="color:#6baa3f; border-bottom:2px solid #6baa3f; padding-bottom:0.3rem;">Spring</h4>
             <div id="entries-spring"></div>
-            <button type="button" class="outline btn-sm" onclick="addEntryCard(\{framework:'Spring'\})" style="margin-top:0.5rem;">+ Add Spring Entry</button>
+            <button type="button" class="outline btn-sm" onclick="addEntryCard(\{framework:'Spring',type:'STARTER'\})" style="margin-top:0.5rem;">+ Add Spring Entry</button>
         </div>
         <div>
             <h4 style="color:#4695eb; border-bottom:2px solid #4695eb; padding-bottom:0.3rem;">Quarkus</h4>
             <div id="entries-quarkus"></div>
-            <button type="button" class="outline btn-sm" onclick="addEntryCard(\{framework:'Quarkus'\})" style="margin-top:0.5rem;">+ Add Quarkus Entry</button>
+            <button type="button" class="outline btn-sm" onclick="addEntryCard(\{framework:'Quarkus',type:'EXTENSION'\})" style="margin-top:0.5rem;">+ Add Quarkus Entry</button>
         </div>
     </div>
 
@@ -174,23 +174,7 @@ function openMoveDialog(entryId) {
   dialog.showModal();
 }
 
-var existingEntries = [
-{#if !isNew}
-{#for e in capability.entries}
-  {
-    id: {e.id},
-    framework: '{e.framework}',
-    name: '{#if e.name}{e.name}{/if}',
-    doc: '{#if e.doc}{e.doc}{/if}',
-    scm: '{#if e.scm}{e.scm}{/if}',
-    description: '{#if e.description}{e.description}{/if}',
-    type: '{#if e.type}{e.type}{/if}',
-    since: '{#if e.since}{e.since}{/if}',
-    comment: '{#if e.comment}{e.comment}{/if}'
-  },
-{/for}
-{/if}
-];
+var existingEntries = {entriesJson};
 
 function getContainer(fw) {
   return document.getElementById(fw === 'Quarkus' ? 'entries-quarkus' : 'entries-spring');

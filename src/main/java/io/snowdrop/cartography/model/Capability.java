@@ -1,50 +1,20 @@
 package io.snowdrop.cartography.model;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "capability")
 public class Capability {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String category;
-
-    @Column(length = 1024)
     private String description;
-
-    @Column(name = "tags")
     private String tags;
-
     private String topic;
-
-    @Column(name = "review_by")
     private String reviewBy;
-
-    @Column(name = "review_date")
     private LocalDate reviewDate;
-
-    @Column(name = "quarkus_status")
     private String quarkusStatus;
-
-    @Column(name = "status_comment", length = 1024)
     private String statusComment;
-
-    @OneToMany(mappedBy = "capability", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<FrameworkEntry> entries = new ArrayList<>();
 
     public Capability() {
@@ -141,12 +111,10 @@ public class Capability {
 
     public void addEntry(FrameworkEntry entry) {
         entries.add(entry);
-        entry.setCapability(this);
     }
 
     public void removeEntry(FrameworkEntry entry) {
         entries.remove(entry);
-        entry.setCapability(null);
     }
 
     public boolean isSpringSupported() {

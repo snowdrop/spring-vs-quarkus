@@ -1,34 +1,24 @@
 package io.snowdrop.cartography.service;
 
-import com.opencsv.CSVReader;
 import io.snowdrop.cartography.model.Capability;
-import io.snowdrop.cartography.model.ComponentType;
-import io.snowdrop.cartography.model.Framework;
 import io.snowdrop.cartography.model.FrameworkEntry;
-import io.snowdrop.cartography.repository.CapabilityRepository;
+import io.snowdrop.cartography.store.RegistryStore;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import java.io.FileReader;
-import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.jboss.logging.Logger;
 
 @ApplicationScoped
 public class CsvService {
 
-    private static final Logger LOG = Logger.getLogger(CsvService.class);
-
     @Inject
-    CapabilityRepository repository;
+    RegistryStore store;
 
     public String exportCsv() {
         var sb = new StringBuilder();
         sb.append("Capability,Description,Tags,Framework,Name,Doc,SCM,Type,Since,Review By,Review Date,Quarkus Status,Status Comment\n");
 
-        List<Capability> capabilities = repository.findAllOrdered();
+        List<Capability> capabilities = store.findAllOrdered();
         for (Capability c : capabilities) {
             if (c.getEntries().isEmpty()) {
                 sb.append(csvField(c.getCategory())).append(',');
@@ -75,7 +65,7 @@ public class CsvService {
         var sb = new StringBuilder();
         sb.append("Capability,Description,Tags,Framework,Name,Doc,SCM,Type,Since,Review By,Review Date,Quarkus Status,Status Comment\n");
 
-        List<Capability> capabilities = repository.findAllOrdered();
+        List<Capability> capabilities = store.findAllOrdered();
         for (Capability c : capabilities) {
             if (c.getEntries().isEmpty()) {
                 sb.append(csvField(c.getCategory())).append(',');

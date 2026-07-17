@@ -2,7 +2,7 @@ package io.snowdrop.cartography.service;
 
 import io.snowdrop.cartography.model.Capability;
 import io.snowdrop.cartography.model.FrameworkEntry;
-import io.snowdrop.cartography.repository.CapabilityRepository;
+import io.snowdrop.cartography.store.RegistryStore;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.io.ByteArrayOutputStream;
@@ -48,7 +48,7 @@ public class ExcelService {
     );
 
     @Inject
-    CapabilityRepository repository;
+    RegistryStore store;
 
     public byte[] exportXlsx() throws IOException {
         try (var workbook = new XSSFWorkbook()) {
@@ -71,7 +71,7 @@ public class ExcelService {
             }
 
             int rowNum = 1;
-            List<Capability> capabilities = repository.findAllOrdered();
+            List<Capability> capabilities = store.findAllOrdered();
             var helper = workbook.getCreationHelper();
 
             for (Capability c : capabilities) {

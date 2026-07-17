@@ -8,15 +8,12 @@ import io.snowdrop.cartography.model.Capability;
 import io.snowdrop.cartography.model.ComponentType;
 import io.snowdrop.cartography.model.Framework;
 import io.snowdrop.cartography.model.FrameworkEntry;
-import io.snowdrop.cartography.repository.CapabilityRepository;
-import io.snowdrop.cartography.repository.FrameworkEntryRepository;
 import io.snowdrop.cartography.service.CsvService;
 import io.snowdrop.cartography.service.ExcelService;
-import io.snowdrop.cartography.service.YamlDataService;
 import io.snowdrop.cartography.service.MarkdownService;
 import io.snowdrop.cartography.service.RegistryEnrichmentService;
+import io.snowdrop.cartography.store.RegistryStore;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
@@ -28,6 +25,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import io.quarkus.qute.RawString;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
@@ -54,17 +52,12 @@ public class RegistryResource {
                 boolean isNew,
                 List<ComponentType> componentTypes,
                 List<Framework> frameworks,
-                List<Capability> allCapabilities);
+                List<Capability> allCapabilities,
+                RawString entriesJson);
     }
 
     @Inject
-    CapabilityRepository repository;
-
-    @Inject
-    FrameworkEntryRepository entryRepository;
-
-    @Inject
-    YamlDataService yamlDataService;
+    RegistryStore store;
 
     @Inject
     CsvService csvService;
@@ -100,17 +93,17 @@ public class RegistryResource {
 
         List<Capability> capabilities;
         if ((name == null || name.isBlank()) && springSupported == null && quarkusSupported == null) {
-            capabilities = repository.findAllOrdered();
+            capabilities = store.findAllOrdered();
         } else {
-            capabilities = repository.findFiltered(name, springSupported, quarkusSupported);
+            capabilities = store.findFiltered(name, springSupported, quarkusSupported);
         }
 
         return Templates.list(
                 capabilities,
-                repository.count(),
-                repository.countBoth(),
-                repository.countSpringOnly(),
-                repository.countQuarkusOnly(),
+                store.count(),
+                store.countBoth(),
+                store.countSpringOnly(),
+                store.countQuarkusOnly(),
                 name != null ? name : "",
                 spring != null ? spring : "",
                 quarkus != null ? quarkus : "",
@@ -123,26 +116,25 @@ public class RegistryResource {
     public TemplateInstance newForm() {
         return Templates.form(new Capability(""), true,
                 List.of(ComponentType.values()), List.of(Framework.values()),
-                List.of());
+                List.of(), new RawString("[]"));
     }
 
     @GET
     @Path("/registry/{id}/edit")
     @Produces(MediaType.TEXT_HTML)
     public Response editForm(@PathParam("id") Long id) {
-        Capability c = repository.findById(id);
+        Capability c = store.findById(id);
         if (c == null) {
             return Response.seeOther(URI.create("/registry")).build();
         }
         return Response.ok(Templates.form(c, false,
                 List.of(ComponentType.values()), List.of(Framework.values()),
-                repository.findAllOrdered())).build();
+                store.findAllOrdered(), serializeEntries(c))).build();
     }
 
     @POST
     @Path("/registry")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Transactional
     public Response create(
             @FormParam("category") String category,
             @FormParam("description") String description,
@@ -153,14 +145,13 @@ public class RegistryResource {
         c.setDescription(blankToNull(description));
         c.setTags(blankToNull(tags));
         applyEntries(c, entriesJson);
-        repository.persist(c);
+        store.persist(c);
         return Response.seeOther(URI.create("/registry/" + c.getId() + "/edit")).build();
     }
 
     @POST
     @Path("/registry/{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Transactional
     public Response update(
             @PathParam("id") Long id,
             @FormParam("category") String category,
@@ -172,7 +163,7 @@ public class RegistryResource {
             @FormParam("statusComment") String statusComment,
             @FormParam("entriesJson") String entriesJson) {
 
-        Capability c = repository.findById(id);
+        Capability c = store.findById(id);
         if (c == null) {
             return Response.seeOther(URI.create("/registry")).build();
         }
@@ -184,8 +175,16 @@ public class RegistryResource {
         c.setReviewDate(parseDate(reviewDate));
         c.setQuarkusStatus(blankToNull(quarkusStatus));
         c.setStatusComment(blankToNull(statusComment));
-        c.getEntries().clear();
-        applyEntries(c, entriesJson);
+        Capability updated = new Capability(c.getCategory());
+        updated.setId(c.getId());
+        updated.setDescription(c.getDescription());
+        updated.setTags(c.getTags());
+        updated.setReviewBy(c.getReviewBy());
+        updated.setReviewDate(c.getReviewDate());
+        updated.setQuarkusStatus(c.getQuarkusStatus());
+        updated.setStatusComment(c.getStatusComment());
+        applyEntries(updated, entriesJson);
+        store.update(updated);
         return Response.seeOther(URI.create("/registry/" + id + "/edit")).build();
     }
 
@@ -193,30 +192,28 @@ public class RegistryResource {
     @Path("/registry/{id}/quarkus-status")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Produces(MediaType.APPLICATION_JSON)
-    @Transactional
     public Response updateQuarkusStatus(
             @PathParam("id") Long id,
             @FormParam("status") String status) {
-        Capability c = repository.findById(id);
-        if (c == null) {
+        Capability capability = store.findById(id);
+        if (capability == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        c.setQuarkusStatus(blankToNull(status));
+        capability.setQuarkusStatus(blankToNull(status));
+        store.update(capability);
         return Response.ok(Map.of("id", id, "quarkusStatus", status != null ? status : "")).build();
     }
 
     @POST
     @Path("/registry/{id}/delete")
-    @Transactional
     public Response delete(@PathParam("id") Long id) {
-        repository.deleteById(id);
+        store.deleteById(id);
         return Response.seeOther(URI.create("/registry")).build();
     }
 
     @POST
     @Path("/registry/{id}/entries/{entryId}/move")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    @Transactional
     public Response moveEntry(
             @PathParam("id") Long capabilityId,
             @PathParam("entryId") Long entryId,
@@ -226,14 +223,12 @@ public class RegistryResource {
             return Response.seeOther(URI.create("/registry/" + capabilityId + "/edit")).build();
         }
 
-        Capability target = repository.findById(targetCapabilityId);
+        Capability target = store.findById(targetCapabilityId);
         if (target == null) {
             return Response.seeOther(URI.create("/registry/" + capabilityId + "/edit")).build();
         }
 
-        entryRepository.update("capability = ?1 where id = ?2 and capability.id = ?3",
-                target, entryId, capabilityId);
-
+        store.moveEntry(entryId, capabilityId, targetCapabilityId);
         return Response.seeOther(URI.create("/registry/" + capabilityId + "/edit")).build();
     }
 
@@ -279,9 +274,8 @@ public class RegistryResource {
 
     @POST
     @Path("/save")
-    @Transactional
     public Response saveToYaml(@HeaderParam("Referer") String referer) {
-        yamlDataService.saveToYaml();
+        store.saveToYaml();
         String redirect = "/registry?saved=true";
         if (referer != null && referer.contains("/capabilities")) {
             redirect = "/capabilities?saved=true";
@@ -351,7 +345,30 @@ public class RegistryResource {
         }
     }
 
+    private RawString serializeEntries(Capability c) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            List<EntryDto> dtos = c.getEntries().stream().map(e -> {
+                EntryDto dto = new EntryDto();
+                dto.id = e.getId();
+                dto.framework = e.getFramework() != null ? e.getFramework().name() : "Spring";
+                dto.name = e.getName();
+                dto.doc = e.getDoc();
+                dto.scm = e.getScm();
+                dto.description = e.getDescription();
+                dto.type = e.getType() != null ? e.getType().name() : "";
+                dto.since = e.getSince();
+                dto.comment = e.getComment();
+                return dto;
+            }).toList();
+            return new RawString(mapper.writeValueAsString(dtos).replace("</", "<\\/"));
+        } catch (Exception e) {
+            return new RawString("[]");
+        }
+    }
+
     public static class EntryDto {
+        public Long id;
         public String framework;
         public String name;
         public String doc;
