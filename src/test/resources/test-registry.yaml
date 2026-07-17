@@ -1,0 +1,52 @@
+- category: Batch
+  description: "Processing of large volumes of records, including logging/tracing,\
+    \ transaction management, job processing statistics, job restart, skip, and resource\
+    \ management."
+  tags: "integration, batch, batch-processing, job"
+  reviewBy: Test User
+  reviewDate: 2026-01-15
+  quarkusStatus: to develop
+  entries:
+  - framework: Spring
+    name: spring-boot-starter-batch
+    doc: https://docs.spring.io/spring-boot/reference/io/spring-batch.html
+    description: Spring Batch is a framework for writing batch applications using
+      Java and Spring
+    type: STARTER
+    since: Nov 2010
+  - framework: Quarkus
+    name: quarkus-jberet
+    doc: https://docs.quarkiverse.io/quarkus-jberet/dev/index.html
+    description: Write Batch Applications with JBeret a JSR-352 implementation
+    type: EXTENSION
+    since: Oct 2020
+
+- category: JPA
+  description: Java Persistence API for object-relational mapping.
+  tags: "data, persistence, orm, database"
+  quarkusStatus: approved
+  entries:
+  - framework: Spring
+    name: spring-boot-starter-data-jpa
+    doc: https://docs.spring.io/spring-data/jpa/reference/
+    description: Spring Data JPA for database access with JPA
+    type: STARTER
+    since: Apr 2014
+
+- category: REST
+  description: Building RESTful web services and APIs.
+  tags: "web, rest, api, http"
+  quarkusStatus: done
+  entries:
+  - framework: Spring
+    name: spring-boot-starter-web
+    doc: https://docs.spring.io/spring-boot/reference/web/servlet.html
+    description: Spring MVC web framework for building RESTful services
+    type: STARTER
+    since: Apr 2014
+  - framework: Quarkus
+    name: quarkus-rest
+    doc: https://quarkus.io/guides/rest
+    description: REST framework for Quarkus
+    type: EXTENSION
+    since: Jun 2019

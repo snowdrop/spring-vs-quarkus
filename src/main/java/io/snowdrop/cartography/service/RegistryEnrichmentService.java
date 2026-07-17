@@ -6,10 +6,9 @@ import io.snowdrop.cartography.model.Capability;
 import io.snowdrop.cartography.model.ComponentType;
 import io.snowdrop.cartography.model.Framework;
 import io.snowdrop.cartography.model.FrameworkEntry;
-import io.snowdrop.cartography.repository.CapabilityRepository;
+import io.snowdrop.cartography.store.RegistryStore;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -35,15 +34,11 @@ public class RegistryEnrichmentService {
             DateTimeFormatter.ofPattern("MMM yyyy", Locale.ENGLISH).withZone(ZoneId.of("UTC"));
 
     @Inject
-    CapabilityRepository repository;
-
-    @Inject
-    YamlDataService yamlDataService;
+    RegistryStore store;
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
 
-    @Transactional
     public EnrichmentResult enrich() {
         var result = new EnrichmentResult();
 
@@ -54,7 +49,7 @@ public class RegistryEnrichmentService {
         }
         result.registrySize = registryByArtifact.size();
 
-        List<Capability> capabilities = repository.findAllOrdered();
+        List<Capability> capabilities = store.findAllOrdered();
         for (Capability cap : capabilities) {
             for (FrameworkEntry entry : cap.getEntries()) {
                 if (entry.getFramework() != Framework.Quarkus) continue;
@@ -120,7 +115,7 @@ public class RegistryEnrichmentService {
 
         enrichSpringEntries(capabilities, result);
 
-        yamlDataService.saveToYaml();
+        store.saveToYaml();
         return result;
     }
 

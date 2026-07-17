@@ -2,7 +2,7 @@ package io.snowdrop.cartography.service;
 
 import io.snowdrop.cartography.model.Capability;
 import io.snowdrop.cartography.model.FrameworkEntry;
-import io.snowdrop.cartography.repository.CapabilityRepository;
+import io.snowdrop.cartography.store.RegistryStore;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.Comparator;
@@ -12,11 +12,11 @@ import java.util.List;
 public class MarkdownService {
 
     @Inject
-    CapabilityRepository repository;
+    RegistryStore store;
 
     public String exportMarkdown() {
         var sb = new StringBuilder();
-        List<Capability> capabilities = repository.findAllOrdered();
+        List<Capability> capabilities = store.findAllOrdered();
         long total = capabilities.size();
         long both = capabilities.stream().filter(c -> c.isSpringSupported() && c.isQuarkusSupported()).count();
         long springOnly = capabilities.stream().filter(c -> c.isSpringSupported() && !c.isQuarkusSupported()).count();
