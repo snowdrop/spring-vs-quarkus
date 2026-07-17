@@ -146,7 +146,10 @@ public class RegistryStore {
 
     public void saveToYaml() {
         try {
-            Files.createDirectories(yamlFile().getParent());
+            Path parent = yamlFile().getParent();
+            if (parent != null) {
+                Files.createDirectories(parent);
+            }
             var mapper = createYamlMapper();
             List<Capability> ordered = findAllOrdered();
             List<CapabilityDto> dtos = ordered.stream().map(CapabilityDto::fromEntity).toList();
