@@ -106,7 +106,7 @@ public class CapabilityResource {
     @POST
     @Path("/{id}/delete")
     public Response delete(@PathParam("id") Long id) {
-        Capability c = store.findById(id);
+        Capability capability = store.findById(id);
         if (c == null || !c.getEntries().isEmpty()) {
             return Response.seeOther(URI.create("/capabilities")).build();
         }
