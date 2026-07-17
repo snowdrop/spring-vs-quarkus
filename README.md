@@ -1,10 +1,14 @@
 # Inventory and comparison of capabilities across frameworks
 
-The goal of this project is to inventory the capabilities (REST, Web, JPA, persistence, transactions, security, etc.) offered by frameworks like Quarkus and Spring Boot, and to compare which framework supports each capability as a starter or extension. Each capability references the frameworks that support it, along with a description, a link to the project home page, and the source repository.
+The goal of this project is to inventory the capabilities (REST, Web, JPA, persistence, transactions, security, etc.) offered by frameworks like Quarkus and Spring Boot, and to compare which framework supports each capability as a starter or extension. 
+
+Through the web UI, users can create, edit, or delete capabilities and their framework entries, as well as move entries from one capability to another.
+
+A capability represents a domain area (e.g. security, messaging, web) and can include a description, comma-separated tags and optional review information (reviewer name and date). Each capability references the frameworks that support it through entries that specify the starter or extension name, documentation URL, source repository, and introduction date.
+
+The registry data can be exported as CSV, Markdown, or XLSX for sharing or offline analysis.
 
 Data is stored in `data/registry.yaml` and loaded into an in-memory store on startup. Every create, update, or delete operation automatically saves back to YAML. The web UI provides two screens for managing capabilities and their framework entries, with export available from any page.
-
-![filter-registry.png](doc/filter-registry.png)
 
 ## Prerequisites
 
@@ -38,10 +42,12 @@ The full comparison view showing capabilities side by side with their Spring and
 
 - Filter by name, Spring support, and Quarkus support
 - Sortable columns
-- Inline Quarkus status dropdown (AJAX)
+- Inline Quarkus status
 - Create/edit capabilities with their framework entries (starters and extensions)
 - Move entries between capabilities
 - Export to CSV, Markdown, or XLSX
+
+![Registry screen](doc/screen-registry.png)
 
 ### Capabilities (`/capabilities`)
 
@@ -50,6 +56,16 @@ A simpler CRUD screen focused on managing the capability entities themselves. Fe
 - Filter by name
 - Add, edit, and delete capabilities
 - Delete is only allowed when a capability has no framework entries associated
+
+![Capabilities screen](doc/screen-capabilities.png)
+
+### Create / Edit a capability
+
+The form screen lets you create a new capability or edit an existing one, with fields for category, description, tags, review information, and Quarkus status. When editing, the associated Spring and Quarkus entries are displayed side by side with their details (name, type, doc/scm URLs, description). Entries can be moved to another capability or deleted individually.
+
+![New capability](doc/screen-new-capability.png)
+
+![Edit capability](doc/screen-edit-capability.png)
 
 ### Save to YAML
 
